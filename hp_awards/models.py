@@ -108,12 +108,18 @@ class Submisi(TimestampedModel):
         self.wa = re.sub(r"[^\d]", "", wa)
         super().save(*args, **kwargs)
 
+    class Meta:
+        verbose_name_plural = "Submisi"
+
 
 class Pernyataan(TimestampedModel):
     judul = models.TextField()
 
     def __str__(self):
         return self.judul
+
+    class Meta:
+        verbose_name_plural = "Pernyataan"
 
 
 class Topik(TimestampedModel):
@@ -122,11 +128,15 @@ class Topik(TimestampedModel):
     def __str__(self):
         return self.judul
 
+    class Meta:
+        verbose_name_plural = "Topik"
+
 
 class Reviewer(TimestampedModel):
     nama = models.CharField(max_length=50)
     nip = models.CharField(blank=True, null=True, max_length=18)
     jabatan = models.CharField(blank=True, null=True, max_length=70)
+    instansi = models.CharField(blank=True, null=True, max_length=150)
     # fuck security
     passphrase = models.CharField(blank=True, null=True, max_length=6)
 
@@ -134,3 +144,6 @@ class Reviewer(TimestampedModel):
         if not self.passphrase:
             self.passphrase = randint(100000, 999999)
         super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Reviewer"
