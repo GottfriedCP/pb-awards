@@ -1,0 +1,15 @@
+__pycache__/
+.vscode
+staticroot
+mediaroot
+*.pyc
+db.sqlite3
+.env
+creds.json
+
+INFO_DAFTAR.html
+
+node_modules
+build
+npm-debug.log
+.DS_Store

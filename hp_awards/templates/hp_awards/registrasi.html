@@ -1,0 +1,54 @@
+{% extends 'hp_awards/BASE.html' %}
+{% load static django_bootstrap5 %}
+
+{% block title_bl %}Registrasi{% endblock %}
+
+{% block body_bl %}
+<div class="container my-5">
+    <h1>Pendaftaran Peserta</h1>
+    <form method="POST" class="my-3 form-kemkes" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h3 class="mt-5 mb-4">Pernyataan</h3>
+        <b>Dengan ini saya menyatakan:</b>
+        <div id="cb-pernyataan">
+            {% for pernyataan in pernyataans %}
+            <div class="mb-5">
+                <div class="form-check my-3">
+                    <input class="form-check-input" required type="checkbox" value="" id="id_pernyataan_{{ pernyataan.pk }}">
+                    <label class="form-check-label" for="id_pernyataan_{{ pernyataan.pk }}">{{ pernyataan }}</label>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% comment %}{% bootstrap_form form %}{% endcomment %}
+        <h3 class="mt-5">Biodata</h3>
+        <table id="table-biodata" class="table table-borderless table-hover ms-3" style="max-width: 960px;">
+            {{ form.as_table }}
+        </table>
+        <div class="d-grid gap-2">
+            <button class="mt-3 btn btn-kemkes" type="submit">Kirim</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block body_add_bl %}
+<script>
+    $(document).ready(function () {
+        // Percantik Django HTML form
+        $(".form-kemkes").find("label").addClass("form-label");
+        $(".form-kemkes").find("input[type='text'], input[type='email'], input[type='file'], textarea").addClass("form-control");
+        $(".form-kemkes").find("select").addClass("form-select");
+        $(".form-kemkes").find("br").remove();
+
+        $("#id_nik").on("input keypress paste", function () {
+            var val = $(this).val();
+            $(this).val(val.replace(/[^0-9]/g, ""));
+        });
+        $("#id_wa").on("input keypress paste", function () {
+            var val = $(this).val();
+            $(this).val(val.replace(/[^0-9]/g, ""));
+        });
+    });
+</script>
+{% endblock %}

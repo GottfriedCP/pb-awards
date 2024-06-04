@@ -1,0 +1,20 @@
+{% extends 'hp_awards/BASE.html' %}
+{% load static %}
+
+{% block title_bl %}Mahasiswa{% endblock %}
+
+{% block body_bl %}
+<div class="container my-5">
+    <h1>Homesite mahasiswa</h1>
+    In pellentesque pharetra posuere. Vestibulum accumsan erat in massa pulvinar, at tincidunt leo consequat. Praesent
+    fringilla neque ut nunc vehicula, rutrum elementum orci vulputate. Curabitur non enim viverra, consequat diam id, tempor
+    lectus. Mauris purus metus, laoreet ut nulla et, dapibus viverra ipsum. Etiam quis venenatis quam. Fusce nec magna ut
+    justo blandit pharetra eu sit amet ipsum. Cras a sodales tortor. Nam nec vehicula metus. Curabitur gravida congue
+    maximus.
+    <br><br>
+    <a href="{% url 'hp_awards:registrasi' %}" class="color-kemkes"><h3>Daftar sekarang</h3></a>
+    <div>
+        atau <a href="#" class="color-kemkes">lihat status submisi</a> policy brief Anda
+    </div>
+</div>
+{% endblock %}
