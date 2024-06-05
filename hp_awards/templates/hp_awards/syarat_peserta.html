@@ -1,0 +1,129 @@
+{% extends 'hp_awards/BASE.html' %}
+{% load static %}
+
+{% block title_bl %}Target dan Syarat{% endblock %}
+
+{% block head_bl %}
+<style>
+    .ol-syarat>li {
+        margin-bottom: 6px;
+    }
+</style>
+{% endblock %}
+
+{% block body_bl %}
+<div class="container my-5">
+    <section class="mb-5">
+        <h2>Target Peserta</h2>
+        <ol class="ol-syarat">
+            <li>Penyelenggaraan kompetisi diperuntukkan bagi para mahasiswa, analis kebijakan, peneliti, administrator
+                kesehatan, akademisi, dan pengambil keputusan serta pemangku kepentingan di bidang kesehatan;</li>
+            <li>Dapat perorangan atau kelompok (jumlah tidak dibatasi);</li>
+            <li>Kompetisi ini tertutup untuk pegawai unit utama Kementerian Kesehatan.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>Persyaratan Peserta</h2>
+        Para peserta yang mengikuti kompetisi harus memenuhi persyaratan sebagai berikut:
+        <ol class="mt-3 ol-syarat">
+            <li>Health Policy Awards 2024 terbuka untuk mahasiswa, analis kebijakan, peneliti, administrator kesehatan,
+                akademisi, dan pengambil keputusan serta pemangku kepentingan di bidang kesehatan;</li>
+            <li>Peserta tidak berstatus sebagai pegawai unit utama Kementerian Kesehatan;</li>
+            <li>Peserta dibagai menjadi 2 kategori :
+                <ol type="a">
+                    <li>Kategori 1: Mahasiswa S1 dan S2 (Individu/Ketua Tim)</li>
+                    <li>Kategori 2: Mahasiswa S3 dan Umum (Individu/Ketua Tim)</li>
+                </ol>
+            </li>
+            <li>Peserta yang sudah terdaftar tidak dapat digantikan atau diwakilkan;</li>
+            <li>Peserta dapat mendaftar secara perorangan atau kelompok (maksimal 10 orang); </li>
+            <li>Peserta yang melakukan registrasi adalah penulis pertama dari policy brief yang dikirimkan;</li>
+            <li>Segala bentuk kecurangan, plagiarisme, dan ketidakjujuran dapat mengakibatkan diskualifikasi;</li>
+            <li>Seluruh hasil karya peserta harus ditulis dalam bahasa Indonesia;</li>
+            <li>Kompetisi ini tidak dipungut biaya;</li>
+            <li>Keputusan juri dan panitia bersifat final dan tidak dapat diubah atau diganggu gugat;</li>
+            <li>Dokumen pengusulan peserta:
+                <ol type="a">
+                    <li>Dokumen dan data peserta disampaikan ketika melakukan registrasi melalui situs web ini;</li>
+                    <li>Peserta mengunggah pasfoto berwarna terbaru dengan latar belakang merah, rasio 2x3;</li>
+                    <li>Untuk kategori mahasiswa, perlu melampirkan bukti/KTM atau keterangan yang menjelaskan bahwa
+                        peserta adalah mahasiswa aktif;</li>
+                    <li>Naskah/dokumen sesuai dengan tahapan kompetisi, berisi permasalahan atau kebijakan yang
+                        dianalisis menggunakan data SKI 2023 sebagai sumber utama, dan dapat disertai data sekunder
+                        ataupun referensi antara lain buku, jurnal, makalah, dan surat kabar dengan dicantumkan pada
+                        kutipan;</li>
+                    <li>Data SKI 2023 (SKI dalam angka) dapat diunduh di: <a
+                            href="https://www.badankebijakan.kemkes.go.id/hasil-ski-2023/"
+                            target="_blank">www.badankebijakan.kemkes.go.id/hasil-ski-2023/</a></li>
+                </ol>
+            </li>
+            <li>Prosedur Penulisan dan registrasi/pengiriman:
+                <ol type="a">
+                    <li>Peserta sebagai penulis utama hanya dapat mengirimkan satu tulisan;</li>
+                    <li>Penulisan policy brief menggunakan sumber data utama dari hasil SKI 2023, dan sumber data
+                        lainnya, seperti hasil Riset Kesehatan Dasar (Riskesdas), Survei Status Gizi Indonesia (SSGI),
+                        dsb.</li>
+                    <li>Tulisan bersifat:
+                        <ol type="1">
+                            <li><b>Original</b>: gagasan bersifat asli/bukan jiplakan dan belum pernah dimuat/disajikan
+                                dalam media apapun, dinyatakan dengan membuat surat pernyataan bermaterai;</li>
+                            <li><b>Inovatif</b>: gagasan memuat hal baru dalam menyelesaikan masalah yang ditemukan;
+                            </li>
+                            <li><b>Aplikatif</b>: gagasan dapat diimplementasikan dalam menyelesaikan masalah yang
+                                ditemukan;
+                            </li>
+                            <li><b>Sistematis</b>: gagasan dituliskan sesuai dengan sistematika yang terdapat dalam
+                                website
+                                kompetisi;</li>
+                            <li><b>Kritis</b>: gagasan berisi telaah kritis suatu permasalahan yang aktual sesuai tema
+                                dan
+                                policy question yang diberikan panitia;</li>
+                        </ol>
+                    </li>
+                    <li>Kompetisi dilakukan dengan 3 (tiga) tahap:
+                        <ol type="1">
+                            <li>Tahap I
+                                <ol type="a">
+                                    <li>Peserta pengiriman ringkasan eksekutif terkait policy brief yang dibuat maksimal
+                                        200-250 kata</li>
+                                    <li>Peserta dapat memilih 1 dari beberapa policy question yang telah ditentukan atau
+                                        menambahkan usulan policy question yang baru untuk 1 ringkasan eksekutif yang
+                                        dikirimkan</li>
+                                    <li>Ringkasan Eksekutif yang dikirimkan akan dinilai oleh dewan juri</li>
+                                    <li>Panitia akan menyampaikan hasil peserta yang lolos Tahap I dan lanjut ke Tahap
+                                        II. </li>
+                                </ol>
+                            </li>
+                            <li>Tahap II
+                                <ol type="a">
+                                    <li>Peserta yang lolos Tahap I dan lanjut tahap II, mengirimkan policy brief dalam
+                                        bentuk pdf melalui web</li>
+                                    <li>Naskah Policy brief ditulis maksimal 2-4 halaman atau 2000 kata</li>
+                                    <li>Policy brief yang dikirimkan disusun dengan sistematika terlampir</li>
+                                    <li>Peserta melampirkan bukti hasil cek plagiarisme atas teks policy brief yang
+                                        dikirimkan</li>
+                                    <li>Policy brief yang dikirimkan akan dinilai oleh dewan juri</li>
+                                    <li>Panitia akan menyampaikan hasil peserta yang lolos Tahap II dan lanjut ke Tahap
+                                        III</li>
+                                </ol>
+                            </li>
+                            <li>Tahap III
+                                <ol type="a">
+                                    <li>Peserta yang lolos Tahap II dan lanjut Tahap III, akan diundang untuk melakukan
+                                        presentasi di hadapan dewan juri</li>
+                                    <li>Peserta menyerahkan file presentasi dan melakukan presentasi selama 10 menit
+                                        serta tanya jawab selama 5 menit untuk masing-masing peserta</li>
+                                    <li>Presentasi dilakukan di hadapan dewan juri yang akan melakukan penilaian</li>
+                                    <li>Panitia akan menyampaikan hasil penilaian dan pengumuman pemenang</li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+            <li>Setiap perubahan peraturan akan segera diberitahukan melalui laman situs web ini.</li>
+        </ol>
+    </section>
+</div>
+{% endblock %}

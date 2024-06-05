@@ -26,16 +26,44 @@ def home_mahasiswa(request):
     return render(request, "hp_awards/home_mahasiswa.html", context)
 
 
+def syarat_peserta(request):
+    return render(
+        request,
+        "hp_awards/syarat_peserta.html",
+        {
+            "page_title": "informasi",
+        },
+    )
+
+
+def prinsip(request):
+    return render(
+        request,
+        "hp_awards/prinsip.html",
+        {
+            "page_title": "informasi",
+        },
+    )
+
+
 def registrasi(request):
     form = FormPendaftaran()
     if request.method == "POST":
         form = FormPendaftaran(request.POST, request.FILES)
+        kolaborator_namas = request.POST.getlist("kolab-nama")
+        kolaborator_was = request.POST.getlist("kolab-wa")
+        print(kolaborator_namas)
+        print(kolaborator_was)
         if form.is_valid():
             print("OK")
-            return render(request, "hp_awards/registrasi_sukses.html", )
+            return render(
+                request,
+                "hp_awards/registrasi_sukses.html",
+            )
     context = {
         "form": form,
         "pernyataans": Pernyataan.objects.all(),
         "page_title": "home",
+        "hide_registration_navbar": True,
     }
     return render(request, "hp_awards/registrasi.html", context)

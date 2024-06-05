@@ -8,13 +8,13 @@ class FormPendaftaran(forms.ModelForm):
         model = Submisi
         fields = [
             "nama",
-            "nik",
+            # "nik",
             "wa",
             "email",
             "pendidikan",
-            "afiliasi",
             "kategori_pendaftar",
-            # "topik",
+            "afiliasi",
+            "topik",
             "judul_pb",
             "abstrak_pb",
             "swafoto",

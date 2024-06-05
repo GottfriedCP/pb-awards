@@ -3,30 +3,59 @@
 
 {% block title_bl %}Registrasi{% endblock %}
 
+{% block head_bl %}
+<!-- SUMMERNOTE -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+{% endblock %}
+
 {% block body_bl %}
 <div class="container my-5">
-    <h1>Pendaftaran Peserta</h1>
+    <h1 id="oo">Pendaftaran Peserta</h1>
     <form method="POST" class="my-3 form-kemkes" enctype="multipart/form-data">
         {% csrf_token %}
         <h3 class="mt-5 mb-4">Pernyataan</h3>
         <b>Dengan ini saya menyatakan:</b>
-        <div id="cb-pernyataan">
+        <div id="cb-pernyataan" class="mb-5">
             {% for pernyataan in pernyataans %}
-            <div class="mb-5">
-                <div class="form-check my-3">
-                    <input class="form-check-input" required type="checkbox" value="" id="id_pernyataan_{{ pernyataan.pk }}">
-                    <label class="form-check-label" for="id_pernyataan_{{ pernyataan.pk }}">{{ pernyataan }}</label>
-                </div>
+            <div class="form-check my-3">
+                <input onchange="cekPernyataan()" class="form-check-input pernyataan-input" required type="checkbox" value="" id="id_pernyataan_{{ pernyataan.pk }}">
+                <label class="form-check-label" for="id_pernyataan_{{ pernyataan.pk }}">{{ pernyataan }}</label>
             </div>
             {% endfor %}
         </div>
-        {% comment %}{% bootstrap_form form %}{% endcomment %}
-        <h3 class="mt-5">Biodata</h3>
-        <table id="table-biodata" class="table table-borderless table-hover ms-3" style="max-width: 960px;">
-            {{ form.as_table }}
-        </table>
-        <div class="d-grid gap-2">
-            <button class="mt-3 btn btn-kemkes" type="submit">Kirim</button>
+        <div id="main-form">
+            <h3 class="mt-5">Biodata</h3>
+            <table id="table-biodata" class="table table-borderless table-hover ms-3" style="max-width: 960px;">
+                {{ form.as_table }}
+            </table>
+
+            <h3 class="mt-5">Kolaborator</h3>
+            <div>Masukkan identitas kolaborator yang berpartisipasi bersama Anda (jika ada) ke dalam tabel di bawah ini, maksimal 10
+                orang</div>
+            <div class="px-3 pb-3 mb-3" style="max-width: 1024px;">
+                <table class="mt-3 table table-sm table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Nomor WA</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-collab">
+                        <tr id="tr-collab">
+                            <td><input type="text" class="form-control form-control-sm" name="kolab-nama"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="kolab-wa"></td>
+                            <td><input type="email" class="form-control form-control-sm" name="kolab-email"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-sm btn-secondary" type="button" onclick="appendTr()">Tambah kolaborator lagi</button>
+            </div>
+            Submisi masih dapat diubah melalui menu Status Submisi selama belum dinilai Panitia
+            <div class="d-grid gap-2">
+                <button class="mt-3 btn btn-kemkes" type="submit">Kirim Submisi</button>
+            </div>
         </div>
     </form>
 </div>
@@ -34,13 +63,55 @@
 
 {% block body_add_bl %}
 <script>
+    // Checkbox pernyataan harus dicentang semua
+    var allPernyataanChecked = true;
+    function cekPernyataan() {
+        $(".pernyataan-input").each(function () {
+            if (!$(this).is(":checked")) {
+                allPernyataanChecked = false;
+                return false; // Exit the each loop if a checkbox is not checked
+            } else {
+                allPernyataanChecked = true;
+            }
+        });
+        if (allPernyataanChecked) {
+            $("#main-form").show();
+        } else {
+            $("#main-form").hide();
+        }
+    }
+    function appendTr() {
+        console.log("OK");
+        // Get the existing table body
+        var tbody = $("#tbody-collab");
+
+        // Clone the existing row (with ID) for new data
+        var newRow = $("#tr-collab").clone();
+
+        // Remove the ID from the cloned row (optional)
+        newRow.removeAttr("id");
+
+        // Update cell content (optional)
+        newRow.find("input[name='kolab-nama']").val(""); // Set name input to empty value
+        newRow.find("input[name='kolab-wa']").val("");   // Set WA input to empty value
+        newRow.find("input[name='kolab-email']").val(""); // Set email input to empty value
+
+        // Append the new row to the tbody
+        tbody.append(newRow);
+    }
+
     $(document).ready(function () {
+        $("#main-form").hide();
+        cekPernyataan();
+        $("#tr-10").hide();
+
         // Percantik Django HTML form
         $(".form-kemkes").find("label").addClass("form-label");
         $(".form-kemkes").find("input[type='text'], input[type='email'], input[type='file'], textarea").addClass("form-control");
         $(".form-kemkes").find("select").addClass("form-select");
         $(".form-kemkes").find("br").remove();
 
+        // NIK dan nomor WA hanya bisa diisi angka
         $("#id_nik").on("input keypress paste", function () {
             var val = $(this).val();
             $(this).val(val.replace(/[^0-9]/g, ""));
@@ -48,6 +119,48 @@
         $("#id_wa").on("input keypress paste", function () {
             var val = $(this).val();
             $(this).val(val.replace(/[^0-9]/g, ""));
+        });
+
+        var maxWords = 201;
+        // Summernote
+        $('#id_abstrak_pb').summernote({
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                // ['fontsize', ['fontsize']],
+                // ['color', ['color']],
+                // ['para', ['ul', 'ol', 'paragraph']],
+                // ['height', ['height']]
+            ],
+            callbacks: {
+                onChange: function(contents, $editable) {
+                    var wordCount = contents.split(/\s+/).length;
+                    $("#id_abstrak_pb_helptext").text(wordCount + " / 200 kata");
+
+                    if (wordCount > maxWords) {
+                        // Remove extra words
+                        var trimmedText = contents.split(/\s+/, maxWords).join(" ");
+                        $('#id_abstrak_pb').summernote('reset');
+                        $('#id_abstrak_pb').summernote('pasteHTML', trimmedText);
+                        // $(this).val(trimmedText);
+                        // $("#wordCount").text(maxWords + " words (limit reached)");
+                    }
+                }
+            }
+        });
+
+        // Hitung jumlah karakter per maks karakter pada textarea abstrak PB
+        $("#id_abstrak_pb").keyup(function () {
+            var wordCount = $(this).val().split(/\s+/).length;
+            $("#id_abstrak_pb_helptext").text(wordCount + " / 200 kata");
+
+            if (wordCount > maxWords) {
+                // Remove extra words
+                var trimmedText = $(this).val().split(/\s+/, maxWords).join(" ");
+                $(this).val(trimmedText);
+                // $("#wordCount").text(maxWords + " words (limit reached)");
+            }
         });
     });
 </script>

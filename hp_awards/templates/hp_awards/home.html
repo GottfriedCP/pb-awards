@@ -9,28 +9,84 @@
     <p class="text-center fs-2">Badan Kebijakan Pembangunan Kesehatan</p>
     <!-- <img src="{% static 'img/dummy.png' %}" height="400px"> -->
     <section id="1" class="my-5">
-        <h2 class="text-center color-kemkes">Topik</h2>
+        <h2 class="text-center color-kemkes">Tema</h2>
         <hr class="hr-kemkes">
         <p class="fs-5 text-center" style="font-weight: 500;">Pemanfaatan Data Survey Kesehatan Indonesia (SKI) 2023 untuk Rekomendasi Kebijakan Menuju Indonesia Emas 2045
         </p>
     </section>
     <section id="2" class="my-5">
-        <h2 class="text-center color-kemkes">Latar Belakang</h2>
-        <hr class="hr-kemkes">
-        <p>Proin leo justo, ultricies sed augue lacinia, mattis pharetra leo. Quisque non scelerisque purus, sed molestie
-            tellus. Quisque feugiat nulla nibh, at imperdiet lectus ullamcorper quis.</p>
+        <!-- <h2 class="text-center color-kemkes">Kategori Peserta</h2> -->
+        <!-- <hr class="hr-kemkes"> -->
+        <p class="fs-3 text-center">Terbuka bagi <span class="color-kemkes">Mahasiswa</span> dan <span class="color-kemkes">Umum</span></p>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% url 'hp_awards:syarat_peserta' %}">Persyaratan Peserta</a>
+            <a class="btn btn-sm btn-outline-kemkes" href="#">Daftar <i>Policy Questions</i></a>
+        </div>
+        <p class="text-center"></p>
+    </section>
+    <section class="my-5">
+        <div class="text-center">
+            <a href="{% url 'hp_awards:registrasi' %}" class="d-block color-kemkes fs-1" style="font-weight: 700;">Daftar Sekarang</a>
+        </div>
     </section>
     <section id="3" class="my-5">
-        <h2 class="text-center color-kemkes">Dasar Hukum</h2>
+        <h2 class="text-center color-kemkes">Tahapan Kompetisi</h2>
         <hr class="hr-kemkes">
-        <p>Mauris fringilla lorem vitae tincidunt vehicula. Sed dui enim, facilisis in ultrices vitae, eleifend quis quam.
-            Maecenas vel arcu nunc. In porttitor augue a tristique porta.</p>
+        <div class="d-flex justify-content-center">
+            <table class="table" style="max-width: 1024px;">
+                <thead>
+                    <tr>
+                        <th>Tahap</th>
+                        <th>Penilaian</th>
+                        <th>Penilai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                       <td class="text-center">1</td>
+                       <td>
+                            Seleksi Administrasi dan Abstrak
+                            <ul>
+                                <li>Maksimum 200 kata</li>
+                                <li>Komponen penilaian: Inovatif, Aplikatif, Kritis</li>
+                            </ul>
+                       </td>
+                       <td>Panitia</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td>
+                            Seleksi Policy Brief
+                            <ul>
+                                <li>Kualitas materi</li>
+                            </ul>
+                        </td>
+                        <td>Tim pakar sesuai substansi</td>
+                     </tr>
+                     <tr>
+                        <td class="text-center">3</td>
+                        <td>
+                            Presentasi
+                            <ul>
+                                <li>Kualitas isi dan visual bahan tayang</li>
+                                <li>Kemampuan berkomunikasi dan penguasaan materi</li>
+                            </ul>
+                        </td>
+                        <td>Pejabat Kementerian Kesehatan, SKM, LAN, Bappenas, Diaspora</td>
+                     </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
     <section id="4" class="my-5">
-        <h2 class="text-center color-kemkes">Tujuan Umum</h2>
+        <h2 class="text-center color-kemkes">Dasar Hukum</h2>
         <hr class="hr-kemkes">
-        <p>Nunc ullamcorper malesuada risus at dapibus. Vestibulum mattis nulla purus, nec efficitur lacus sollicitudin vel.
-            Nulla id aliquet lacus. </p>
+        <div class="text-center">
+            <p class="fs-5">Perpres Nomor 18 Tahun 2021 Tentang Kementerian Kesehatan</p>
+            <p class="fs-5">Permenkes Nomor 5 Tahun 2022 tentang SOTK Kementerian Kesehatan</p>
+            <p class="fs-5">Permenkes Nomor 18 Tahun 2022 tentang Penyelenggaraan Satu Data Bidang Kesehatan Melalui Sistem Informasi Kesehatan</p>
+            <p class="fs-5">Peraturan Kepala LAN RI Nomor 28 Tahun 2017 Tentang Pedoman Penulisan Karya Tulis Ilmiah Bagi Analis Kebijakan</p>
+        </div>
     </section>
 </div>
 {% endblock %}

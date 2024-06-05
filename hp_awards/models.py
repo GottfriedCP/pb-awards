@@ -42,12 +42,6 @@ class Submisi(TimestampedModel):
         MAHASISWA: "Mahasiswa",
     }
     nama = models.CharField(max_length=100, help_text="Nama sesuai KTP")
-    nik = models.CharField(
-        max_length=16,
-        verbose_name="NIK",
-        help_text="Nomor Induk Kependudukan",
-        unique=True,
-    )
     wa = models.CharField(
         max_length=15,
         verbose_name="nomor WA",
@@ -56,7 +50,9 @@ class Submisi(TimestampedModel):
     )
     email = models.EmailField(max_length=50, unique=True)
     pendidikan = models.CharField(
-        choices=PENDIDIKAN_CHOICES, max_length=5, verbose_name="pendidikan terakhir"
+        choices=PENDIDIKAN_CHOICES,
+        max_length=5,
+        verbose_name="pendidikan terakhir",
     )
     afiliasi = models.CharField(
         max_length=150,
@@ -65,7 +61,7 @@ class Submisi(TimestampedModel):
         help_text="Nama institusi atau organisasi afiliasi, jika ada",
     )
     swafoto = ResizedImageField(
-        verbose_name="swafoto pendaftar",
+        verbose_name="pasfoto pendaftar",
         size=[None, 480],
         quality=80,
         upload_to="swafoto/",
@@ -76,9 +72,12 @@ class Submisi(TimestampedModel):
         help_text="Maksimum 200 karakter",
         verbose_name="judul Policy Brief",
     )
-    abstrak_pb = models.TextField(verbose_name="abstrak Policy Brief")
+    abstrak_pb = models.TextField(
+        verbose_name="abstrak Policy Brief",
+        help_text="Maksimum 200 kata",
+    )
     kategori_pendaftar = models.CharField(
-        max_length=10, choices=KATEGORI_PENDAFTAR_CHOICES
+        max_length=10, choices=KATEGORI_PENDAFTAR_CHOICES, help_text="Mahasiswa S3 harus memilih Kategori Umum",
     )
     daftar_anggota = models.TextField(
         blank=True, null=True, help_text=ht_daftar_anggota
