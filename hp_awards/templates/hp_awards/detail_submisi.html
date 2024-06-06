@@ -14,6 +14,9 @@
         
                 <dt>Judul</dt>
                 <dd>{{ submisi.judul_pb }}</dd>
+
+                <dt>Waktu submisi</dt>
+                <dd>{{ submisi.created_at|date:'d-m-Y, H:m' }}</dd>
         
                 <dt>Pendidikan</dt>
                 <dd>{{ submisi.get_pendidikan_display }}</dd>
