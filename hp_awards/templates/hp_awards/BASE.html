@@ -56,7 +56,7 @@
     
         .nav-item {
             margin: 15px 10px;
-            border-bottom: 5px solid white;
+            border-bottom: 5px solid #d2eaea;
         }
     
         .nav-item-active,
@@ -95,7 +95,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg" style="background-color: #d2eaea;">
         <div class="container-fluid">
             <a class="mx-5 navbar-brand" href="#">
                 <img src="{% static 'img/kemkes.png' %}" height="40px">
@@ -137,7 +137,7 @@
                 {% if request.user.is_authenticated %}
                 <form method="POST" action="{% url 'hp_awards:logout' %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-link">Logout</button>
+                    <button type="submit" class="btn btn-link color-kemkes">Logout</button>
                 </form>
                 {% endif %}
             </div>

@@ -6,10 +6,35 @@
 {% block body_bl %}
 <div class="container my-5">
     <h1>Submisi</h1>
-    <dl class="my-5">
-        <dt>Judul</dt>
-        <dd>{{ submisi.judul_pb }}</dd>
-    </dl>
+    <div class="row my-5">
+        <div class="col">
+            <dl>
+                <dt>Status</dt>
+                <dd><span class="badge text-bg-info">{{ submisi.get_status_display }}</span></dd>
+        
+                <dt>Judul</dt>
+                <dd>{{ submisi.judul_pb }}</dd>
+        
+                <dt>Pendidikan</dt>
+                <dd>{{ submisi.get_pendidikan_display }}</dd>
+        
+                <dt>Kategori</dt>
+                <dd>{{ submisi.get_kategori_pendaftar_display }}</dd>
+        
+                <dt>Topik</dt>
+                <dd>{{ submisi.topik }}</dd>
+            </dl>
+        </div>
+        <div class="col">
+            <img src="{{ submisi.swafoto.url }}" style="width: 192px;">
+        </div>
+    </div>
+    <section class="my-5">
+        <h2>Abstrak</h2>
+        <div>
+            {{ submisi.abstrak_pb|safe }}
+        </div>
+    </section>
     <div class="my-5">
         <h2>Kolaborator</h2>
         {% if not submisi.kolaborators.exists %}

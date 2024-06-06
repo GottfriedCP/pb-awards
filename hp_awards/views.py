@@ -70,6 +70,7 @@ def registrasi(request):
                 request.POST.getlist("kolab-email"),
             )
             for nama_kolab, wa_kolab, email_kolab in zip_kolabs:
+                # hanya create kolabo jika ada nama kolabo-nya
                 if nama_kolab:
                     _ = submisi.kolaborators.create(
                         nama=nama_kolab, wa=wa_kolab, email=email_kolab
@@ -92,12 +93,30 @@ def list_submisi(request):
     context = {
         "page_title": "informasi",
     }
+    # jika user adalah staf/admin
+    if request.user.is_staff:
+        context["submisis"] = Submisi.objects.all()
+
+    # jika user adalah peserta
+    if request.user.is_authenticated and request.session.get("role") == "user":
+        wa = request.session.get("wa")
+        email = request.session.get("email")
+        submisis = Submisi.objects.filter(wa=wa, email=email)
+        context["submisis"] = submisis
+
     if request.method == "POST":
         wa = request.POST.get("wa")
         email = request.POST.get("email")
         if Submisi.objects.filter(wa=wa, email=email).exists():
-            submisi = Submisi.objects.get(wa=wa, email=email)
-            context["submisis"] = [submisi]
+            submisis = Submisi.objects.filter(wa=wa, email=email)
+            # log in sebagai generic user
+            user = authenticate(request, username="user", password="user")
+            if user is not None:
+                login(request, user)
+                request.session["role"] = "user"
+                request.session["wa"] = wa
+                request.session["email"] = email
+            context["submisis"] = submisis
     return render(request, "hp_awards/list_submisi.html", context)
 
 
@@ -110,15 +129,32 @@ def detail_submisi(request, id_submisi):
 
 
 def edit_submisi(request, id_submisi):
-    submisi = get_object_or_404(Submisi, kode_submisi=id_submisi)
+    submisi_manager = Submisi.objects.prefetch_related("kolaborators")
+    submisi = get_object_or_404(submisi_manager, kode_submisi=id_submisi)
     form = FormPendaftaran(instance=submisi)
     if request.method == "POST":
         form = FormPendaftaran(request.POST, instance=submisi)
         if form.is_valid():
             submisi = form.save()
+            # set kolaborators ke m2m rel
+            zip_kolabs = zip(
+                request.POST.getlist("kolab-nama"),
+                request.POST.getlist("kolab-wa"),
+                request.POST.getlist("kolab-email"),
+            )
+            # utk edit, hapus kolabos yang sudah ada
+            _ = submisi.kolaborators.all().delete()
+            submisi.kolaborators.clear()
+            for nama_kolab, wa_kolab, email_kolab in zip_kolabs:
+                # hanya create kolabo jika ada nama kolabo-nya
+                if nama_kolab:
+                    _ = submisi.kolaborators.create(
+                        nama=nama_kolab, wa=wa_kolab, email=email_kolab
+                    )
             return redirect("hp_awards:detail_submisi", submisi.kode_submisi)
     context = {
         "form": form,
+        "submisi": submisi,
     }
     return render(request, "hp_awards/edit_submisi.html", context)
 
@@ -133,6 +169,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            request.session["role"] = "admin"
             return redirect("hp_awards:home")
 
     return render(request, "hp_awards/login.html")

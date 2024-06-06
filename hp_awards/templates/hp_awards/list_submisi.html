@@ -6,7 +6,7 @@
 {% block body_bl %}
 <div class="container my-5">
     <h1>Submisi</h1>
-    {% if not submisis %}
+    {% if not request.user.is_authenticated %}
     <form class="mt-3" method="POST" style="max-width: 640px;">
         {% csrf_token %}
         <div class="mb-3">
@@ -29,6 +29,11 @@
             <thead>
                 <tr>
                     <th>Judul</th>
+                    <th>Nama Penulis Utama</th>
+                    <th>Afiliasi</th>
+                    <th>Pendidikan</th>
+                    <th>Kategori</th>
+                    <th>Topik</th>
                     <th>Status</th>
                     <th>Tindakan</th>
                 </tr>
@@ -37,6 +42,11 @@
                 {% for submisi in submisis %}
                 <tr>
                     <td><a href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}" class="color-kemkes">{{ submisi.judul_pb }}</a></td>
+                    <td>{{ submisi.nama }}</td>
+                    <td>{{ submisi.afiliasi }}</td>
+                    <td>{{ submisi.get_pendidikan_display }}</td>
+                    <td>{{ submisi.get_kategori_pendaftar_display }}</td>
+                    <td>{{ submisi.topik }}</td>
                     <td>{{ submisi.get_status_display }}</td>
                     <td>
                         <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:edit_submisi' submisi.kode_submisi %}">Edit</a>

@@ -88,9 +88,11 @@ class Submisi(TimestampedModel):
         blank=True, null=True, help_text=ht_daftar_anggota
     )
     topik = models.ForeignKey("Topik", related_name="submisi", on_delete=models.CASCADE)
-    reviewers = models.ManyToManyField("Reviewer", related_name="submisis", blank=True)
+    reviewers = models.ManyToManyField(
+        "Reviewer", related_name="submisis", blank=True, verbose_name="reviewer"
+    )
     kolaborators = models.ManyToManyField(
-        "Kolaborator", related_name="submisis", blank=True
+        "Kolaborator", related_name="submisis", blank=True, verbose_name="kolaborators"
     )
     # bool check tahapan
     lolos_tahap_1 = models.BooleanField(default=False)
@@ -106,9 +108,15 @@ class Submisi(TimestampedModel):
     }
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=TUNGGU)
     # field paska penilaian abstrak
-    file_pb_pdf = models.FileField(blank=True, null=True, upload_to="dokumen_pb/")
-    file_pb_doc = models.FileField(blank=True, null=True, upload_to="dokumen_pb/")
-    file_pb_ppt = models.FileField(blank=True, null=True, upload_to="dokumen_pb/")
+    file_pb_pdf = models.FileField(
+        blank=True, null=True, upload_to="dokumen_pb/", verbose_name="file PB PDF"
+    )
+    file_pb_doc = models.FileField(
+        blank=True, null=True, upload_to="dokumen_pb/", verbose_name="file PB DOC"
+    )
+    file_pb_ppt = models.FileField(
+        blank=True, null=True, upload_to="dokumen_pb/", verbose_name="file PB PPT"
+    )
 
     class Meta:
         abstract = False
@@ -117,6 +125,9 @@ class Submisi(TimestampedModel):
         # judul upper
         judul = self.judul_pb
         self.judul_pb = str(judul).upper()
+        # nama upper
+        nama = self.nama
+        self.nama = str(nama).upper()
         # sterilkan nomor WA
         wa = self.wa
         self.wa = re.sub(r"[^\d]", "", wa)
@@ -139,6 +150,11 @@ class Pernyataan(TimestampedModel):
 class Topik(TimestampedModel):
     judul = models.CharField(max_length=100)
 
+    def save(self, *args, **kwargs):
+        judul = self.judul
+        self.judul = str(judul).upper()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.judul
 
@@ -153,10 +169,27 @@ class Kolaborator(TimestampedModel):
     jabatan = models.CharField(max_length=100, blank=True, null=True)
     peran = models.CharField(max_length=100, blank=True, null=True)
 
+    class Meta:
+        verbose_name_plural = "Kolaborator"
+
+    def __str__(self):
+        return self.nama
+
+    def save(self, *args, **kwargs):
+        nama = self.nama
+        self.nama = str(nama).upper()
+        super().save(*args, **kwargs)
+
 
 class Reviewer(TimestampedModel):
     nama = models.CharField(max_length=50)
-    nip = models.CharField(blank=True, null=True, max_length=18, verbose_name="NIP/NIK/ID lainnya", help_text="Maks. 18 karakter")
+    nip = models.CharField(
+        blank=True,
+        null=True,
+        max_length=18,
+        verbose_name="NIP/NIK/ID lainnya",
+        help_text="Maks. 18 karakter",
+    )
     jabatan = models.CharField(blank=True, null=True, max_length=70)
     instansi = models.CharField(blank=True, null=True, max_length=150)
     kode_reviewer = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -167,7 +200,12 @@ class Reviewer(TimestampedModel):
     def save(self, *args, **kwargs):
         if not self.passphrase:
             self.passphrase = randint(100000, 999999)
+        username = self.username
+        self.username = str(username).lower()
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.nama
 
     class Meta:
         verbose_name_plural = "Reviewer"

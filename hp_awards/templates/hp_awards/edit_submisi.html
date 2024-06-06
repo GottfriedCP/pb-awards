@@ -27,11 +27,21 @@
                         </tr>
                     </thead>
                     <tbody id="tbody-collab">
-                        <tr id="tr-collab">
+                        {% if submisi.kolaborators.exists %}
+                        {% for k in submisi.kolaborators.all %}
+                        <tr class="tr-collab">
+                            <td><input type="text" class="form-control form-control-sm" name="kolab-nama" value="{{ k.nama }}"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="kolab-wa" value="{{ k.wa }}"></td>
+                            <td><input type="email" class="form-control form-control-sm" name="kolab-email" value="{{ k.email }}"></td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr class="tr-collab">
                             <td><input type="text" class="form-control form-control-sm" name="kolab-nama"></td>
                             <td><input type="text" class="form-control form-control-sm" name="kolab-wa"></td>
                             <td><input type="email" class="form-control form-control-sm" name="kolab-email"></td>
                         </tr>
+                        {% endif %}
                     </tbody>
                 </table>
                 <button class="btn btn-sm btn-secondary" type="button" onclick="appendTr()">Tambah kolaborator lagi</button>
