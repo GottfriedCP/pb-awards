@@ -121,7 +121,7 @@
             $(this).val(val.replace(/[^0-9]/g, ""));
         });
 
-        var maxWords = 201;
+        var maxWords = 251;
         // Summernote
         $('#id_abstrak_pb').summernote({
             toolbar: [
@@ -136,7 +136,7 @@
             callbacks: {
                 onChange: function(contents, $editable) {
                     var wordCount = contents.split(/\s+/).length;
-                    $("#id_abstrak_pb_helptext").text(wordCount + " / 200 kata");
+                    $("#id_abstrak_pb_helptext").text(wordCount + " / 250 kata");
 
                     if (wordCount > maxWords) {
                         // Remove extra words
@@ -153,7 +153,7 @@
         // Hitung jumlah karakter per maks karakter pada textarea abstrak PB
         $("#id_abstrak_pb").keyup(function () {
             var wordCount = $(this).val().split(/\s+/).length;
-            $("#id_abstrak_pb_helptext").text(wordCount + " / 200 kata");
+            $("#id_abstrak_pb_helptext").text(wordCount + " / 250 kata");
 
             if (wordCount > maxWords) {
                 // Remove extra words

@@ -1,5 +1,6 @@
 from random import randint
 import re
+import uuid
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -41,6 +42,7 @@ class Submisi(TimestampedModel):
         UMUM: "Umum",
         MAHASISWA: "Mahasiswa",
     }
+    kode_submisi = models.UUIDField(default=uuid.uuid4, editable=False)
     nama = models.CharField(max_length=100, help_text="Nama sesuai KTP")
     wa = models.CharField(
         max_length=15,
@@ -66,6 +68,7 @@ class Submisi(TimestampedModel):
         quality=80,
         upload_to="swafoto/",
         force_format="JPEG",
+        help_text = "rasio 2x3 portrait",
     )
     judul_pb = models.CharField(
         max_length=200,
@@ -74,7 +77,7 @@ class Submisi(TimestampedModel):
     )
     abstrak_pb = models.TextField(
         verbose_name="abstrak Policy Brief",
-        help_text="Maksimum 200 kata",
+        help_text="Maksimum 250 kata",
     )
     kategori_pendaftar = models.CharField(
         max_length=10, choices=KATEGORI_PENDAFTAR_CHOICES, help_text="Mahasiswa S3 harus memilih Kategori Umum",
