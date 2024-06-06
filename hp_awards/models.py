@@ -212,7 +212,7 @@ class Reviewer(TimestampedModel):
 
 
 class Penilaian(TimestampedModel):
-    submisi = models.ForeignKey(Submisi, on_delete=models.CASCADE)
+    submisi = models.ForeignKey(Submisi, on_delete=models.CASCADE, related_name="penilaians")
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     nilai1 = models.IntegerField(default=0)
     nilai2 = models.IntegerField(default=0)
