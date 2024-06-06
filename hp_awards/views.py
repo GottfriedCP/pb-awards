@@ -89,7 +89,9 @@ def registrasi(request):
 
 
 def list_submisi(request):
-    context = {}
+    context = {
+        "page_title": "informasi",
+    }
     if request.method == "POST":
         wa = request.POST.get("wa")
         email = request.POST.get("email")
