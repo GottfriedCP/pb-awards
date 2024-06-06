@@ -3,17 +3,29 @@
 
 {% block title_bl %}Beranda{% endblock %}
 
+{% block head_bl %}
+<style>
+    #bgi {
+        background-image: url("{% static 'img/banner.jpg' %}");
+        background-size: cover;
+        height: 300px;
+    }
+</style>
+{% endblock %}
+
 {% block body_bl %}
-<div class="container my-5">
-    <h1 class="text-center" style="font-weight: 700;">Health Policy Awards 2024</h1>
-    <p class="text-center fs-2">Badan Kebijakan Pembangunan Kesehatan</p>
-    <!-- <img src="{% static 'img/dummy.png' %}" height="400px"> -->
-    <section id="1" class="my-5">
+<div id="bgix">
+    <img src="{% static 'img/banner2.jpg' %}" style="width: 100vw;">
+</div>
+<div class="container mb-5">
+    <!-- <h1 class="text-center" style="font-weight: 700;">Health Policy Awards 2024</h1>
+    <p class="text-center fs-2">Badan Kebijakan Pembangunan Kesehatan</p> -->
+    <!-- <section id="1" class="my-5">
         <h2 class="text-center color-kemkes">Tema</h2>
         <hr class="hr-kemkes">
         <p class="fs-5 text-center" style="font-weight: 500;">Pemanfaatan Data Survey Kesehatan Indonesia (SKI) 2023 untuk Rekomendasi Kebijakan Menuju Indonesia Emas 2045
         </p>
-    </section>
+    </section> -->
     <section id="2" class="my-5">
         <!-- <h2 class="text-center color-kemkes">Kategori Peserta</h2> -->
         <!-- <hr class="hr-kemkes"> -->

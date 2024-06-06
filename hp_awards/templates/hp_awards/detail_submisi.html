@@ -1,0 +1,39 @@
+{% extends 'hp_awards/BASE.html' %}
+{% load static %}
+
+{% block title_bl %}Submisi{% endblock %}
+
+{% block body_bl %}
+<div class="container my-5">
+    <h1>Submisi</h1>
+    <dl class="my-5">
+        <dt>Judul</dt>
+        <dd>{{ submisi.judul_pb }}</dd>
+    </dl>
+    <div class="my-5">
+        <h2>Kolaborator</h2>
+        {% if not submisi.kolaborators.exists %}
+        Peserta tunggal
+        {% else %}
+        <table class="table table-sm my-3" style="max-width: 640px;">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>No. WA</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for k in submisi.kolaborators.all %}
+                <tr>
+                    <td>{{ k.nama }}</td>
+                    <td>{{ k.email }}</td>
+                    <td>{{ k.wa }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

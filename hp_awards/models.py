@@ -68,7 +68,7 @@ class Submisi(TimestampedModel):
         quality=80,
         upload_to="swafoto/",
         force_format="JPEG",
-        help_text = "rasio 2x3 portrait",
+        help_text="rasio 2x3 portrait",
     )
     judul_pb = models.CharField(
         max_length=200,
@@ -80,19 +80,31 @@ class Submisi(TimestampedModel):
         help_text="Maksimum 250 kata",
     )
     kategori_pendaftar = models.CharField(
-        max_length=10, choices=KATEGORI_PENDAFTAR_CHOICES, help_text="Mahasiswa S3 harus memilih Kategori Umum",
+        max_length=10,
+        choices=KATEGORI_PENDAFTAR_CHOICES,
+        help_text="Mahasiswa S3 harus memilih Kategori Umum",
     )
     daftar_anggota = models.TextField(
         blank=True, null=True, help_text=ht_daftar_anggota
     )
     topik = models.ForeignKey("Topik", related_name="submisi", on_delete=models.CASCADE)
-    reviewers = models.ManyToManyField(
-        "Reviewer", related_name="submisis", blank=True, null=True
+    reviewers = models.ManyToManyField("Reviewer", related_name="submisis", blank=True)
+    kolaborators = models.ManyToManyField(
+        "Kolaborator", related_name="submisis", blank=True
     )
     # bool check tahapan
     lolos_tahap_1 = models.BooleanField(default=False)
     lolos_tahap_2 = models.BooleanField(default=False)
     lolos_tahap_3 = models.BooleanField(default=False)
+
+    # status submisi
+    TUNGGU = "tunggu"
+    GUGUR = "gugur"
+    STATUS_CHOICES = {
+        TUNGGU: "Menunggu Penilaian",
+        GUGUR: "Gugur",
+    }
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=TUNGGU)
     # field paska penilaian abstrak
     file_pb_pdf = models.FileField(blank=True, null=True, upload_to="dokumen_pb/")
     file_pb_doc = models.FileField(blank=True, null=True, upload_to="dokumen_pb/")
@@ -104,7 +116,7 @@ class Submisi(TimestampedModel):
     def save(self, *args, **kwargs):
         # judul upper
         judul = self.judul_pb
-        self.judul_pb = str(judul).upper
+        self.judul_pb = str(judul).upper()
         # sterilkan nomor WA
         wa = self.wa
         self.wa = re.sub(r"[^\d]", "", wa)
@@ -134,13 +146,23 @@ class Topik(TimestampedModel):
         verbose_name_plural = "Topik"
 
 
+class Kolaborator(TimestampedModel):
+    nama = models.CharField(max_length=100)
+    wa = models.CharField(max_length=15, verbose_name="nomor WA", blank=True, null=True)
+    email = models.EmailField(max_length=50, blank=True, null=True)
+    jabatan = models.CharField(max_length=100, blank=True, null=True)
+    peran = models.CharField(max_length=100, blank=True, null=True)
+
+
 class Reviewer(TimestampedModel):
     nama = models.CharField(max_length=50)
     nip = models.CharField(blank=True, null=True, max_length=18)
     jabatan = models.CharField(blank=True, null=True, max_length=70)
     instansi = models.CharField(blank=True, null=True, max_length=150)
+    kode_reviewer = models.UUIDField(default=uuid.uuid4, editable=False)
     # fuck security
-    passphrase = models.CharField(blank=True, null=True, max_length=6)
+    username = models.CharField(max_length=20)
+    passphrase = models.CharField(verbose_name="kata sandi", max_length=6)
 
     def save(self, *args, **kwargs):
         if not self.passphrase:
