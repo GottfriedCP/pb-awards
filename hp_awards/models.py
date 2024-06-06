@@ -156,7 +156,7 @@ class Kolaborator(TimestampedModel):
 
 class Reviewer(TimestampedModel):
     nama = models.CharField(max_length=50)
-    nip = models.CharField(blank=True, null=True, max_length=18)
+    nip = models.CharField(blank=True, null=True, max_length=18, verbose_name="NIP/NIK/ID lainnya", help_text="Maks. 18 karakter")
     jabatan = models.CharField(blank=True, null=True, max_length=70)
     instansi = models.CharField(blank=True, null=True, max_length=150)
     kode_reviewer = models.UUIDField(default=uuid.uuid4, editable=False)

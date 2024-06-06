@@ -47,6 +47,16 @@ def prinsip(request):
     )
 
 
+def policy_questions(request):
+    return render(
+        request,
+        "hp_awards/policy_questions.html",
+        {
+            "page_title": "informasi",
+        },
+    )
+
+
 def registrasi(request):
     form = FormPendaftaran()
     if request.method == "POST":
