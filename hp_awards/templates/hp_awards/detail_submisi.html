@@ -1,7 +1,13 @@
 {% extends 'hp_awards/BASE.html' %}
-{% load static %}
+{% load static django_bootstrap5 %}
 
 {% block title_bl %}Submisi{% endblock %}
+
+{% block head_bl %}
+<!-- Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}
 
 {% block body_bl %}
 <div class="container my-5">
@@ -38,7 +44,7 @@
             {{ submisi.abstrak_pb|safe }}
         </div>
     </section>
-    <div class="my-5">
+    <section class="my-5">
         <h2>Kolaborator</h2>
         {% if not submisi.kolaborators.exists %}
         Peserta tunggal
@@ -62,6 +68,25 @@
             </tbody>
         </table>
         {% endif %}
-    </div>
+    </section>
+    {% if request.user.is_staff and form_penugasan_juri %}
+    <section id="assign-reviewer" class="my-5">
+        <h2>Tugaskan Juri/Reviewer</h2>
+        <form method="POST" style="max-width: 480px;">
+            {% csrf_token %}
+            {% bootstrap_form form_penugasan_juri %}
+            <button class="btn btn-kemkes" type="submit">Tetapkan</button>
+        </form>
+    </section>
+    {% endif %}
 </div>
+{% endblock %}
+
+{% block body_add_bl %}
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function () {
+        $('#id_reviewers').select2();
+    });
+</script>
 {% endblock %}

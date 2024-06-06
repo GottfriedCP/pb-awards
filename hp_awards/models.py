@@ -205,7 +205,16 @@ class Reviewer(TimestampedModel):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.nama
+        return f"{self.nama} - {self.jabatan or ''} - {self.instansi or ''}"
 
     class Meta:
         verbose_name_plural = "Reviewer"
+
+
+class Penilaian(TimestampedModel):
+    submisi = models.ForeignKey(Submisi, on_delete=models.CASCADE)
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    nilai1 = models.IntegerField(default=0)
+    nilai2 = models.IntegerField(default=0)
+    nilai3 = models.IntegerField(default=0)
+    komentar = models.TextField(blank=True, null=True)

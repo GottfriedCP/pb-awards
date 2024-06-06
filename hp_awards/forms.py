@@ -22,6 +22,12 @@ class FormPendaftaran(forms.ModelForm):
         ]
 
 
+class FormPenugasanJuri(forms.ModelForm):
+    class Meta:
+        model = Submisi
+        fields = ["reviewers"]
+
+
 class ReviewerForm(forms.ModelForm):
     # tidak perlu ada Meta karena
     # sejauh ini Form ini hanya untuk situs admin

@@ -13,7 +13,7 @@ admin.site.index_title = "Beranda"
 class SubmisiAdmin(admin.ModelAdmin):
     list_display = ["nama", "kategori_pendaftar", "created_at", "status", "judul_pb"]
     list_filter = ["status", "kategori_pendaftar"]
-    filter_horizontal = ["reviewers", "kolaborators"]
+    filter_horizontal = ["kolaborators"]
 
 
 @admin.register(models.Pernyataan)

@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import FormPendaftaran
+from .forms import FormPendaftaran, FormPenugasanJuri
 from .models import Pernyataan, Submisi
 
 
@@ -125,6 +125,9 @@ def detail_submisi(request, id_submisi):
     context = {
         "submisi": submisi,
     }
+    if request.user.is_staff:
+        context["form_penugasan_juri"] = FormPenugasanJuri(instance=submisi)
+        # NOTE handle post di view func lain
     return render(request, "hp_awards/detail_submisi.html", context)
 
 
