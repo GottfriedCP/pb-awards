@@ -82,6 +82,7 @@ def registrasi(request):
             return render(request, "hp_awards/registrasi_sukses.html", context)
     context = {
         "form": form,
+        "form_has_errors": form.errors,
         "pernyataans": Pernyataan.objects.all(),
         "page_title": "home",
         "hide_registration_navbar": True,

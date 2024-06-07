@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Submisi, Reviewer
+from .models import Submisi, Reviewer, PolicyQuestion
 
 
 class FormPendaftaran(forms.ModelForm):
@@ -16,7 +16,8 @@ class FormPendaftaran(forms.ModelForm):
             "kategori_pendaftar",
             "afiliasi",
             # "topik",
-            # "policy_questions",
+            "policy_question",
+            "policy_question_custom",
             "judul_pb",
             "abstrak_pb",
             "swafoto",
@@ -27,10 +28,21 @@ class FormPendaftaran(forms.ModelForm):
         cleaned_data = super().clean()
         kategori_pendaftar = cleaned_data.get("kategori_pendaftar")
         ktm = cleaned_data.get("ktm")
-
         if kategori_pendaftar == Submisi.MAHASISWA and not ktm:
-            raise ValidationError(
-                "Kategori mahasiswa harus menyertakan KTM atau surket mahasiswa"
+            self.add_error(
+                "ktm",
+                "Kategori mahasiswa harus menyertakan KTM atau surket mahasiswa",
+            )
+
+        policy_question = cleaned_data.get("policy_question")
+        policy_question_custom = cleaned_data.get("policy_question_custom")
+        if (
+            policy_question == PolicyQuestion.objects.get(pk=1)
+            and not policy_question_custom
+        ):
+            self.add_error(
+                "policy_question_custom",
+                "Anda harus menuliskan Policy Question Anda jika memilih 'Lainnya'",
             )
 
 

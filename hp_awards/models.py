@@ -138,11 +138,17 @@ class Submisi(TimestampedModel):
     policy_question = models.ForeignKey(
         "PolicyQuestion",
         related_name="submisis",
-        verbose_name="policy question",
+        verbose_name="Policy Question",
         on_delete=models.CASCADE,
         help_text="Pilih Lainnya jika ingin membuat Policy Question baru",
     )
-    policy_question_custom = models.CharField(max_length=500, blank=True, null=True)
+    policy_question_custom = models.CharField(
+        max_length=500,
+        blank=True,
+        null=True,
+        verbose_name="Policy Question Anda",
+        help_text="Anda harus menuliskan Policy Question Anda jika memilih 'LAINNYA'",
+    )
     reviewers = models.ManyToManyField(
         "Reviewer",
         related_name="submisis",

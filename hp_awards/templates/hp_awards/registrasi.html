@@ -6,6 +6,8 @@
 {% block body_bl %}
 <div class="container my-5">
     <h1 id="oo">Pendaftaran Peserta</h1>
+    {% if form_has_errors %}<span class="color-red">Terdapat kesalahan pengisian form. Cek teks merah</span>{% endif %}
+    {{ form.non_field_errors }}
     <form method="POST" class="my-3 form-kemkes" enctype="multipart/form-data">
         {% csrf_token %}
         <h3 class="mt-5 mb-4">Pernyataan</h3>
@@ -110,6 +112,19 @@
         $("#id_wa").on("input keypress paste", function () {
             var val = $(this).val();
             $(this).val(val.replace(/[^0-9]/g, ""));
+        });
+
+        // Toggle Custom PB on Lainnya
+        $('tr input[id="id_policy_question_custom"]').closest('tr').hide();
+        if ($("#id_policy_question").val() === "1") {
+            $('tr input[id="id_policy_question_custom"]').closest('tr').show();
+        }
+        $("#id_policy_question").change(function () {
+            if ($(this).val() === "1") {
+                $('tr input[id="id_policy_question_custom"]').closest('tr').show();
+            } else {
+                $('tr input[id="id_policy_question_custom"]').closest('tr').hide();
+            }
         });
 
         // Toggle KTM based on kategori pendaftar
