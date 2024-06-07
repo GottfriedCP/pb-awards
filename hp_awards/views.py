@@ -132,6 +132,8 @@ def detail_submisi(request, id_submisi):
 
 
 def edit_submisi(request, id_submisi):
+    # NOTE redir dulu yaa
+    return redirect("hp_awards:home")
     submisi_manager = Submisi.objects.prefetch_related("kolaborators")
     submisi = get_object_or_404(submisi_manager, kode_submisi=id_submisi)
     form = FormPendaftaran(instance=submisi)

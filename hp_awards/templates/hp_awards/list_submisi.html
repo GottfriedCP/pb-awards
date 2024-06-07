@@ -51,7 +51,10 @@
                     <td>{{ submisi.created_at|date:'d-m-Y' }}</td>
                     <td>{{ submisi.get_status_display }}</td>
                     <td>
+                        <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}">Lihat</a>
+                        {% comment %}
                         <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:edit_submisi' submisi.kode_submisi %}">Edit</a>
+                        {% endcomment %}
                     </td>
                 </tr>
                 {% endfor %}

@@ -113,11 +113,15 @@
         });
 
         // Toggle KTM based on kategori pendaftar
+        $('tr input[id="id_ktm"]').closest('tr').hide();
+        if ($("#id_kategori_pendaftar").val() === "mhs") {
+            $('tr input[id="id_ktm"]').closest('tr').show();
+        }
         $("#id_kategori_pendaftar").change(function () {
             if ($(this).val() === "mhs") {
-                $("tr:nth-child(11)").hide();
-            } else {
                 $("tr:nth-child(11)").show();
+            } else {
+                $("tr:nth-child(11)").hide();
             }
         });
 

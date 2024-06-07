@@ -26,7 +26,7 @@
 
             <h3 class="mt-5">Kolaborator (Opsional)</h3>
             <div>Masukkan identitas kolaborator yang berpartisipasi bersama Anda (jika ada; <b>maks. 6 orang</b>)</div>
-            <div class="px-3 pb-3 mb-3" style="max-width: 1024px;">
+            <div class="px-3 pb-3 mb-5" style="max-width: 1024px;">
                 <table class="mt-3 table table-sm table-borderless">
                     <thead>
                         <tr>
@@ -45,7 +45,7 @@
                 </table>
                 <button class="btn btn-sm btn-secondary" type="button" onclick="appendTr()">Tambah kolaborator lagi</button>
             </div>
-            Submisi masih dapat diubah melalui menu Status Submisi selama belum dinilai Panitia
+            <span class="fs-5" style="color: red;">Submisi yang sudah diunggah <b>tidak dapat diubah</b>. Mohon cek kembali isian Anda sebelum melanjutkan</span>
             <div class="d-grid gap-2">
                 <button class="mt-3 btn btn-kemkes" type="submit">Kirim Submisi</button>
             </div>
@@ -113,11 +113,15 @@
         });
 
         // Toggle KTM based on kategori pendaftar
+        $('tr input[id="id_ktm"]').closest('tr').hide();
+        if ($("#id_kategori_pendaftar").val() === "mhs") {
+            $('tr input[id="id_ktm"]').closest('tr').show();
+        }
         $("#id_kategori_pendaftar").change(function () {
             if ($(this).val() === "mhs") {
-                $("tr:nth-child(11)").hide();
+                $('tr input[id="id_ktm"]').closest('tr').show();
             } else {
-                $("tr:nth-child(11)").show();
+                $('tr input[id="id_ktm"]').closest('tr').hide();
             }
         });
 

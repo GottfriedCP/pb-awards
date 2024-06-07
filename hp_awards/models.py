@@ -284,6 +284,9 @@ class Penilaian(TimestampedModel):
         Submisi, on_delete=models.CASCADE, related_name="penilaians"
     )
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    string_nilai1 = models.CharField(max_length=50, blank=True, null=True)
+    string_nilai2 = models.CharField(max_length=50, blank=True, null=True)
+    string_nilai3 = models.CharField(max_length=50, blank=True, null=True)
     nilai1 = models.IntegerField(default=0)
     nilai2 = models.IntegerField(default=0)
     nilai3 = models.IntegerField(default=0)
