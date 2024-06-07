@@ -171,6 +171,7 @@ def login_view(request):
         password = request.POST["password"]
         if request.POST.get("reviewer", False):
             # masuk sebagai reviewer
+            # cek apa ada Reviewer dengan u dan p fake
             user = None
         else:
             user = authenticate(request, username=username, password=password)

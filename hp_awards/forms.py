@@ -15,11 +15,23 @@ class FormPendaftaran(forms.ModelForm):
             "pendidikan",
             "kategori_pendaftar",
             "afiliasi",
-            "topik",
+            # "topik",
+            "policy_questions",
             "judul_pb",
             "abstrak_pb",
             "swafoto",
+            "ktm",
         ]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        kategori_pendaftar = cleaned_data.get("kategori_pendaftar")
+        ktm = cleaned_data.get("ktm")
+
+        if kategori_pendaftar == Submisi.MAHASISWA and not ktm:
+            raise ValidationError(
+                "Kategori mahasiswa harus menyertakan KTM atau surket mahasiswa"
+            )
 
 
 class FormPenugasanJuri(forms.ModelForm):

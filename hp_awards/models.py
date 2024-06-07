@@ -3,9 +3,16 @@ import re
 import uuid
 
 from django.contrib.auth.models import User
+from django.core.validators import FileExtensionValidator
 from django.db import models
 
 from django_resized import ResizedImageField
+
+from .validators import filesize_validator
+
+pdf_validator = FileExtensionValidator(
+    allowed_extensions=["pdf", "jpg", "jpeg", "png", "bmp"]
+)
 
 
 class TimestampedModel(models.Model):
@@ -42,6 +49,14 @@ class Submisi(TimestampedModel):
         UMUM: "Umum",
         MAHASISWA: "Mahasiswa",
     }
+
+    INDIVIDU = "indiv"
+    TIM = "tim"
+    KATEGORI_TIM_CHOICES = {
+        INDIVIDU: "Individu",
+        TIM: "Tim",
+    }
+
     kode_submisi = models.UUIDField(default=uuid.uuid4, editable=False)
     nama = models.CharField(max_length=100, help_text="Nama sesuai KTP")
     wa = models.CharField(
@@ -63,12 +78,27 @@ class Submisi(TimestampedModel):
         help_text="Nama institusi atau organisasi afiliasi, jika ada",
     )
     swafoto = ResizedImageField(
-        verbose_name="pasfoto pendaftar",
+        verbose_name="pasfoto penulis utama",
         size=[None, 480],
         quality=80,
         upload_to="swafoto/",
         force_format="JPEG",
         help_text="rasio 2x3 portrait",
+    )
+    # ktp = ResizedImageField(
+    #     verbose_name="pasfoto penulis utama",
+    #     size=[640, None],
+    #     quality=80,
+    #     upload_to="ktp/",
+    #     force_format="JPEG",
+    # )
+    ktm = models.FileField(
+        upload_to="ktm/",
+        verbose_name="KTM / surket mahasiswa",
+        blank=True,
+        null=True,
+        validators=[pdf_validator, filesize_validator],
+        help_text="[PDF atau JPG/PNG] KTM atau surat keterangan mahasiswa",
     )
     judul_pb = models.CharField(
         max_length=200,
@@ -84,17 +114,33 @@ class Submisi(TimestampedModel):
         choices=KATEGORI_PENDAFTAR_CHOICES,
         help_text="Mahasiswa S3 harus memilih Kategori Umum",
     )
-    daftar_anggota = models.TextField(
-        blank=True, null=True, help_text=ht_daftar_anggota
+    kategori_tim = models.CharField(
+        max_length=10,
+        choices=KATEGORI_TIM_CHOICES,
+        blank=True,
+        null=True,
+        editable=False,
     )
     topik = models.ForeignKey(
         "Topik",
         related_name="submisi",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="topik penulisan",
+        blank=True,
+        null=True,
+    )
+    policy_questions = models.ManyToManyField(
+        "PolicyQuestion",
+        related_name="submisis",
+        verbose_name="policy question",
+        help_text="minimal pilih satu",
     )
     reviewers = models.ManyToManyField(
-        "Reviewer", related_name="submisis", blank=True, verbose_name="reviewer"
+        "Reviewer",
+        related_name="submisis",
+        blank=True,
+        through="Penilaian",
+        verbose_name="reviewer",
     )
     kolaborators = models.ManyToManyField(
         "Kolaborator", related_name="submisis", blank=True, verbose_name="kolaborators"
@@ -114,17 +160,14 @@ class Submisi(TimestampedModel):
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=TUNGGU)
     # field paska penilaian abstrak
     file_pb_pdf = models.FileField(
-        blank=True, null=True, upload_to="dokumen_pb/", verbose_name="file PB PDF"
+        blank=True, null=True, upload_to="dokumen_pb_pdf/", verbose_name="file PB PDF"
     )
     file_pb_doc = models.FileField(
-        blank=True, null=True, upload_to="dokumen_pb/", verbose_name="file PB DOC"
+        blank=True, null=True, upload_to="dokumen_pb_doc/", verbose_name="file PB DOC"
     )
     file_pb_ppt = models.FileField(
-        blank=True, null=True, upload_to="dokumen_pb/", verbose_name="file PB PPT"
+        blank=True, null=True, upload_to="dokumen_pb_ppt/", verbose_name="file PB PPT"
     )
-
-    class Meta:
-        abstract = False
 
     def __str__(self):
         return f"{self.nama} - {self.judul_pb}"
@@ -170,6 +213,22 @@ class Topik(TimestampedModel):
         verbose_name_plural = "Topik"
 
 
+class PolicyQuestion(TimestampedModel):
+    judul = models.CharField(max_length=500)
+    sumber = models.CharField(max_length=100, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        judul = self.judul
+        self.judul = str(judul).upper()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.judul
+
+    class Meta:
+        verbose_name_plural = "Policy Questions"
+
+
 class Kolaborator(TimestampedModel):
     nama = models.CharField(max_length=100)
     wa = models.CharField(max_length=15, verbose_name="nomor WA", blank=True, null=True)
@@ -194,6 +253,7 @@ class Reviewer(TimestampedModel):
     nip = models.CharField(
         blank=True,
         null=True,
+        unique=True,
         max_length=18,
         verbose_name="NIP/NIK/ID lainnya",
         help_text="Maks. 18 karakter",
@@ -202,7 +262,7 @@ class Reviewer(TimestampedModel):
     instansi = models.CharField(blank=True, null=True, max_length=150)
     kode_reviewer = models.UUIDField(default=uuid.uuid4, editable=False)
     # fuck security
-    username = models.CharField(max_length=20)
+    username = models.CharField(max_length=20, unique=True)
     passphrase = models.CharField(verbose_name="kata sandi", max_length=6)
 
     def save(self, *args, **kwargs):

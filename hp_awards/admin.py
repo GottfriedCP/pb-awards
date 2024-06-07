@@ -26,6 +26,11 @@ class TopikAdmin(admin.ModelAdmin):
     list_display = ["judul", "created_at"]
 
 
+@admin.register(models.PolicyQuestion)
+class PolicyQuestionAdmin(admin.ModelAdmin):
+    list_display = ["judul", "sumber", "created_at"]
+
+
 @admin.register(models.Kolaborator)
 class KolaboratorAdmin(admin.ModelAdmin):
     list_display = ["nama", "wa", "email"]

@@ -14,9 +14,8 @@
                 {{ form.as_table }}
             </table>
 
-            <h3 class="mt-5">Kolaborator</h3>
-            <div>Masukkan identitas kolaborator yang berpartisipasi bersama Anda (jika ada) ke dalam tabel di bawah ini, maksimal 10
-                orang</div>
+            <h3 class="mt-5">Kolaborator (Opsional)</h3>
+            <div>Masukkan identitas kolaborator yang berpartisipasi bersama Anda (jika ada; <b>maks. 6 orang</b>)</div>
             <div class="px-3 pb-3 mb-3" style="max-width: 1024px;">
                 <table class="mt-3 table table-sm table-borderless">
                     <thead>
@@ -113,7 +112,18 @@
             $(this).val(val.replace(/[^0-9]/g, ""));
         });
 
-        var maxWords = 251;
+        // Toggle KTM based on kategori pendaftar
+        $("#id_kategori_pendaftar").change(function () {
+            if ($(this).val() === "mhs") {
+                $("tr:nth-child(11)").hide();
+            } else {
+                $("tr:nth-child(11)").show();
+            }
+        });
+
+        // gunakan select2 pada policy questions
+        $('#id_policy_questions').select2({width: '100%'});
+
         // Summernote
         $('#id_abstrak_pb').summernote({
             toolbar: [
@@ -143,6 +153,7 @@
         });
 
         // Hitung jumlah karakter per maks karakter pada textarea abstrak PB
+        var maxWords = 251;
         $("#id_abstrak_pb").keyup(function () {
             var wordCount = $(this).val().split(/\s+/).length;
             $("#id_abstrak_pb_helptext").text(wordCount + " / 250 kata");

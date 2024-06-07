@@ -3,24 +3,16 @@
 
 {% block title_bl %}Submisi{% endblock %}
 
-{% block head_bl %}
-<!-- Select2 -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-{% endblock %}
-
 {% block body_bl %}
 <div class="container my-5">
     <h1>Submisi</h1>
+    <h3>"{{ submisi.judul_pb }}"</h3>
     <div class="row my-5">
         <div class="col">
             <dl>
                 <dt>Status</dt>
                 <dd><span class="badge text-bg-info">{{ submisi.get_status_display }}</span></dd>
         
-                <dt>Judul</dt>
-                <dd>{{ submisi.judul_pb }}</dd>
-
                 <dt>Waktu submisi</dt>
                 <dd>{{ submisi.created_at|date:'d-m-Y, H:m' }}</dd>
         
@@ -30,8 +22,14 @@
                 <dt>Kategori</dt>
                 <dd>{{ submisi.get_kategori_pendaftar_display }}</dd>
         
-                <dt>Topik</dt>
-                <dd>{{ submisi.topik }}</dd>
+                <dt>Policy Questions</dt>
+                <dd>
+                    <ul>
+                        {% for pq in submisi.policy_questions.all %}
+                        <li>{{ pq.judul }}</li>
+                        {% endfor %}
+                    </ul>
+                </dd>
             </dl>
         </div>
         <div class="col">
