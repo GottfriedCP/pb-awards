@@ -121,6 +121,9 @@ class Submisi(TimestampedModel):
     class Meta:
         abstract = False
 
+    def __str__(self):
+        return f"{self.nama} - {self.judul_pb}"
+
     def save(self, *args, **kwargs):
         # judul upper
         judul = self.judul_pb
@@ -212,7 +215,9 @@ class Reviewer(TimestampedModel):
 
 
 class Penilaian(TimestampedModel):
-    submisi = models.ForeignKey(Submisi, on_delete=models.CASCADE, related_name="penilaians")
+    submisi = models.ForeignKey(
+        Submisi, on_delete=models.CASCADE, related_name="penilaians"
+    )
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     nilai1 = models.IntegerField(default=0)
     nilai2 = models.IntegerField(default=0)

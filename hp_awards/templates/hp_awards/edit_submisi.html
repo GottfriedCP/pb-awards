@@ -30,16 +30,16 @@
                         {% if submisi.kolaborators.exists %}
                         {% for k in submisi.kolaborators.all %}
                         <tr class="tr-collab">
-                            <td><input type="text" class="form-control form-control-sm" name="kolab-nama" value="{{ k.nama }}"></td>
-                            <td><input type="text" class="form-control form-control-sm" name="kolab-wa" value="{{ k.wa }}"></td>
-                            <td><input type="email" class="form-control form-control-sm" name="kolab-email" value="{{ k.email }}"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="kolab-nama" value="{{ k.nama }}" placeholder="Nama kolaborator"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="kolab-wa" value="{{ k.wa }}" placeholder="08XXXXXXX"></td>
+                            <td><input type="email" class="form-control form-control-sm" name="kolab-email" value="{{ k.email }}" placeholder="email@email.com"></td>
                         </tr>
                         {% endfor %}
                         {% else %}
                         <tr class="tr-collab">
-                            <td><input type="text" class="form-control form-control-sm" name="kolab-nama"></td>
-                            <td><input type="text" class="form-control form-control-sm" name="kolab-wa"></td>
-                            <td><input type="email" class="form-control form-control-sm" name="kolab-email"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="kolab-nama" placeholder="Nama kolaborator"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="kolab-wa" placeholder="08XXXXXXX"></td>
+                            <td><input type="email" class="form-control form-control-sm" name="kolab-email" placeholder="email@email.com"></td>
                         </tr>
                         {% endif %}
                     </tbody>

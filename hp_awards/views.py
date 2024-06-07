@@ -169,10 +169,16 @@ def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
+        if request.POST.get("reviewer", False):
+            # masuk sebagai reviewer
+            user = None
+        else:
+            user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            request.session["role"] = "admin"
+            request.session["role"] = (
+                "admin" if not request.POST.get("reviewer", False) else "reviewer"
+            )
             return redirect("hp_awards:home")
 
     return render(request, "hp_awards/login.html")
