@@ -87,7 +87,12 @@ class Submisi(TimestampedModel):
     daftar_anggota = models.TextField(
         blank=True, null=True, help_text=ht_daftar_anggota
     )
-    topik = models.ForeignKey("Topik", related_name="submisi", on_delete=models.CASCADE)
+    topik = models.ForeignKey(
+        "Topik",
+        related_name="submisi",
+        on_delete=models.CASCADE,
+        verbose_name="topik penulisan",
+    )
     reviewers = models.ManyToManyField(
         "Reviewer", related_name="submisis", blank=True, verbose_name="reviewer"
     )
