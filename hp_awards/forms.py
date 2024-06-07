@@ -16,7 +16,7 @@ class FormPendaftaran(forms.ModelForm):
             "kategori_pendaftar",
             "afiliasi",
             # "topik",
-            "policy_questions",
+            # "policy_questions",
             "judul_pb",
             "abstrak_pb",
             "swafoto",
