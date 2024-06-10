@@ -143,7 +143,7 @@ class Submisi(TimestampedModel):
         related_name="submisis",
         verbose_name="Policy Question",
         on_delete=models.CASCADE,
-        help_text="Pilih Lainnya jika ingin membuat Policy Question baru",
+        help_text="Pilih LAINNYA jika ingin membuat Policy Question baru",
     )
     policy_question_custom = models.CharField(
         max_length=500,

@@ -114,7 +114,10 @@
             $(this).val(val.replace(/[^0-9]/g, ""));
         });
 
-        // Toggle Custom PB on Lainnya
+        // Select2 untuk policy questions list
+        $('#id_policy_question').select2();
+
+        // Toggle Custom Policy question on Lainnya
         $('tr input[id="id_policy_question_custom"]').closest('tr').hide();
         if ($("#id_policy_question").val() === "1") {
             $('tr input[id="id_policy_question_custom"]').closest('tr').show();
@@ -146,7 +149,7 @@
         });
 
         // gunakan select2 pada policy questions
-        $('#id_policy_questions').select2({width: '100%'});
+        $('#id_policy_question').select2({width: '100%'});
 
         // Summernote
         $('#id_abstrak_pb').summernote({
