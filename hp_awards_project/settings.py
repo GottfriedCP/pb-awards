@@ -148,3 +148,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 BOOTSTRAP5 = {
     "set_placeholder": False,
 }
+
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")

@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -106,6 +107,7 @@ def list_submisi(request):
         context["submisis"] = submisis
 
     if request.method == "POST":
+        # handle POST dari form
         wa = request.POST.get("wa")
         email = request.POST.get("email")
         if Submisi.objects.filter(wa=wa, email=email).exists():
@@ -121,6 +123,7 @@ def list_submisi(request):
     return render(request, "hp_awards/list_submisi.html", context)
 
 
+@login_required
 def detail_submisi(request, id_submisi):
     submisi = get_object_or_404(Submisi, kode_submisi=id_submisi)
     context = {
@@ -189,5 +192,6 @@ def login_view(request):
 
 
 def logout_view(request):
-    logout(request)
+    if request.method == "POST":
+        logout(request)
     return redirect("hp_awards:home")
