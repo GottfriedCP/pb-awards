@@ -229,7 +229,7 @@ def login_view(request):
                 if role == "reviewer"
                 else None
             )
-            return redirect("hp_awards:home")
+            return redirect("hp_awards:list_submisi")
 
     return render(request, "hp_awards/login.html")
 

@@ -74,11 +74,19 @@ class Submisi(TimestampedModel):
         blank=True,
         null=True,
     )
+    pekerjaan = models.CharField(
+        max_length=150,
+        blank=True,
+        null=True,
+        help_text="Contoh: analis kebijakan, dosen, peneliti, dsb",
+        verbose_name="profesi",
+    )
     afiliasi = models.CharField(
         max_length=150,
         blank=True,
         null=True,
-        help_text="Nama institusi atau organisasi afiliasi, jika ada",
+        help_text="Nama institusi, universitas, atau organisasi afiliasi (jika ada)",
+        verbose_name="institusi",
     )
     swafoto = ResizedImageField(
         verbose_name="pasfoto penulis utama",

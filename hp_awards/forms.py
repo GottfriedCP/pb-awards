@@ -13,6 +13,7 @@ class FormPendaftaran(forms.ModelForm):
             "email",
             "kategori_pendaftar",
             "pendidikan",
+            "pekerjaan",
             "afiliasi",
             # "topik",
             "policy_question",
@@ -27,10 +28,19 @@ class FormPendaftaran(forms.ModelForm):
         cleaned_data = super().clean()
         kategori_pendaftar = cleaned_data.get("kategori_pendaftar")
         ktm = cleaned_data.get("ktm")
+        pekerjaan = cleaned_data.get("pekerjaan")
+        # Mahasiswa butuh KTM/surket mhs
         if (kategori_pendaftar in (Submisi.MAHASISWA, Submisi.MAHASISWA2)) and not ktm:
             self.add_error(
                 "ktm",
-                "Kategori mahasiswa harus menyertakan KTM atau surket mahasiswa",
+                "Kategori Mahasiswa harus menyertakan KTM atau surket mahasiswa",
+            )
+
+        # Umum harus mengisi kolom pekerjaan
+        if kategori_pendaftar == Submisi.UMUM and not pekerjaan:
+            self.add_error(
+                "pekerjaan",
+                "Kategori Umum harus mengisi nama profesi",
             )
 
         policy_question = cleaned_data.get("policy_question")
