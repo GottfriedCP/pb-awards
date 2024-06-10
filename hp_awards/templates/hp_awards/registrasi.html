@@ -127,16 +127,21 @@
             }
         });
 
-        // Toggle KTM based on kategori pendaftar
+        // Toggle KTM dan pendidikan based on kategori pendaftar
         $('tr input[id="id_ktm"]').closest('tr').hide();
-        if ($("#id_kategori_pendaftar").val() === "mhs") {
+        var kategoriPendaftar = $("#id_kategori_pendaftar").val();
+        if (kategoriPendaftar === "mhs" || kategoriPendaftar === "mhs2") {
             $('tr input[id="id_ktm"]').closest('tr').show();
+            $('tr select[id="id_pendidikan"]').closest('tr').hide();
         }
         $("#id_kategori_pendaftar").change(function () {
-            if ($(this).val() === "mhs") {
+            kategoriPendaftar = $(this).val();
+            if (kategoriPendaftar === "mhs" || kategoriPendaftar === "mhs2") {
                 $('tr input[id="id_ktm"]').closest('tr').show();
+                $('tr select[id="id_pendidikan"]').closest('tr').hide();
             } else {
                 $('tr input[id="id_ktm"]').closest('tr').hide();
+                $('tr select[id="id_pendidikan"]').closest('tr').show();
             }
         });
 

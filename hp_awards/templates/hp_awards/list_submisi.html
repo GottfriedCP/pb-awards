@@ -23,6 +23,35 @@
         <button type="submit" class="btn btn-kemkes">Lihat Submisi</button>
     </form>
     {% endif %}
+
+    {% if request.user.is_staff %}
+    <div>
+        <h3>Laporan Submisi</h3>
+        <table class="table table-sm table-borderless" style="max-width: 320px;">
+            <tr>
+                <th>Total submisi masuk</th>
+                <td>:</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th>- Umum</th>
+                <td>:</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th>- Mahasiswa S1</th>
+                <td>:</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th>- Mahasiswa S2</th>
+                <td>:</td>
+                <td>-</td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+
     {% if submisis %}
     <div class="my-5">
         <table class="table">
@@ -33,7 +62,6 @@
                     <!-- <th>Afiliasi</th>
                     <th>Pendidikan</th> -->
                     <th>Kategori</th>
-                    <th>Topik</th>
                     <th>Tanggal Submisi</th>
                     <th>Status</th>
                     <th>Tindakan</th>
@@ -47,7 +75,6 @@
                     <!-- <td>{{ submisi.afiliasi }}</td>
                     <td>{{ submisi.get_pendidikan_display }}</td> -->
                     <td>{{ submisi.get_kategori_pendaftar_display }}</td>
-                    <td>{{ submisi.topik }}</td>
                     <td>{{ submisi.created_at|date:'d-m-Y' }}</td>
                     <td>{{ submisi.get_status_display }}</td>
                     <td>

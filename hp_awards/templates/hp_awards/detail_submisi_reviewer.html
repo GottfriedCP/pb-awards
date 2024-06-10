@@ -1,0 +1,35 @@
+{% extends 'hp_awards/BASE.html' %}
+{% load static django_bootstrap5 %}
+
+{% block title_bl %}Submisi{% endblock %}
+
+{% block body_bl %}
+<div class="container my-5">
+    <h1>Submisi</h1>
+    <div class="mb-3">
+        Kode submisi: <code>{{ submisi.kode_submisi }}</code>
+    </div>
+    <h3>"{{ submisi.judul_pb }}"</h3>
+    <section class="my-5">
+        <h2>Abstrak</h2>
+        <div>
+            {{ submisi.abstrak_pb|safe }}
+        </div>
+    </section>
+    
+    <hr class="hr-kemkes">
+    <section>
+        <h3>Form Penilaian</h3>
+        - Form masih menunggu desain -
+    </section>
+</div>
+{% endblock %}
+
+{% block body_add_bl %}
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    // $(document).ready(function () {
+    //     $('#id_reviewers').select2();
+    // });
+</script>
+{% endblock %}

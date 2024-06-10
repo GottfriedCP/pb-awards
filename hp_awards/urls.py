@@ -13,7 +13,12 @@ urlpatterns = [
     path("list-submisi/", views.list_submisi, name="list_submisi"),
     path("submisi/<str:id_submisi>/", views.detail_submisi, name="detail_submisi"),
     path("submisi/<str:id_submisi>/edit/", views.edit_submisi, name="edit_submisi"),
-
+    path(
+        "submisi/<str:id_submisi>/set-juri/",
+        views.tetapkan_reviewer,
+        name="set_reviewer",
+    ),
+    path("submisi-set-gugur/", views.gugur_submisi, name="set_gugur"),
     path("login/", views.login_view, name="login"),
     path("logout/", views.logout_view, name="logout"),
 ]

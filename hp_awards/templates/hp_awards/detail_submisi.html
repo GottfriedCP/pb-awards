@@ -24,15 +24,15 @@
         
                 <dt>Policy Questions</dt>
                 <dd>
-                    <ul>
-                        {% for pq in submisi.policy_questions.all %}
-                        <li>{{ pq.judul }}</li>
-                        {% endfor %}
-                    </ul>
+                    {{ submisi.policy_question }}
+                    {% if submisi.policy_question.id == 1 %}
+                    : {{ submisi.policy_question_custom }}
+                    {% endif %}
                 </dd>
             </dl>
         </div>
         <div class="col">
+            <b>Pasfoto:</b><br>
             <img src="{{ submisi.swafoto.url }}" style="width: 192px;">
         </div>
     </div>
@@ -67,14 +67,55 @@
         </table>
         {% endif %}
     </section>
-    {% if request.user.is_staff and form_penugasan_juri %}
+    <hr class="hr-kemkes">
+    {% if request.user.is_staff and form_penugasan_juri and submisi.status != submisi_class.GUGUR %}
     <section id="assign-reviewer" class="my-5">
-        <h2>Tugaskan Juri/Reviewer</h2>
-        <form method="POST" style="max-width: 480px;">
-            {% csrf_token %}
-            {% bootstrap_form form_penugasan_juri %}
-            <button class="btn btn-kemkes" type="submit">Tetapkan</button>
-        </form>
+        <div class="row">
+            <div class="col-md-10">
+                <h2>Tugaskan Juri/Reviewer</h2>
+                <form method="POST" action="{% url 'hp_awards:set_reviewer' submisi.kode_submisi %}">
+                    {% csrf_token %}
+                    {% bootstrap_form form_penugasan_juri %}
+                    <button class="btn btn-kemkes" type="submit">Tetapkan</button>
+                </form>
+            </div>
+            <div class="col-md-2" style="position: relative;">
+                <form method="POST" action="{% url 'hp_awards:set_gugur' %}" style="position: absolute; bottom: 1%;">
+                    {% csrf_token %}
+                    <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
+                    <button class="btn btn-danger" type="submit">Gugurkan Submisi</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h5>Daftar Seluruh Juri yang Tersedia di Sistem</h5>
+        <table class="table table-sm table-borderless">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama</th>
+                    <th>Jabatan</th>
+                    <th>Instansi</th>
+                    <th>Kategori Juri</th>
+                    <th>Kepakaran</th>
+                    <th>Submisi Ditugaskan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in reviewers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ r.nama }}</td>
+                    <td>{{ r.jabatan }}</td>
+                    <td>{{ r.instansi }}</td>
+                    <td>{{ r.get_kategori_display }}</td>
+                    <td>{{ r.kepakaran|default:'-' }}</td>
+                    <td>{{ r.submisis.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </section>
     {% endif %}
 </div>

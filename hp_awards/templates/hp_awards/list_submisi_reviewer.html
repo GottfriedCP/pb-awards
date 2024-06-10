@@ -1,0 +1,40 @@
+{% extends 'hp_awards/BASE.html' %}
+{% load static %}
+
+{% block title_bl %}Submisi{% endblock %}
+
+{% block body_bl %}
+<div class="container my-5">
+    <h1>Submisi</h1>
+
+    {% if submisis %}
+    <div class="my-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Kode Submisi</th>
+                    <th>Judul</th>
+                    <th>Status</th>
+                    <th>Tindakan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submisi in submisis %}
+                <tr>
+                    <td><a href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}" class="color-kemkes">{{ submisi.kode_submisi }}</a></td>
+                    <td>{{ submisi.judul_pb }}</td>
+                    <td>{{ submisi.get_status_display }}</td>
+                    <td>
+                        <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}">Lihat</a>
+                        {% comment %}
+                        <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:edit_submisi' submisi.kode_submisi %}">Edit</a>
+                        {% endcomment %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

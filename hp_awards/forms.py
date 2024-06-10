@@ -9,11 +9,10 @@ class FormPendaftaran(forms.ModelForm):
         model = Submisi
         fields = [
             "nama",
-            # "nik",
             "wa",
             "email",
-            "pendidikan",
             "kategori_pendaftar",
+            "pendidikan",
             "afiliasi",
             # "topik",
             "policy_question",
@@ -28,7 +27,7 @@ class FormPendaftaran(forms.ModelForm):
         cleaned_data = super().clean()
         kategori_pendaftar = cleaned_data.get("kategori_pendaftar")
         ktm = cleaned_data.get("ktm")
-        if kategori_pendaftar == Submisi.MAHASISWA and not ktm:
+        if (kategori_pendaftar in (Submisi.MAHASISWA, Submisi.MAHASISWA2)) and not ktm:
             self.add_error(
                 "ktm",
                 "Kategori mahasiswa harus menyertakan KTM atau surket mahasiswa",

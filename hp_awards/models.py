@@ -35,19 +35,20 @@ class Submisi(TimestampedModel):
     SARJANA = "s1"
     MAGISTER = "s2"
     DOKTOR = "s3"
+    # PENDIDIKAN_LAINNYA = "oth"
     PENDIDIKAN_CHOICES = {
-        DIPLOMA12: "Diploma I/II",
-        DIPLOMA3: "Akademi / Diploma III / Sarjana Muda",
-        SARJANA: "Diploma IV / Sarjana (S1)",
+        SARJANA: "Sarjana (S1)",
         MAGISTER: "Magister (S2)",
         DOKTOR: "Doktor (S3)",
     }
 
     UMUM = "umum"
     MAHASISWA = "mhs"
+    MAHASISWA2 = "mhs2"
     KATEGORI_PENDAFTAR_CHOICES = {
         UMUM: "Umum",
-        MAHASISWA: "Mahasiswa",
+        MAHASISWA: "Mahasiswa S1",
+        MAHASISWA2: "Mahasiswa S2",
     }
 
     INDIVIDU = "indiv"
@@ -70,6 +71,8 @@ class Submisi(TimestampedModel):
         choices=PENDIDIKAN_CHOICES,
         max_length=5,
         verbose_name="pendidikan terakhir",
+        blank=True,
+        null=True,
     )
     afiliasi = models.CharField(
         max_length=150,
@@ -83,7 +86,7 @@ class Submisi(TimestampedModel):
         quality=80,
         upload_to="swafoto/",
         force_format="JPEG",
-        help_text="rasio 2x3 portrait",
+        help_text="[format JPG atau PNG] rasio 2x3 portrait",
     )
     # ktp = ResizedImageField(
     #     verbose_name="pasfoto penulis utama",
@@ -98,7 +101,7 @@ class Submisi(TimestampedModel):
         blank=True,
         null=True,
         validators=[pdf_validator, filesize_validator],
-        help_text="[PDF atau JPG/PNG] KTM atau surat keterangan mahasiswa",
+        help_text="[format PDF atau JPG/PNG] KTM atau surat keterangan mahasiswa",
     )
     judul_pb = models.CharField(
         max_length=200,
@@ -112,7 +115,7 @@ class Submisi(TimestampedModel):
     kategori_pendaftar = models.CharField(
         max_length=10,
         choices=KATEGORI_PENDAFTAR_CHOICES,
-        help_text="Mahasiswa S3 harus memilih Kategori Umum",
+        # help_text="Mahasiswa S3 harus memilih Kategori Umum",
     )
     kategori_tim = models.CharField(
         max_length=10,
@@ -166,9 +169,11 @@ class Submisi(TimestampedModel):
 
     # status submisi
     TUNGGU = "tunggu"
+    IN_REVIEW = "review"
     GUGUR = "gugur"
     STATUS_CHOICES = {
-        TUNGGU: "Menunggu Penilaian",
+        TUNGGU: "Menunggu Verifikasi",
+        IN_REVIEW: "Dalam Review",
         GUGUR: "Gugur",
     }
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=TUNGGU)
@@ -263,6 +268,24 @@ class Kolaborator(TimestampedModel):
 
 
 class Reviewer(TimestampedModel):
+    # Pejabat Kementerian Kesehatan, SKM, LAN, Bappenas, Diaspora
+    KEMKES = "kemkes"
+    PT = "pt"
+    SKM = "skm"
+    LAN = "lan"
+    BAPPENAS = "bappenas"
+    DIASPORA = "diaspora"
+    LAINNYA = "lainnya"
+    KATEGORI_CHOICES = {
+        KEMKES: "Pejabat Kementerian Kesehatan",
+        PT: "Perguruan Tinggi",
+        SKM: "Staf Khusus Menteri",
+        LAN: "LAN",
+        BAPPENAS: "Bappenas",
+        DIASPORA: "Diaspora",
+        LAINNYA: "Lainnya",
+    }
+
     nama = models.CharField(max_length=50)
     nip = models.CharField(
         blank=True,
@@ -272,6 +295,10 @@ class Reviewer(TimestampedModel):
         verbose_name="NIP/NIK/ID lainnya",
         help_text="Maks. 18 karakter",
     )
+    kategori = models.CharField(
+        choices=KATEGORI_CHOICES, default=LAINNYA, max_length=70
+    )
+    kepakaran = models.CharField(blank=True, null=True, max_length=100)
     jabatan = models.CharField(blank=True, null=True, max_length=70)
     instansi = models.CharField(blank=True, null=True, max_length=150)
     kode_reviewer = models.UUIDField(default=uuid.uuid4, editable=False)
