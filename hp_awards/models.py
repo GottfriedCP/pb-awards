@@ -206,6 +206,10 @@ class Submisi(TimestampedModel):
         # nama upper
         nama = self.nama
         self.nama = str(nama).upper()
+        # pekerjaan upper jika ada
+        if self.pekerjaan:
+            pekerjaan = str(self.pekerjaan).upper()
+            self.pekerjaan = pekerjaan
         # sterilkan nomor WA
         wa = self.wa
         self.wa = re.sub(r"[^\d]", "", wa)

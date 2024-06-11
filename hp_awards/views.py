@@ -147,7 +147,10 @@ def detail_submisi(request, id_submisi):
         context["reviewers"] = Reviewer.objects.all().order_by("nama")
         # NOTE handle post di view func lain
     if request.session.get("role", False) == "reviewer":
-        return render(request, "hp_awards/detail_submisi_reviewer.html", context)    
+        return render(request, "hp_awards/detail_submisi_reviewer.html", context)
+    if request.session.get("role", False) == "admin":
+        return render(request, "hp_awards/detail_submisi_admin.html", context)
+    # default return adalah peserta    
     return render(request, "hp_awards/detail_submisi.html", context)
 
 

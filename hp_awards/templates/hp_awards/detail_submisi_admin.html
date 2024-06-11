@@ -1,0 +1,199 @@
+{% extends 'hp_awards/BASE.html' %}
+{% load static django_bootstrap5 %}
+
+{% block title_bl %}Submisi{% endblock %}
+
+{% block head_bl %}
+<style>
+    .select2-selection--single {
+        height: 100% !important;
+    }
+
+    .select2-selection__rendered{
+        word-wrap: break-word !important;
+        text-overflow: inherit !important;
+        white-space: normal !important;
+    }
+</style>
+{% endblock %}
+
+{% block body_bl %}
+<div class="container my-5">
+    <h1>Submisi</h1>
+    <h3>"{{ submisi.judul_pb }}"</h3>
+    <div class="row my-5">
+        <div class="col">
+            <dl>
+                <dt>Status</dt>
+                <dd><span class="badge text-bg-info">{{ submisi.get_status_display }}</span></dd>
+        
+                <dt>Waktu submisi</dt>
+                <dd>{{ submisi.created_at|date:'d-m-Y, H:m' }}</dd>
+        
+                {% if submisi.kategori_pendaftar == 'umum' %}
+                <dt>Pendidikan</dt>
+                <dd>{{ submisi.get_pendidikan_display }}</dd>
+                {% endif %}
+        
+                <dt>Kategori</dt>
+                <dd>{{ submisi.get_kategori_pendaftar_display }}</dd>
+
+                {% if submisi.kategori_pendaftar == 'umum' %}
+                <dt>Profesi</dt>
+                <dd>{{ submisi.pekerjaan|default:'-' }}</dd>
+                {% endif %}
+
+                <dt>{% if submisi.kategori_pendaftar == 'umum' %}Institusi / Organisasi
+                    {% else %}Universitas
+                    {% endif %}</dt>
+                <dd>{{ submisi.afiliasi|default:'-' }}</dd>
+        
+                <dt>Policy Questions</dt>
+                <dd>
+                    {{ submisi.policy_question }}
+                    {% if submisi.policy_question.id == 1 %} :<br>
+                    {{ submisi.policy_question_custom }}
+                    {% endif %}
+                </dd>
+            </dl>
+        </div>
+        <div class="col">
+            <dl>
+                <dt>Pasfoto</dt>
+                <dd><img src="{{ submisi.swafoto.url }}" style="width: 192px;"></dd>
+
+                {% if submisi.kategori_pendaftar == 'mhs' or submisi.kategori_pendaftar == 'mhs2' %}
+                <dt class="mt-4">KTM atau Surket Mahasiswa</dt>
+                <dd><a href="{{ submisi.ktm.url }}" target="_blank">Lihat</a></dd>
+                {% endif %}
+            </dl>
+        </div>
+    </div>
+    <section class="my-5">
+        <h2>Abstrak</h2>
+        <div>
+            {{ submisi.abstrak_pb|safe }}
+        </div>
+    </section>
+    <section class="my-5">
+        <h2>Kolaborator</h2>
+        {% if not submisi.kolaborators.exists %}
+        Kategori individu (Peserta tunggal)
+        {% else %}
+        <table class="table table-sm my-3" style="max-width: 640px;">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>No. WA</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for k in submisi.kolaborators.all %}
+                <tr>
+                    <td>{{ k.nama }}</td>
+                    <td>{{ k.email }}</td>
+                    <td>{{ k.wa }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </section>
+    <hr class="hr-kemkes">
+    {% if request.user.is_staff and form_penugasan_juri and submisi.status != submisi_class.GUGUR %}
+    <section id="assign-reviewer" class="my-5">
+        <div class="row">
+            <div class="col-md-10">
+                <h2>Tugaskan Juri/Reviewer</h2>
+                <form method="POST" action="{% url 'hp_awards:set_reviewer' submisi.kode_submisi %}">
+                    {% csrf_token %}
+                    {% bootstrap_form form_penugasan_juri %}
+                    <button class="btn btn-kemkes" type="submit">Tetapkan</button>
+                </form>
+            </div>
+            <div class="col-md-2" style="position: relative;">
+                <form method="POST" action="{% url 'hp_awards:set_gugur' %}" style="position: absolute; bottom: 1%;">
+                    {% csrf_token %}
+                    <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
+                    <button class="btn btn-danger" type="submit">Gugurkan Submisi</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h5 class="mb-4">Daftar Seluruh Juri yang Tersedia di Sistem</h5>
+        <table id="table-reviewer" class="table table-sm table-borderless">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Jabatan</th>
+                    <th>Instansi</th>
+                    <th>Kategori Juri</th>
+                    <th>Kepakaran</th>
+                    <th>Submisi Ditugaskan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in reviewers %}
+                <tr>
+                    <td>{{ r.nama }}</td>
+                    <td>{{ r.jabatan }}</td>
+                    <td>{{ r.instansi }}</td>
+                    <td>{{ r.get_kategori_display }}</td>
+                    <td>{{ r.kepakaran|default:'-' }}</td>
+                    <td>{{ r.submisis.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block body_add_bl %}
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function () {
+        $('#id_reviewers').select2();
+    });
+
+    $('#table-reviewer').DataTable({
+        pageLength: 50,
+        // lengthMenu: [100, 50, 25, 10],
+        // order: [],
+        searching: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/2.0.3/i18n/id.json',
+        },
+        paging: true,
+        // "columnDefs": [
+        //     {
+        //         "orderable": false,
+        //         "targets": -1 // -1 refers to the last column
+        //     }
+        // ],
+        initComplete: function () {
+            this.api()
+                .columns()
+                .every(function () {
+                    let column = this;
+                    let title = column.footer().textContent;
+
+                    // Create input element
+                    let input = document.createElement('input');
+                    input.placeholder = title;
+                    column.footer().replaceChildren(input);
+
+                    // Event listener for user input
+                    input.addEventListener('keyup', () => {
+                        if (column.search() !== this.value) {
+                            column.search(input.value).draw();
+                        }
+                    });
+                });
+        }
+    });
+</script>
+{% endblock %}
