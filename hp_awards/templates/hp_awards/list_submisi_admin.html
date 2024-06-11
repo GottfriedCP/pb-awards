@@ -1,0 +1,79 @@
+{% extends 'hp_awards/BASE.html' %}
+{% load static %}
+
+{% block title_bl %}Submisi{% endblock %}
+
+{% block body_bl %}
+<div class="container my-5">
+    <h1>Submisi</h1>
+    {% if request.user.is_staff %}
+    <div>
+        <h3>Laporan Submisi</h3>
+        <table class="table table-sm table-borderless" style="max-width: 320px;">
+            <tr>
+                <th>Total submisi masuk</th>
+                <td>:</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th>- Umum</th>
+                <td>:</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th>- Mahasiswa S1</th>
+                <td>:</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th>- Mahasiswa S2</th>
+                <td>:</td>
+                <td>-</td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+
+    {% if submisis %}
+    <div class="my-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Judul</th>
+                    <th>Nama Penulis Utama</th>
+                    <!-- <th>Afiliasi</th>
+                    <th>Pendidikan</th> -->
+                    <th>Kategori</th>
+                    <th>Tanggal Submisi</th>
+                    <th>Status</th>
+                    <th>Jumlah Reviewer</th>
+                    <th>Nilai Kumulatif</th>
+                    <th>Tindakan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submisi in submisis %}
+                <tr>
+                    <td><a href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}" class="color-kemkes">{{ submisi.judul_pb }}</a></td>
+                    <td>{{ submisi.nama }}</td>
+                    <!-- <td>{{ submisi.afiliasi }}</td>
+                    <td>{{ submisi.get_pendidikan_display }}</td> -->
+                    <td>{{ submisi.get_kategori_pendaftar_display }}</td>
+                    <td>{{ submisi.created_at|date:'d-m-Y' }}</td>
+                    <td>{{ submisi.get_status_display }}</td>
+                    <td>{{ submisi.reviewers.count }}</td>
+                    <td>{{ submisi.total_skor_abstrak }}</td>
+                    <td>
+                        <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}">Lihat</a>
+                        {% comment %}
+                        <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:edit_submisi' submisi.kode_submisi %}">Edit</a>
+                        {% endcomment %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

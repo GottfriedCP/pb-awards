@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg, Count, Min, Sum
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -97,7 +98,10 @@ def list_submisi(request):
     }
     # jika user adalah staf/admin
     if request.user.is_staff:
-        context["submisis"] = Submisi.objects.all().order_by("kategori_pendaftar")
+        submisis = Submisi.objects.prefetch_related("reviewers", "penilaians")
+        submisis = submisis.annotate(total_skor_abstrak=Avg(("penilaians__nilai1")))
+        context["submisis"] = submisis.all().order_by("kategori_pendaftar")
+        return render(request, "hp_awards/list_submisi_admin.html", context)
 
     # jika user adalah peserta
     if request.user.is_authenticated and request.session.get("role") == "user":
