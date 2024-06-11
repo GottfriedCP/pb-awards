@@ -16,11 +16,23 @@
                 <dt>Waktu submisi</dt>
                 <dd>{{ submisi.created_at|date:'d-m-Y, H:m' }}</dd>
         
+                {% if submisi.kategori_pendaftar == 'umum' %}
                 <dt>Pendidikan</dt>
                 <dd>{{ submisi.get_pendidikan_display }}</dd>
+                {% endif %}
         
                 <dt>Kategori</dt>
                 <dd>{{ submisi.get_kategori_pendaftar_display }}</dd>
+
+                {% if submisi.kategori_pendaftar == 'umum' %}
+                <dt>Profesi</dt>
+                <dd>{{ submisi.pekerjaan|default:'-' }}</dd>
+                {% endif %}
+
+                <dt>{% if submisi.kategori_pendaftar == 'umum' %}Institusi / Organisasi
+                    {% else %}Universitas
+                    {% endif %}</dt>
+                <dd>{{ submisi.afiliasi|default:'-' }}</dd>
         
                 <dt>Policy Questions</dt>
                 <dd>
