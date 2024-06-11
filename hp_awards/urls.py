@@ -8,6 +8,7 @@ urlpatterns = [
     path("mahasiswa/", views.home_mahasiswa, name="mahasiswa"),
     path("syarat-peserta/", views.syarat_peserta, name="syarat_peserta"),
     path("prinsip/", views.prinsip, name="prinsip"),
+    path("kontak-kami/", views.kontak, name="kontak"),
     path("policy-questions/", views.policy_questions, name="policy_questions"),
     path("registrasi/", views.registrasi, name="registrasi"),
     path("list-submisi/", views.list_submisi, name="list_submisi"),

@@ -49,6 +49,16 @@ def prinsip(request):
     )
 
 
+def kontak(request):
+    return render(
+        request,
+        "hp_awards/kontak.html",
+        {
+            "page_title": "informasi",
+        },
+    )
+
+
 def policy_questions(request):
     return render(
         request,
@@ -150,7 +160,7 @@ def detail_submisi(request, id_submisi):
         return render(request, "hp_awards/detail_submisi_reviewer.html", context)
     if request.session.get("role", False) == "admin":
         return render(request, "hp_awards/detail_submisi_admin.html", context)
-    # default return adalah peserta    
+    # default return adalah peserta
     return render(request, "hp_awards/detail_submisi.html", context)
 
 
