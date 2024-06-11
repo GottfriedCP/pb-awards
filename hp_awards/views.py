@@ -205,6 +205,9 @@ def tetapkan_reviewer(request, id_submisi):
             if submisi.reviewers.count() > 0:
                 submisi.status = Submisi.IN_REVIEW
                 submisi.save()
+            else:
+                submisi.status = Submisi.TUNGGU
+                submisi.save()
             return redirect("hp_awards:detail_submisi", submisi.kode_submisi)
         context["form_penugasan_juri"] = form_penugasan_juri
     return render(request, "hp_awards/detail_submisi.html", context)
