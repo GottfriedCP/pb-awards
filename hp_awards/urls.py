@@ -20,6 +20,7 @@ urlpatterns = [
         name="set_reviewer",
     ),
     path("submisi-set-gugur/", views.gugur_submisi, name="set_gugur"),
+    path("submisi-set-nilai-abstrak/", views.tetapkan_nilai, name="set_nilai_abstrak"),
     path("login/", views.login_view, name="login"),
     path("logout/", views.logout_view, name="logout"),
 ]

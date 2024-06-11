@@ -1,123 +1,129 @@
-<table class="table">
-    <thead>
-        <tr>
-            <th>Item Penilaian</th>
-            <th>Penjelasan Item</th>
-            <th>Nilai</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Inovatif</td>
-            <td>Ide/gagasan memuat hal baru dalam menyelesaikan masalah yang ditemukan</td>
-            <td>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inovatif" id="idinovatif1">
-                    <label class="form-check-label" for="idinovatif1">
-                        5
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inovatif" id="idinovatif2">
-                    <label class="form-check-label" for="idinovatif2">
-                        4
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inovatif" id="idinovatif3">
-                    <label class="form-check-label" for="idinovatif3">
-                        3
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inovatif" id="idinovatif4">
-                    <label class="form-check-label" for="idinovatif4">
-                        2
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inovatif" id="idinovatif5" checked>
-                    <label class="form-check-label" for="idinovatif5">
-                        1
-                    </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Aplikatif</td>
-            <td>Ide/gagasan dapat diimplementasikan</td>
-            <td>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="aplikatif" id="idaplikatif1">
-                    <label class="form-check-label" for="idaplikatif1">
-                        5
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="aplikatif" id="idaplikatif2">
-                    <label class="form-check-label" for="idaplikatif2">
-                        4
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="aplikatif" id="idaplikatif3">
-                    <label class="form-check-label" for="idaplikatif3">
-                        3
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="aplikatif" id="idaplikatif4">
-                    <label class="form-check-label" for="idaplikatif4">
-                        2
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="aplikatif" id="idaplikatif5" checked>
-                    <label class="form-check-label" for="idaplikatif5">
-                        1
-                    </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Kritis</td>
-            <td>Ide/gagasan berisi telaah kritis suatu permasalahan yang aktual sesuai tema  dan policy question yang diberikan panitia</td>
-            <td>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="kritis" id="idkritis1">
-                    <label class="form-check-label" for="idkritis1">
-                        5
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="kritis" id="idkritis2">
-                    <label class="form-check-label" for="idkritis2">
-                        4
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="kritis" id="idkritis3">
-                    <label class="form-check-label" for="idkritis3">
-                        3
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="kritis" id="idkritis4">
-                    <label class="form-check-label" for="idkritis4">
-                        2
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="kritis" id="idkritis5" checked>
-                    <label class="form-check-label" for="idkritis5">
-                        1
-                    </label>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<span class="fs-5" style="color: red;">Penilaian yang sudah diberikan <b>tidak dapat diubah</b>. Mohon cek kembali isian Bapak/Ibu sebelum melanjutkan</span>
-<div class="d-grid gap-2">
-    <button class="mt-3 btn btn-kemkes" type="submit">Simpan Penilaian</button>
-</div>
+<form method="POST" action="{% url 'hp_awards:set_nilai_abstrak' %}">
+    {% csrf_token %}
+    <input type="hidden" name="id_submisi" value="{{ submisi.kode_submisi }}">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Item Penilaian</th>
+                <th>Penjelasan Item</th>
+                <th>Nilai</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Inovatif</td>
+                <td>Ide/gagasan memuat hal baru dalam menyelesaikan masalah yang ditemukan</td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="5" name="inovatif" id="idinovatif1">
+                        <label class="form-check-label" for="idinovatif1">
+                            5
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="4" name="inovatif" id="idinovatif2">
+                        <label class="form-check-label" for="idinovatif2">
+                            4
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="3" name="inovatif" id="idinovatif3">
+                        <label class="form-check-label" for="idinovatif3">
+                            3
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="2" name="inovatif" id="idinovatif4">
+                        <label class="form-check-label" for="idinovatif4">
+                            2
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="1" name="inovatif" id="idinovatif5" checked>
+                        <label class="form-check-label" for="idinovatif5">
+                            1
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Aplikatif</td>
+                <td>Ide/gagasan dapat diimplementasikan</td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="5" name="aplikatif" id="idaplikatif1">
+                        <label class="form-check-label" for="idaplikatif1">
+                            5
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="4" name="aplikatif" id="idaplikatif2">
+                        <label class="form-check-label" for="idaplikatif2">
+                            4
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="3" name="aplikatif" id="idaplikatif3">
+                        <label class="form-check-label" for="idaplikatif3">
+                            3
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="2" name="aplikatif" id="idaplikatif4">
+                        <label class="form-check-label" for="idaplikatif4">
+                            2
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="1" name="aplikatif" id="idaplikatif5" checked>
+                        <label class="form-check-label" for="idaplikatif5">
+                            1
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Kritis</td>
+                <td>Ide/gagasan berisi telaah kritis suatu permasalahan yang aktual sesuai tema dan policy question yang
+                    diberikan panitia</td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="5" name="kritis" id="idkritis1">
+                        <label class="form-check-label" for="idkritis1">
+                            5
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="4" name="kritis" id="idkritis2">
+                        <label class="form-check-label" for="idkritis2">
+                            4
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="3" name="kritis" id="idkritis3">
+                        <label class="form-check-label" for="idkritis3">
+                            3
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="2" name="kritis" id="idkritis4">
+                        <label class="form-check-label" for="idkritis4">
+                            2
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="1" name="kritis" id="idkritis5" checked>
+                        <label class="form-check-label" for="idkritis5">
+                            1
+                        </label>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <span class="fs-5" style="color: red;">Penilaian yang sudah diberikan <b>tidak dapat diubah</b>. Mohon cek kembali
+        isian Bapak/Ibu sebelum melanjutkan</span>
+    <div class="d-grid gap-2">
+        <button class="mt-3 btn btn-kemkes" type="submit">Simpan Penilaian</button>
+    </div>
+</form>

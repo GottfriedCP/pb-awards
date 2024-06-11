@@ -336,7 +336,9 @@ class Penilaian(TimestampedModel):
     submisi = models.ForeignKey(
         Submisi, on_delete=models.CASCADE, related_name="penilaians"
     )
-    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    reviewer = models.ForeignKey(
+        Reviewer, on_delete=models.CASCADE, related_name="penilaians"
+    )
     string_nilai1 = models.CharField(max_length=50, blank=True, null=True)
     string_nilai2 = models.CharField(max_length=50, blank=True, null=True)
     string_nilai3 = models.CharField(max_length=50, blank=True, null=True)

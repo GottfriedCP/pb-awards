@@ -1,6 +1,17 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.db.models import Avg, Count, Min, Sum
+from django.db.models import (
+    Avg,
+    Count,
+    Min,
+    Sum,
+    Case,
+    When,
+    BooleanField,
+    IntegerField,
+    ExpressionWrapper,
+    Q,
+)
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -109,7 +120,12 @@ def list_submisi(request):
     # jika user adalah staf/admin
     if request.user.is_staff:
         submisis = Submisi.objects.prefetch_related("reviewers", "penilaians")
-        submisis = submisis.annotate(total_skor_abstrak=Avg(("penilaians__nilai1")))
+        submisis = submisis.annotate(total_skor_abstrak=Avg("penilaians__nilai1"))
+        submisis = submisis.annotate(
+            reviewer_menilai=Count(
+                "penilaians", filter=Q(penilaians__string_nilai1__isnull=False)
+            )
+        )
         context["submisis"] = submisis.all().order_by("kategori_pendaftar")
         return render(request, "hp_awards/list_submisi_admin.html", context)
 
@@ -122,8 +138,13 @@ def list_submisi(request):
 
     # jika user adalah reviewer
     if request.user.is_authenticated and request.session.get("role") == "reviewer":
-        submisis = Submisi.objects.prefetch_related("reviewers").filter(
-            reviewers__username=request.session.get("username_reviewer")
+        reviewer = Reviewer.objects.prefetch_related("penilaians").get(
+            username=request.session["username_reviewer"]
+        )
+        submisis = (
+            Submisi.objects.prefetch_related("reviewers")
+            .filter(reviewers__username=request.session.get("username_reviewer"))
+            .exclude(penilaians__string_nilai1__isnull=False)
         )
         context["submisis"] = submisis
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
@@ -224,6 +245,30 @@ def tetapkan_reviewer(request, id_submisi):
             return redirect("hp_awards:detail_submisi", submisi.kode_submisi)
         context["form_penugasan_juri"] = form_penugasan_juri
     return render(request, "hp_awards/detail_submisi.html", context)
+
+
+@login_required
+def tetapkan_nilai(request):
+    """Tetapkan nilai abstrak."""
+    # asumsikan ini sedang login sebagai reviewer
+    reviewer = Reviewer.objects.get(username=request.session["username_reviewer"])
+
+    if request.method == "POST":
+        id_submisi = request.POST["id_submisi"]
+        submisi = Submisi.objects.get(kode_submisi=id_submisi)
+
+        nilai_inovatif = int(request.POST["inovatif"])
+        nilai_aplikatif = int(request.POST["aplikatif"])
+        nilai_kritis = int(request.POST["kritis"])
+        nilai1 = nilai_inovatif + nilai_aplikatif + nilai_kritis
+        string_nilai1 = f"{nilai_inovatif}|{nilai_aplikatif}|{nilai_kritis}"
+        # reviewer.penilaians.all().delete()  # DON'T
+
+        penilaian = reviewer.penilaians.get(submisi=submisi)
+        penilaian.nilai1 = nilai1
+        penilaian.string_nilai1 = string_nilai1
+        penilaian.save()
+    return redirect("hp_awards:list_submisi")
 
 
 def login_view(request):

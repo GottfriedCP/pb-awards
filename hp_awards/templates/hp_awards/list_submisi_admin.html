@@ -7,7 +7,7 @@
 <div class="container my-5">
     <h1>Submisi</h1>
     {% if request.user.is_staff %}
-    <div>
+    <!-- <div>
         <h3>Laporan Submisi</h3>
         <table class="table table-sm table-borderless" style="max-width: 320px;">
             <tr>
@@ -31,7 +31,7 @@
                 <td>-</td>
             </tr>
         </table>
-    </div>
+    </div> -->
     {% endif %}
 
     {% if submisis %}
@@ -47,7 +47,8 @@
                     <th>Tanggal Submisi</th>
                     <th>Status</th>
                     <th>Jumlah Reviewer</th>
-                    <th>Nilai Kumulatif</th>
+                    <th>Reviewer Sudah Menilai</th>
+                    <th>Nilai</th>
                     <th>Tindakan</th>
                 </tr>
             </thead>
@@ -62,6 +63,7 @@
                     <td>{{ submisi.created_at|date:'d-m-Y' }}</td>
                     <td>{{ submisi.get_status_display }}</td>
                     <td>{{ submisi.reviewers.count }}</td>
+                    <td>{{ submisi.reviewer_menilai|default:'-' }}</td>
                     <td>{{ submisi.total_skor_abstrak|default:'-' }}</td>
                     <td>
                         <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}">Lihat</a>
@@ -74,6 +76,8 @@
             </tbody>
         </table>
     </div>
+    {% else %}
+    Tidak ada submisi untuk dinilai
     {% endif %}
 </div>
 {% endblock %}
