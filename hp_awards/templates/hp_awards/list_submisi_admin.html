@@ -62,7 +62,7 @@
                     <td>{{ submisi.created_at|date:'d-m-Y' }}</td>
                     <td>{{ submisi.get_status_display }}</td>
                     <td>{{ submisi.reviewers.count }}</td>
-                    <td>{{ submisi.total_skor_abstrak }}</td>
+                    <td>{{ submisi.total_skor_abstrak|default:'-' }}</td>
                     <td>
                         <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}">Lihat</a>
                         {% comment %}
