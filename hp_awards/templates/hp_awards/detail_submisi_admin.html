@@ -59,8 +59,10 @@
         </div>
         <div class="col">
             <dl>
+                {% if submisi.swafoto %}
                 <dt>Pasfoto</dt>
                 <dd><img src="{{ submisi.swafoto.url }}" style="width: 192px;"></dd>
+                {% endif %}
 
                 {% if submisi.kategori_pendaftar == 'mhs' or submisi.kategori_pendaftar == 'mhs2' %}
                 <dt class="mt-4">KTM atau Surket Mahasiswa</dt>

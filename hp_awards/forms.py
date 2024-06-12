@@ -18,7 +18,7 @@ class FormPendaftaran(forms.ModelForm):
             # "topik",
             "policy_question",
             "policy_question_custom",
-            "swafoto",
+            # "swafoto",  # tidak pada saat registrasi awal
             "ktm",
             "judul_pb",
             "abstrak_pb",

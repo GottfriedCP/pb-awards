@@ -31,9 +31,9 @@
         <!-- <hr class="hr-kemkes"> -->
         <p class="fs-3 text-center">Terbuka bagi <span class="color-kemkes">Mahasiswa</span> dan <span class="color-kemkes">Umum</span></p>
         <div class="d-flex justify-content-center">
-            <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% url 'hp_awards:syarat_peserta' %}">Ketentuan Peserta</a>
-            <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% static 'pdf/panduan.pdf' %}"><i>Buku Panduan</i></a>
-            <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% url 'hp_awards:policy_questions' %}"><i>Policy Questions</i></a>
+            <!-- <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% url 'hp_awards:syarat_peserta' %}">Ketentuan Peserta</a> -->
+            <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% static 'pdf/panduan.pdf' %}"><span class="fs-5"><i>Pedoman</i></span></a>
+            <!-- <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% url 'hp_awards:policy_questions' %}"><i>Policy Questions</i></a> -->
         </div>
         <p class="text-center"></p>
     </section>
@@ -98,7 +98,7 @@
                     </tr>
                     <tr>
                         <td>9</td>
-                        <td>Penilaian akhir dan penetapan pemenang</td>
+                        <td>Penilaian Tahap III dan penetapan pemenang</td>
                         <td>19-20 September 2024</td>
                     </tr>
                     <tr>
@@ -111,7 +111,7 @@
         </div>
     </section>
     <section id="section-tahapan" class="my-5">
-        <h2 class="text-center color-kemkes">Tahapan Kompetisi</h2>
+        <h2 class="text-center color-kemkes">Tahapan Penilaian Kompetisi</h2>
         <hr class="hr-kemkes">
         <div class="d-flex justify-content-center">
             <table class="table table-borderless" style="margin-left: 15rem; max-width: 400px;">
@@ -124,25 +124,25 @@
                 </thead>
                 <tbody>
                     <tr>
-                       <td class="text-center">1</td>
-                       <td>Seleksi Administrasi dan Abstrak</td>
+                       <td class="text-center">I</td>
+                       <td>Penilaian Abstrak</td>
                        <!-- <td>Panitia</td> -->
                     </tr>
                     <tr>
-                        <td class="text-center">2</td>
-                        <td>Seleksi <i>Policy Brief</i></td>
+                        <td class="text-center">II</td>
+                        <td>Penilaian Naskah <i>Policy Brief</i></td>
                         <!-- <td>Tim pakar sesuai substansi</td> -->
                      </tr>
                      <tr>
-                        <td class="text-center">3</td>
-                        <td>Presentasi</td>
+                        <td class="text-center">III</td>
+                        <td>Penilaian Presentasi</td>
                         <!-- <td>Pejabat Kementerian Kesehatan, SKM, LAN, Bappenas, Diaspora</td> -->
                      </tr>
                 </tbody>
             </table>
         </div>
     </section>
-    <section id="4" class="my-5">
+    <!-- <section id="4" class="my-5">
         <h2 class="text-center color-kemkes">Dasar Hukum</h2>
         <hr class="hr-kemkes">
         <div class="text-center">
@@ -151,6 +151,6 @@
             <p class="">Permenkes Nomor 18 Tahun 2022 tentang Penyelenggaraan Satu Data Bidang Kesehatan Melalui Sistem Informasi Kesehatan</p>
             <p class="">Peraturan Kepala LAN RI Nomor 28 Tahun 2017 Tentang Pedoman Penulisan Karya Tulis Ilmiah Bagi Analis Kebijakan</p>
         </div>
-    </section>
+    </section> -->
 </div>
 {% endblock %}

@@ -64,9 +64,9 @@ class Submisi(TimestampedModel):
         max_length=15,
         verbose_name="nomor WA",
         help_text=ht_wa,
-        unique=True,
+        # unique=True,
     )
-    email = models.EmailField(max_length=50, unique=True)
+    email = models.EmailField(max_length=50)
     pendidikan = models.CharField(
         choices=PENDIDIKAN_CHOICES,
         max_length=5,
@@ -85,7 +85,7 @@ class Submisi(TimestampedModel):
         max_length=150,
         blank=True,
         null=True,
-        help_text="Nama institusi, universitas, atau organisasi afiliasi (jika ada)",
+        help_text="Nama institusi/organisasi, atau universitas (bagi mahasiswa)",
         verbose_name="institusi",
     )
     swafoto = ResizedImageField(
@@ -95,6 +95,8 @@ class Submisi(TimestampedModel):
         upload_to="swafoto/",
         force_format="JPEG",
         help_text="[format JPG atau PNG] rasio 2x3 portrait",
+        blank=True,
+        null=True,
     )
     # ktp = ResizedImageField(
     #     verbose_name="pasfoto penulis utama",
@@ -109,7 +111,7 @@ class Submisi(TimestampedModel):
         blank=True,
         null=True,
         validators=[pdf_validator, filesize_validator],
-        help_text="[format PDF atau JPG/PNG] KTM atau surat keterangan mahasiswa",
+        help_text="[format PDF atau JPG/PNG] Untuk mahasiswa, melampirkan bukti atau pernyataan sebagai mahasiswa",
     )
     judul_pb = models.CharField(
         max_length=200,
