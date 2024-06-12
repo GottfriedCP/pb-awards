@@ -163,6 +163,7 @@ def list_submisi(request):
                 request.session["role"] = "user"
                 request.session["wa"] = wa
                 request.session["email"] = email
+                request.session["nama_bar"] = email
             else:
                 return HttpResponse("Basic user not found")
             context["submisis"] = submisis

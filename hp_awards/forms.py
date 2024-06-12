@@ -59,6 +59,9 @@ class FormPenugasanJuri(forms.ModelForm):
     class Meta:
         model = Submisi
         fields = ["reviewers"]
+        labels = {
+            "reviewers": "Juri ditugaskan:",
+        }
 
 
 class ReviewerForm(forms.ModelForm):

@@ -346,3 +346,8 @@ class Penilaian(TimestampedModel):
     nilai2 = models.IntegerField(default=0)
     nilai3 = models.IntegerField(default=0)
     komentar = models.TextField(blank=True, null=True)
+
+    def get_nilai1_list(self):
+        if self.string_nilai1:
+            return str(self.string_nilai1).split(sep="|")
+        return [None, None, None]

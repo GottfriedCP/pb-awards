@@ -49,6 +49,7 @@
                     <th>Jumlah Reviewer</th>
                     <th>Reviewer Sudah Menilai</th>
                     <th>Nilai</th>
+                    <th>Reviewer Sudah Menilai Semua</th>
                     <th>Tindakan</th>
                 </tr>
             </thead>
@@ -65,6 +66,7 @@
                     <td>{{ submisi.reviewers.count }}</td>
                     <td>{{ submisi.reviewer_menilai|default:'-' }}</td>
                     <td>{{ submisi.total_skor_abstrak|default:'-' }}</td>
+                    <td>{% if submisi.reviewers.count == submisi.reviewer_menilai %}Ya{% else %}Belum{% endif %}</td>
                     <td>
                         <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}">Lihat</a>
                         {% comment %}

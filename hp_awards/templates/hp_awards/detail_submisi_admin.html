@@ -121,6 +121,36 @@
             </div>
         </div>
     </section>
+
+    {% if submisi.penilaians.exists %}
+    <section class="mb-4">
+        <h5 class="mb-4">Daftar Juri Ditugaskan</h5>
+        <table class="mb-4 table table-sm" style="max-width: 720px;">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Nilai Inovatif</th>
+                    <th>Nilai Aplikatif</th>
+                    <th>Nilai Kritis</th>
+                    <th>Total Nilai Abstrak</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in submisi.penilaians.all %}
+                <tr>
+                    <td>{{ p.reviewer.nama }}</td>
+                    {% for i in p.get_nilai1_list %}
+                    <td>{{ i|default:'-' }}</td>
+                    {% endfor %}
+                    <td>{{ p.nilai1 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    <hr class="hr-kemkes">
+    {% endif %}
+
     <section>
         <h5 class="mb-4">Daftar Seluruh Juri yang Tersedia di Sistem</h5>
         <table id="table-reviewer" class="table table-sm table-borderless">
