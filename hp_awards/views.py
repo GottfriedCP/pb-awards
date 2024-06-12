@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.db.models import (
     Avg,
     Count,
@@ -162,6 +163,8 @@ def list_submisi(request):
                 request.session["role"] = "user"
                 request.session["wa"] = wa
                 request.session["email"] = email
+            else:
+                return HttpResponse("Basic user not found")
             context["submisis"] = submisis
     return render(request, "hp_awards/list_submisi.html", context)
 
@@ -283,18 +286,27 @@ def login_view(request):
             # masuk sebagai reviewer
             # cek apa ada Reviewer dengan u dan p yang sudah ada
             if Reviewer.objects.filter(username=username, passphrase=password).exists():
+                reviewer = Reviewer.objects.get(username=username, passphrase=password)
                 user = authenticate(request, username="reviewer", password="reviewer")
+            else:
+                messages.error(request, "Username atau password juri salah")
+                return redirect("hp_awards:login")
         else:
+            # masuk sebagai admin
             user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             request.session["role"] = "reviewer" if role == "reviewer" else "admin"
+            # nama yg muncul pada navbar kanan atas
+            request.session["nama_bar"] = reviewer.username if role == "reviewer" else user.username
             request.session["username_reviewer"] = (
                 Reviewer.objects.get(username=username, passphrase=password).username
                 if role == "reviewer"
                 else None
             )
             return redirect("hp_awards:list_submisi")
+        else:
+            return HttpResponse("Basic admin user not found")
 
     return render(request, "hp_awards/login.html")
 

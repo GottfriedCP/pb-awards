@@ -139,12 +139,13 @@
                         <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                     </li> -->
                 </ul>
-                {% if not hide_registration_navbar %}
+                {% if not hide_registration_navbar and request.session.role != 'reviewer' %}
                 <a href="{% url 'hp_awards:registrasi' %}"
                     class="d-block btn btn-outline-kemkes mx-2 my-1 {% if page_title == 'umum' %}btn-kemkes{% endif %}">
                     Daftar Sekarang</a>
                 {% endif %}
                 {% if request.user.is_authenticated %}
+                <a class="color-kemkes">Halo, {{ request.session.nama_bar }}</a>
                 <form method="POST" action="{% url 'hp_awards:logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-link color-kemkes">Logout</button>

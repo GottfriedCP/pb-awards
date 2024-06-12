@@ -1,11 +1,12 @@
 {% extends 'hp_awards/BASE.html' %}
-{% load static %}
+{% load static django_bootstrap5 %}
 
 {% block title_bl %}Login{% endblock %}
 
 {% block body_bl %}
 <div class="container my-5">
     <h1>Login Admin dan Reviewer</h1>
+    {% bootstrap_messages %}
     <form class="mt-3" method="POST" style="max-width: 512px;">
         {% csrf_token %}
         <div class="mb-3">
