@@ -47,7 +47,7 @@ class Submisi(TimestampedModel):
     MAHASISWA2 = "mhs2"
     KATEGORI_PENDAFTAR_CHOICES = {
         UMUM: "Umum",
-        MAHASISWA: "Mahasiswa S1",
+        MAHASISWA: "Mahasiswa",
         MAHASISWA2: "Mahasiswa S2",
     }
 

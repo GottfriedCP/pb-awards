@@ -18,10 +18,10 @@ class FormPendaftaran(forms.ModelForm):
             # "topik",
             "policy_question",
             "policy_question_custom",
-            "judul_pb",
-            "abstrak_pb",
             "swafoto",
             "ktm",
+            "judul_pb",
+            "abstrak_pb",
         ]
 
     def clean(self):
