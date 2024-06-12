@@ -44,8 +44,13 @@
             </dl>
         </div>
         <div class="col">
-            <b>Pasfoto:</b><br>
-            <img src="{{ submisi.swafoto.url }}" style="width: 192px;">
+            <dl>
+                <dt>Pasfoto</dt>
+                <dd><img src="{{ submisi.swafoto.url }}" style="width: 192px;"></dd>
+                
+                <dt class="mt-3">KTM / Surket Mahasiswa</dt>
+                <dd>{% if submisi.ktm.url %}Sudah diunggah{% endif %}</dd>
+            </dl>            
         </div>
     </div>
     <section class="my-5">
