@@ -85,10 +85,11 @@ def registrasi(request):
     form = FormPendaftaran()
     form_captcha = FormCaptcha()
     if request.method == "POST":
-        form_captcha = FormCaptcha(request.POST)
-        if not form_captcha.is_valid():
-            messages.error(request, "Anda diduga Robot. Coba lagi lain waktu.")
-            return redirect("hp_awards:registrasi")
+        # verifikasi captcha
+        # form_captcha = FormCaptcha(request.POST)
+        # if not form_captcha.is_valid():
+        #     messages.error(request, "Anda diduga Robot. Coba lagi lain waktu.")
+        #     return redirect("hp_awards:registrasi")
         form = FormPendaftaran(request.POST, request.FILES)
         if form.is_valid():
             submisi = form.save(commit=True)
@@ -161,10 +162,10 @@ def list_submisi(request):
     if request.method == "POST":
         # handle POST dari form
         # check captcha
-        form_captcha = FormCaptcha(request.POST)
-        if not form_captcha.is_valid():
-            messages.error(request, "Anda diduga Robot. Coba lagi lain waktu.")
-            return redirect("hp_awards:list_submisi")
+        # form_captcha = FormCaptcha(request.POST)
+        # if not form_captcha.is_valid():
+        #     messages.error(request, "Anda diduga Robot. Coba lagi lain waktu.")
+        #     return redirect("hp_awards:list_submisi")
         wa = request.POST.get("wa")
         email = request.POST.get("email")
         if Submisi.objects.filter(wa=wa, email=email).exists():
