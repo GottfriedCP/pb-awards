@@ -147,13 +147,15 @@
 
         // Toggle KTM, pendidikan, profesi based on kategori pendaftar
         $('tr input[id="id_ktm"]').closest('tr').hide();
+        $('tr select[id="id_pendidikan"]').closest('tr').show();
         $('tr input[id="id_pekerjaan"]').closest('tr').hide();
+        $('#id_afiliasi_helptext').text("Nama institusi atau organisasi");
         var kategoriPendaftar = $("#id_kategori_pendaftar").val();
         if (kategoriPendaftar === "mhs" || kategoriPendaftar === "mhs2") {
-            $('#id_afiliasi_helptext').text("Institusi pendidikan");
             $('tr input[id="id_ktm"]').closest('tr').show();
             $('tr select[id="id_pendidikan"]').closest('tr').hide();
             $('tr input[id="id_pekerjaan"]').closest('tr').hide();
+            $('#id_afiliasi_helptext').text("Nama institusi pendidikan");
         }
         $("#id_kategori_pendaftar").change(function () {
             kategoriPendaftar = $(this).val();
@@ -161,10 +163,12 @@
                 $('tr input[id="id_ktm"]').closest('tr').show();
                 $('tr select[id="id_pendidikan"]').closest('tr').hide();
                 $('tr input[id="id_pekerjaan"]').closest('tr').hide();
+                $('#id_afiliasi_helptext').text("Nama institusi pendidikan");
             } else {
                 $('tr input[id="id_ktm"]').closest('tr').hide();
                 $('tr select[id="id_pendidikan"]').closest('tr').show();
                 $('tr input[id="id_pekerjaan"]').closest('tr').show();
+                $('#id_afiliasi_helptext').text("Nama institusi atau organisasi");
             }
         });
 
