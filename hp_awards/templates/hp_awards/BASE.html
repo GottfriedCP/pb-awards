@@ -128,12 +128,12 @@
                     </li> -->
                 </ul>
                 {% if not request.user.is_authenticated %}
-                <a class="btn btn-outline-kemkes" href="{% url 'hp_awards:list_submisi' %}">Login</a>
+                <a class="btn btn-outline-kemkes mx-3 my-1" href="{% url 'hp_awards:list_submisi' %}">Login</a>
                 {% endif %}
                 {% if not hide_registration_navbar and request.session.role != 'reviewer' %}
-                <a href="{% url 'hp_awards:registrasi' %}"
+                <!-- <a href="{% url 'hp_awards:registrasi' %}"
                     class="d-block btn btn-outline-kemkes mx-2 my-1 {% if page_title == 'umum' %}btn-kemkes{% endif %}">
-                    Daftar Sekarang</a>
+                    Daftar Sekarang</a> -->
                 {% endif %}
                 {% if request.user.is_authenticated %}
                 <a class="color-kemkes">Halo, {{ request.session.nama_bar|default:request.user.username }}</a>

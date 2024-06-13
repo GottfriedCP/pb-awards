@@ -5,6 +5,10 @@ from .models import Submisi, Reviewer, PolicyQuestion
 
 
 class FormPendaftaran(forms.ModelForm):
+    policy_question = forms.ModelMultipleChoiceField(
+        queryset=PolicyQuestion.objects.order_by("id")
+    )
+
     class Meta:
         model = Submisi
         fields = [
