@@ -20,7 +20,7 @@
 {% block body_bl %}
 <div class="container my-5">
     <h1 id="oo">Pendaftaran Peserta</h1>
-    <div class="fs-5 mt-4">Sebelum mendaftar, pastikan sudah membaca <a class="color-kemkes" href="{% static 'pdf/panduan.pdf' %}" target="_blank"><b>Buku Panduan</b></a></div>
+    <div class="fs-5 mt-4">Sebelum mendaftar, pastikan sudah membaca <a class="color-kemkes" href="{% static 'pdf/pedoman.pdf' %}" target="_blank"><b>Pedoman</b></a></div>
     {% if form_has_errors %}<span class="color-red">Terdapat kesalahan pengisian form. Cek teks merah</span>{% endif %}
     {{ form.non_field_errors }}
     <form method="POST" class="my-3 form-kemkes" enctype="multipart/form-data">
@@ -150,6 +150,7 @@
         $('tr input[id="id_pekerjaan"]').closest('tr').hide();
         var kategoriPendaftar = $("#id_kategori_pendaftar").val();
         if (kategoriPendaftar === "mhs" || kategoriPendaftar === "mhs2") {
+            $('#id_afiliasi_helptext').text("Institusi pendidikan");
             $('tr input[id="id_ktm"]').closest('tr').show();
             $('tr select[id="id_pendidikan"]').closest('tr').hide();
             $('tr input[id="id_pekerjaan"]').closest('tr').hide();

@@ -85,7 +85,7 @@ class Submisi(TimestampedModel):
         max_length=150,
         blank=True,
         null=True,
-        help_text="Nama institusi/organisasi, atau universitas (bagi mahasiswa)",
+        help_text="Nama institusi atau organisasi",
         verbose_name="institusi",
     )
     swafoto = ResizedImageField(
@@ -107,11 +107,11 @@ class Submisi(TimestampedModel):
     # )
     ktm = models.FileField(
         upload_to="ktm/",
-        verbose_name="KTM / surket mahasiswa",
+        verbose_name="KTM / surat pernyataan",
         blank=True,
         null=True,
         validators=[pdf_validator, filesize_validator],
-        help_text="[format PDF atau JPG/PNG] Untuk mahasiswa, melampirkan bukti atau pernyataan sebagai mahasiswa",
+        help_text="[format PDF atau JPG/PNG] Bukti atau pernyataan sebagai mahasiswa aktif",
     )
     judul_pb = models.CharField(
         max_length=200,
