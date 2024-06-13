@@ -46,18 +46,37 @@
     <section id="2" class="mt-5 mb-5">
         <!-- <h2 class="text-center color-kemkes">Kategori Peserta</h2> -->
         <!-- <hr class="hr-kemkes"> -->
-        <p class="fs-3 text-center">Terbuka bagi <span class="color-kemkes">Mahasiswa</span> dan <span class="color-kemkes">Umum</span></p>
+        <!-- <p class="fs-3 text-center">Terbuka bagi <span class="color-kemkes">Mahasiswa</span> dan <span class="color-kemkes">Umum</span></p> -->
         <div class="d-flex justify-content-center">
             <!-- <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% url 'hp_awards:syarat_peserta' %}">Ketentuan Peserta</a> -->
-            <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% static 'pdf/pedoman_sibijaks.pdf' %}"><span class="fs-2"><i>Pedoman</i></span></a>
+            <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% static 'pdf/pedoman_sibijaks.pdf' %}"><span class="fs-2">Unduh Pedoman</span></a>
             <!-- <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% url 'hp_awards:policy_questions' %}"><i>Policy Questions</i></a> -->
         </div>
         <p class="text-center"></p>
     </section>
-    <section class="my-5">
+    <section class="mt-4 mb-5">
         <div class="text-center">
             <a href="{% url 'hp_awards:registrasi' %}" class="d-block color-kemkes fs-1" style="font-weight: 700;">Daftar Sekarang</a>
         </div>
+    </section>
+    <section class="my-5">
+        <h2 class="text-center color-kemkes">Ketentuan Peserta</h2>
+        <hr class="hr-kemkes">
+        <ol class="mt-3 ol-syarat">
+            <li>SiBijaKs Awards 2024 terbuka untuk umum yaitu analis kebijakan, administrator kesehatan, peneliti,
+                akademisi, mahasiswa, pengambil keputusan, pemangku kepentingan dan pemerhati bidang kesehatan;</li>
+            <li>Tidak berstatus sebagai pegawai pada unit utama Kementerian Kesehatan;</li>
+            <li>Peserta dapat mendaftar secara perorangan atau tim (maksimal 6 orang);</li>
+            <li>Kategori peserta:
+                <ol type="a">
+                    <li>Kategori 1 : Mahasiswa (S1 dan S2)</li>
+                    <li>Kategori 2 : Umum</li>
+                </ol>
+            </li>
+            <li>Peserta dapat mengirimkan lebih dari satu abstrak;</li>
+            <li>Peserta yang melakukan registrasi adalah penulis utama;</li>
+            <li>Peserta yang sudah terdaftar tidak dapat digantikan atau diwakilkan.</li>
+        </ol>
     </section>
     <section id="section-jadwal" class="my-5">
         <h2 class="text-center color-kemkes">Jadwal</h2>

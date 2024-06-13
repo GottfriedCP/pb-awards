@@ -27,6 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY", default=None)
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY", default=None)
+RECAPTCHA_REQUIRED_SCORE = 0.80
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
@@ -43,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_bootstrap5",
+    "django_recaptcha",
     "hp_awards",
 ]
 
@@ -98,12 +103,12 @@ DATABASES = {
 }
 
 ADMINS = [("Gottfried", "gottfriedcpn@gmail.com")]
-SERVER_EMAIL="sibijaksawards@gmail.com"
+SERVER_EMAIL = "sibijaksawards@gmail.com"
 
-EMAIL_HOST=env("EMAIL_HOST")
-EMAIL_PORT=env.int("EMAIL_PORT")
-EMAIL_HOST_USER=env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD=env("EMAIL_HOST_PASSWORD")
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env.int("EMAIL_PORT")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 
 # Password validation

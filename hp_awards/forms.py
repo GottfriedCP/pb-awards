@@ -1,7 +1,14 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV3
+
 from .models import Submisi, Reviewer, PolicyQuestion
+
+
+class FormCaptcha(forms.Form):
+    captcha = ReCaptchaField(widget=ReCaptchaV3)
 
 
 class FormPendaftaran(forms.ModelForm):

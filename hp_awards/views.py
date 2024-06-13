@@ -16,7 +16,7 @@ from django.db.models import (
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import FormPendaftaran, FormPenugasanJuri
+from .forms import FormPendaftaran, FormPenugasanJuri, FormCaptcha
 from .models import Pernyataan, Submisi, Reviewer
 
 
@@ -83,7 +83,12 @@ def policy_questions(request):
 
 def registrasi(request):
     form = FormPendaftaran()
+    form_captcha = FormCaptcha()
     if request.method == "POST":
+        form_captcha = FormCaptcha(request.POST)
+        if not form_captcha.is_valid():
+            messages.error(request, "Anda diduga Robot. Coba lagi lain waktu.")
+            return redirect("hp_awards:registrasi")
         form = FormPendaftaran(request.POST, request.FILES)
         if form.is_valid():
             submisi = form.save(commit=True)
@@ -106,6 +111,7 @@ def registrasi(request):
             return render(request, "hp_awards/registrasi_sukses.html", context)
     context = {
         "form": form,
+        "form_captcha": form_captcha,
         "form_has_errors": form.errors,
         "pernyataans": Pernyataan.objects.all(),
         "page_title": "home",
@@ -150,8 +156,15 @@ def list_submisi(request):
         context["submisis"] = submisis
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
 
+    form_captcha = FormCaptcha()
+    context["form_captcha"] = form_captcha
     if request.method == "POST":
         # handle POST dari form
+        # check captcha
+        form_captcha = FormCaptcha(request.POST)
+        if not form_captcha.is_valid():
+            messages.error(request, "Anda diduga Robot. Coba lagi lain waktu.")
+            return redirect("hp_awards:list_submisi")
         wa = request.POST.get("wa")
         email = request.POST.get("email")
         if Submisi.objects.filter(wa=wa, email=email).exists():

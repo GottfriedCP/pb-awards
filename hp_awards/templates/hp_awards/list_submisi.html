@@ -1,11 +1,12 @@
 {% extends 'hp_awards/BASE.html' %}
-{% load static %}
+{% load static django_bootstrap5 %}
 
 {% block title_bl %}Submisi{% endblock %}
 
 {% block body_bl %}
 <div class="container my-5">
     <h1>Login</h1>
+    {% bootstrap_messages %}
     {% if not request.user.is_authenticated %}
     <form class="mt-5" method="POST" style="max-width: 640px;">
         {% csrf_token %}
@@ -19,7 +20,7 @@
             <input required name="email" type="email" class="form-control" id="id_email">
             <!-- <div class="form-text">Penulis utama</div> -->
         </div>
-        
+        {{ form_captcha }}
         <button type="submit" class="btn btn-kemkes">Masuk</button>
     </form>
     {% endif %}
