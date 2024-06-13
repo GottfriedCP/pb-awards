@@ -5,7 +5,7 @@ from .models import Submisi, Reviewer, PolicyQuestion
 
 
 class FormPendaftaran(forms.ModelForm):
-    policy_question = forms.ModelMultipleChoiceField(
+    policy_question = forms.ModelChoiceField(
         queryset=PolicyQuestion.objects.order_by("id")
     )
 
