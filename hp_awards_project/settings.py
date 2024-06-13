@@ -97,6 +97,14 @@ DATABASES = {
     },
 }
 
+ADMINS = [("Gottfried", "gottfriedcpn@gmail.com")]
+SERVER_EMAIL="sibijaksawards@gmail.com"
+
+EMAIL_HOST=env("EMAIL_HOST")
+EMAIL_PORT=env.int("EMAIL_PORT")
+EMAIL_HOST_USER=env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD=env("EMAIL_HOST_PASSWORD")
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
