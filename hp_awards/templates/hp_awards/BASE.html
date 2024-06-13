@@ -119,26 +119,15 @@
                     <li class="nav-item {% if page_title == 'home' %}nav-item-active{% endif %}">
                         <a class="nav-link" aria-current="page" href="/">Beranda</a>
                     </li>
-                    <li class="nav-item dropdown {% if page_title == 'informasi' %}nav-item-active{% endif %}">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Informasi
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'hp_awards:syarat_peserta' %}">Ketentuan Peserta</a></li>
-                            <!-- <li><a class="dropdown-item" href="{% url 'hp_awards:policy_questions' %}"><i>Policy Questions</i></a></li> -->
-                            <li><a class="dropdown-item" href="{% url 'hp_awards:prinsip' %}">Prinsip</a></li>
-                            <li><a class="dropdown-item" href="{% url 'hp_awards:kontak' %}">Hubungi Kami</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'hp_awards:list_submisi' %}">Status Submisi</a></li>
-                        </ul>
+                    <li class="nav-item {% if page_title == '' %}nav-item-active{% endif %}">
+                        <a class="nav-link" aria-current="page" href="{% url 'hp_awards:kontak' %}">Hubungi Kami</a>
                     </li>
+                    
                     <!-- <li class="nav-item">
                         <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                     </li> -->
                 </ul>
+                <a class="btn btn-outline-kemkes" href="{% url 'hp_awards:list_submisi' %}">Login</a>
                 {% if not hide_registration_navbar and request.session.role != 'reviewer' %}
                 <a href="{% url 'hp_awards:registrasi' %}"
                     class="d-block btn btn-outline-kemkes mx-2 my-1 {% if page_title == 'umum' %}btn-kemkes{% endif %}">
