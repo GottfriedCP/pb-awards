@@ -250,9 +250,13 @@ class PolicyQuestion(TimestampedModel):
     judul = models.CharField(max_length=500)
     sumber = models.CharField(max_length=100, blank=True, null=True)
 
+    class Meta:
+        ordering = ["id"]
+
     def save(self, *args, **kwargs):
         judul = self.judul
-        self.judul = str(judul).upper()
+        # self.judul = str(judul).upper()
+        self.judul = judul[0].upper() + judul[1:].lower()
         super().save(*args, **kwargs)
 
     def __str__(self):
