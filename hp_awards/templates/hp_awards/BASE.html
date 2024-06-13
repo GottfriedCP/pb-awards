@@ -127,7 +127,9 @@
                         <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                     </li> -->
                 </ul>
+                {% if not request.user.is_authenticated %}
                 <a class="btn btn-outline-kemkes" href="{% url 'hp_awards:list_submisi' %}">Login</a>
+                {% endif %}
                 {% if not hide_registration_navbar and request.session.role != 'reviewer' %}
                 <a href="{% url 'hp_awards:registrasi' %}"
                     class="d-block btn btn-outline-kemkes mx-2 my-1 {% if page_title == 'umum' %}btn-kemkes{% endif %}">
