@@ -129,6 +129,8 @@
                 </ul>
                 {% if not request.user.is_authenticated %}
                 <a class="btn btn-outline-kemkes mx-3 my-1" href="{% url 'hp_awards:list_submisi' %}">Login</a>
+                {% else %}
+                <a class="btn btn-outline-kemkes mx-3 my-1" href="{% url 'hp_awards:list_submisi' %}">Status Submisi</a>
                 {% endif %}
                 {% if not hide_registration_navbar and request.session.role != 'reviewer' %}
                 <!-- <a href="{% url 'hp_awards:registrasi' %}"
