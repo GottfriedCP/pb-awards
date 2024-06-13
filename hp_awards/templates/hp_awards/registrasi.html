@@ -20,7 +20,7 @@
 {% block body_bl %}
 <div class="container my-5">
     <h1 id="oo">Pendaftaran Peserta</h1>
-    <div class="fs-5 mt-4">Sebelum mendaftar, pastikan sudah membaca <a class="color-kemkes" href="{% static 'pdf/pedoman.pdf' %}" target="_blank"><b>Pedoman</b></a></div>
+    <div class="fs-5 mt-4">Sebelum mendaftar, pastikan sudah membaca <a class="color-kemkes" href="{% static 'pdf/pedoman_sibijaks.pdf' %}" target="_blank"><b>Pedoman</b></a></div>
     {% if form_has_errors %}<span class="color-red">Terdapat kesalahan pengisian form. Cek teks merah</span>{% endif %}
     {{ form.non_field_errors }}
     <form method="POST" class="my-3 form-kemkes" enctype="multipart/form-data">

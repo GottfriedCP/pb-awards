@@ -254,9 +254,8 @@ class PolicyQuestion(TimestampedModel):
         ordering = ["id"]
 
     def save(self, *args, **kwargs):
-        judul = self.judul
-        # self.judul = str(judul).upper()
-        self.judul = judul[0].upper() + judul[1:].lower()
+        # judul = self.judul
+        # self.judul = judul[0].upper() + judul[1:].lower()
         super().save(*args, **kwargs)
 
     def __str__(self):
