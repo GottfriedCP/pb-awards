@@ -124,6 +124,9 @@
                             href="https://docs.google.com/document/d/1RbH3wAY3Dfq5oPT_N5o18x975uH7831B/edit?usp=drive_link&ouid=111238390503877472558&rtpof=true&sd=true">Unduh
                             Surat</a>
                     </li>
+                    <li class="nav-item {% if page_title == 'tentang' %}nav-item-active{% endif %}">
+                        <a class="nav-link" aria-current="page" href="{% url 'hp_awards:tentang' %}">Tentang Lomba</a>
+                    </li>
                     <li class="nav-item {% if page_title == 'informasi' %}nav-item-active{% endif %}">
                         <a class="nav-link" aria-current="page" href="{% url 'hp_awards:kontak' %}">Hubungi Kami</a>
                     </li>

@@ -61,6 +61,16 @@ def prinsip(request):
     )
 
 
+def tentang(request):
+    return render(
+        request,
+        "hp_awards/tentang.html",
+        {
+            "page_title": "tentang",
+        },
+    )
+
+
 def kontak(request):
     return render(
         request,
@@ -313,7 +323,9 @@ def login_view(request):
             login(request, user)
             request.session["role"] = "reviewer" if role == "reviewer" else "admin"
             # nama yg muncul pada navbar kanan atas
-            request.session["nama_bar"] = reviewer.username if role == "reviewer" else user.username
+            request.session["nama_bar"] = (
+                reviewer.username if role == "reviewer" else user.username
+            )
             request.session["username_reviewer"] = (
                 Reviewer.objects.get(username=username, passphrase=password).username
                 if role == "reviewer"
