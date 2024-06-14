@@ -43,8 +43,8 @@
                 {{ form.as_table }}
             </table>
 
-            <h3 class="mt-5">Kolaborator (Opsional)</h3>
-            <div>Masukkan identitas kolaborator yang berpartisipasi bersama Anda (jika ada)</div>
+            <h3 class="mt-5">Anggota Tim (Opsional)</h3>
+            <div>Masukkan identitas anggota tim yang berkontribusi (jika ada)</div>
             <div class="px-3 pb-3 mb-5" style="max-width: 1024px;">
                 <table class="mt-3 table table-sm table-borderless">
                     <thead>
@@ -56,13 +56,13 @@
                     </thead>
                     <tbody id="tbody-collab">
                         <tr class="tr-collab">
-                            <td><input type="text" class="form-control form-control-sm" name="kolab-nama" placeholder="Nama kolaborator"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="kolab-nama" placeholder="Nama anggota tim"></td>
                             <td><input type="text" class="form-control form-control-sm" name="kolab-wa" placeholder="08XXXXXXX"></td>
                             <td><input type="email" class="form-control form-control-sm" name="kolab-email" placeholder="email@email.com"></td>
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-sm btn-secondary" type="button" onclick="appendTr()">Tambah kolaborator lagi</button>
+                <button class="btn btn-sm btn-secondary" type="button" onclick="appendTr()">Tambah anggota tim lagi</button>
             </div>
             <!-- Recaptcha v3 -->
             {{ form_captcha }}
