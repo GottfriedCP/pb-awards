@@ -3,6 +3,14 @@
 
 {% block title_bl %}Submisi{% endblock %}
 
+{% block head_bl %}
+<style>
+    .div-table {
+        overflow-x: auto;
+    }
+</style>
+{% endblock %}
+
 {% block body_bl %}
 <div class="container my-5">
     <h1>Submisi</h1>
@@ -35,14 +43,12 @@
     {% endif %}
 
     {% if submisis %}
-    <div class="my-5">
+    <div class="my-5 div-table">
         <table id="datatable" class="table">
             <thead>
                 <tr>
                     <th>Judul</th>
                     <th>Nama Penulis Utama</th>
-                    <!-- <th>Afiliasi</th>
-                    <th>Pendidikan</th> -->
                     <th>Kategori</th>
                     <th>Tanggal Submisi</th>
                     <th>Status</th>
@@ -61,7 +67,7 @@
                     <!-- <td>{{ submisi.afiliasi }}</td>
                     <td>{{ submisi.get_pendidikan_display }}</td> -->
                     <td>{{ submisi.get_kategori_pendaftar_display }}</td>
-                    <td>{{ submisi.created_at|date:'d-m-Y' }}</td>
+                    <td>{{ submisi.created_at|date:'Y-m-d' }}</td>
                     <td>{{ submisi.get_status_display }}</td>
                     <td>{{ submisi.reviewers.count }}</td>
                     <td>{{ submisi.reviewer_menilai|default:'-' }}</td>
@@ -76,6 +82,20 @@
                 </tr>
                 {% endfor %}
             </tbody>
+            <!-- <tfoot>
+                <tr>
+                    <th>Judul</th>
+                    <th>Nama Penulis Utama</th>
+                    <th>Kategori</th>
+                    <th>Tanggal Submisi</th>
+                    <th>Status</th>
+                    <th>Jumlah Reviewer</th>
+                    <th>Reviewer Sudah Menilai</th>
+                    <th>Nilai</th>
+                    <th>Reviewer Sudah Menilai Semua</th>
+                    <th>Tindakan</th>
+                </tr>
+            </tfoot> -->
         </table>
     </div>
     {% else %}
@@ -89,7 +109,7 @@
     $('#datatable').DataTable({
         pageLength: 50,
         // lengthMenu: [100, 50, 25, 10],
-        // order: [],
+        order: [],
         searching: true,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/2.0.3/i18n/id.json',

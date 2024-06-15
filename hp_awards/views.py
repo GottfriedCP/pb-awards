@@ -144,7 +144,7 @@ def list_submisi(request):
                 "penilaians", filter=Q(penilaians__string_nilai1__isnull=False)
             )
         )
-        context["submisis"] = submisis.all().order_by("kategori_pendaftar")
+        context["submisis"] = submisis.all().order_by("-created_at", "kategori_pendaftar")
         return render(request, "hp_awards/list_submisi_admin.html", context)
 
     # jika user adalah peserta
