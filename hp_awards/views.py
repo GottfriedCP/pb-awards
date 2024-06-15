@@ -18,6 +18,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import FormPendaftaran, FormPenugasanJuri, FormCaptcha
 from .models import Pernyataan, Submisi, Reviewer
+from .helpers import send_welcome_email_async
 
 
 def home(request):
@@ -119,6 +120,7 @@ def registrasi(request):
                 "wa": submisi.wa,
                 "email": submisi.email,
             }
+            send_welcome_email_async(submisi=submisi)
             return render(request, "hp_awards/registrasi_sukses.html", context)
     context = {
         "form": form,
@@ -144,7 +146,9 @@ def list_submisi(request):
                 "penilaians", filter=Q(penilaians__string_nilai1__isnull=False)
             )
         )
-        context["submisis"] = submisis.all().order_by("-created_at", "kategori_pendaftar")
+        context["submisis"] = submisis.all().order_by(
+            "-created_at", "kategori_pendaftar"
+        )
         return render(request, "hp_awards/list_submisi_admin.html", context)
 
     # jika user adalah peserta
