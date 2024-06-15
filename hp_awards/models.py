@@ -182,7 +182,7 @@ class Submisi(TimestampedModel):
     IN_REVIEW = "review"
     GUGUR = "gugur"
     STATUS_CHOICES = {
-        TUNGGU: "Menunggu Verifikasi",
+        TUNGGU: "Menunggu Review",
         IN_REVIEW: "Dalam Review",
         GUGUR: "Gugur",
     }
