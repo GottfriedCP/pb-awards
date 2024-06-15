@@ -20,7 +20,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+
+def _throw_error(request):
+    raise Exception("exception raised.")
+
+
 urlpatterns = [
+    path("try-err/", _throw_error),
     path("admin-sibijaks/", admin.site.urls),
     path("", include("hp_awards.urls")),
 ]
