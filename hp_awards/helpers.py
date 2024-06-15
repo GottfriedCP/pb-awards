@@ -9,8 +9,7 @@ def send_welcome_email(submisi):
     recipient_list = [submisi.email]
 
     context = {
-        "wa": submisi.wa,
-        "email": submisi.email,
+        "submisi": submisi,
     }
 
     html_content = render_to_string("hp_awards/mail/welcome.html", context)

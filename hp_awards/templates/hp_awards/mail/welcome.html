@@ -8,16 +8,17 @@
 </head>
 
 <body style="font-family: 'Poppins', sans-serif; font-weight: 400; font-style: normal;">
-    <div style="margin: 1rem;">
+    <div style="margin: 0 1rem;">
         <h1>Submisi abstrak berhasil</h1>
+        <div style="margin-bottom: 9px;">Yth. Bapak/Ibu {{ submisi.nama }},</div>
         Terima kasih telah mendaftar dalam SiBijaKs Awards 2024 sebagai peserta.<br>
         Gunakan nomor WA dan email Anda untuk melihat status submisi.
         <dl>
             <dt>No WA Anda:</dt>
-            <dd><b>{{ wa }}</b></dd>
+            <dd><b>{{ submisi.wa }}</b></dd>
 
             <dt>Email Anda:</dt>
-            <dd><b>{{ email }}</b></dd>
+            <dd><b>{{ submisi.email }}</b></dd>
         </dl><br>
         <p><a href="https://lombapb.bkpk.kemkes.go.id{% url 'hp_awards:list_submisi' %}">Lihat status submisi</a></p>
 
