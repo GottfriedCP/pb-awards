@@ -64,6 +64,6 @@ def kirim_pertanyaan_pengunjung(nama: str, email: str, pertanyaan: str):
         thread = threading.Thread(target=_send, args=(nama, email, pertanyaan))
         thread.start()
     except Exception as e:
-        print(e)
+        # print(e)
         return False
     return True
