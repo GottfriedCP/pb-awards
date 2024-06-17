@@ -85,3 +85,10 @@ class ReviewerForm(forms.ModelForm):
         if duplicate_found and self.instance.pk is None:
             raise ValidationError("Reviewer dengan username yang sama sudah ada.")
         return username
+
+
+class FormKontak(forms.Form):
+    nama = forms.CharField(label="Nama", max_length=150, required=True)
+    email = forms.EmailField(required=True, max_length=50, help_text="Kami akan merespon ke alamat email ini")
+    wa = forms.CharField(label="Nomor WA", max_length=20, required=False)
+    pertanyaan = forms.CharField(required=True, widget=forms.Textarea)

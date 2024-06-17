@@ -16,9 +16,9 @@ from django.db.models import (
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import FormPendaftaran, FormPenugasanJuri, FormCaptcha
+from .forms import FormPendaftaran, FormPenugasanJuri, FormCaptcha, FormKontak
 from .models import Pernyataan, Submisi, Reviewer
-from .helpers import send_welcome_email_async
+from .helpers import send_welcome_email_async, kirim_pertanyaan_pengunjung
 
 
 def home(request):
@@ -73,13 +73,24 @@ def tentang(request):
 
 
 def kontak(request):
-    return render(
-        request,
-        "hp_awards/kontak.html",
-        {
-            "page_title": "informasi",
-        },
-    )
+    form = FormKontak()
+    form_captcha = FormCaptcha()
+    if request.method == "POST":
+        form_captcha = FormCaptcha(request.POST)
+        form = FormKontak(request.POST)
+        if form_captcha.is_valid() and form.is_valid():
+            nama = form.cleaned_data["nama"]
+            email = form.cleaned_data["email"]
+            pertanyaan = form.cleaned_data["pertanyaan"]
+            kirim_pertanyaan_pengunjung(nama, email, pertanyaan)
+            messages.info(request, "Pertanyaan Anda berhasil dikirim")
+    
+    context = {
+        "page_title": "informasi",
+        "form": form,
+        "form_captcha": form_captcha,
+    }
+    return render(request, "hp_awards/kontak.html", context)
 
 
 def policy_questions(request):

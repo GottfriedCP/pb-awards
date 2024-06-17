@@ -1,13 +1,14 @@
 {% extends 'hp_awards/BASE.html' %}
-{% load static %}
+{% load static django_bootstrap5 %}
 
 {% block title_bl %}Kontak{% endblock %}
 
 {% block body_bl %}
 <div class="container my-5">
+    <h1>Hubungi Kami</h1>
+    {% bootstrap_messages %}
     <div class="row">
         <div class="col-md-3">
-            <h1>Hubungi Kami</h1>
             <!-- <div class="mt-4">
         Badan Kebijakan Pembangunan Kesehatan (BKPK)<br>
         Kementerian Kesehatan RI<br>
@@ -29,11 +30,14 @@
             </dl>
         </div>
         <div class="col-md-9">
-            <!-- <div class="d-flex justify-content-center">
-                <iframe
-                    src="https://docs.google.com/forms/d/e/1FAIpQLSd-r6vXqGWfkqUQDHydOB7qPjKnDngItbw6YtpvIncSWjcpZQ/viewform?embedded=true"
-                    width="640" height="960" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-            </div> -->
+            <div class="d-flex justify-content-center px-3">
+                <form method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {{ form_captcha }}
+                    <button type="submit" class="btn btn-kemkes mt-3">Kirim</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
