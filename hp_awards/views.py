@@ -84,6 +84,7 @@ def kontak(request):
             pertanyaan = form.cleaned_data["pertanyaan"]
             kirim_pertanyaan_pengunjung(nama, email, pertanyaan)
             messages.info(request, "Pertanyaan Anda berhasil dikirim")
+            form = None
     
     context = {
         "page_title": "informasi",

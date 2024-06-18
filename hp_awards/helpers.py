@@ -40,7 +40,11 @@ def send_welcome_email_async(submisi):
 def kirim_pertanyaan_pengunjung(nama: str, email: str, pertanyaan: str):
     def _send(nama, email, pertanyaan):
         # recipient_list = ["sibijaksawards@gmail.com"]
-        recipient_list = ["gottfriedcpn@gmail.com"]
+        recipient_list = [
+            "sibijaksawards@gmail.com",
+            "healthpolicyawards@gmail.com",
+            "gottfriedcpn@gmail.com",
+        ]
 
         # context = {}
 

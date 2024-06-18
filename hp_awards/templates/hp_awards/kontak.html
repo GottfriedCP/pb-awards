@@ -31,12 +31,14 @@
         </div>
         <div class="col-md-9">
             <div class="d-flex justify-content-center px-3">
+                {% if form %}
                 <form method="POST">
                     {% csrf_token %}
                     {% bootstrap_form form %}
                     {{ form_captcha }}
                     <button type="submit" class="btn btn-kemkes mt-3">Kirim</button>
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>
