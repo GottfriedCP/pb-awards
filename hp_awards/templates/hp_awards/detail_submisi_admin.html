@@ -21,12 +21,16 @@
 <div class="container my-5">
     <h1>Submisi</h1>
     <h3>"{{ submisi.judul_pb }}"</h3>
+    <h6 class="mt-3">Oleh: <b>{{ submisi.nama }}</b></h6>
     <div class="row my-5">
         <div class="col">
             <dl>
                 <dt>Status</dt>
                 <dd><span class="badge text-bg-info">{{ submisi.get_status_display }}</span></dd>
-        
+                
+                <dt>Kode Submisi</dt>
+                <dd><code>{{ submisi.kode_submisi }}</code></dd>
+
                 <dt>Waktu submisi</dt>
                 <dd>{{ submisi.created_at|date:'d-m-Y, H:m' }}</dd>
         
@@ -78,7 +82,7 @@
         </div>
     </section>
     <section class="my-5">
-        <h2>Kolaborator</h2>
+        <h2>Anggota Tim</h2>
         {% if not submisi.kolaborators.exists %}
         Kategori individu (Peserta tunggal)
         {% else %}
@@ -103,10 +107,12 @@
         {% endif %}
     </section>
     <hr class="hr-kemkes">
+    <!-- ADMIN/PANITIA -->
+    <h1 class="fs-3 color-kemkes text-center">Menu Admin/Panitia Lomba</h1>
     {% if request.user.is_staff and submisi.status != submisi_class.GUGUR %}
-    <section id="assign-reviewer" class="my-5">
+    <section id="assign-reviewer" class="mb-5">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-9 mt-5">
                 <h2>Tugaskan Juri/Reviewer</h2>
                 <form method="POST" action="{% url 'hp_awards:set_reviewer' submisi.kode_submisi %}">
                     {% csrf_token %}
@@ -114,8 +120,10 @@
                     <button class="btn btn-kemkes" type="submit">Tetapkan</button>
                 </form>
             </div>
-            <div class="col-md-2" style="position: relative;">
-                <form method="POST" action="{% url 'hp_awards:set_gugur' %}" style="position: absolute; bottom: 1%;">
+            <div class="col-md-3 mt-5">
+                <h2>Gugurkan Submisi</h2>
+                <p>Tekan tombol di bawah untuk menggugurkan submisi</p>
+                <form method="POST" action="{% url 'hp_awards:set_gugur' %}">
                     {% csrf_token %}
                     <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
                     <button class="btn btn-danger" type="submit">Gugurkan Submisi</button>
@@ -127,58 +135,62 @@
     {% if submisi.penilaians.exists %}
     <section class="mb-4">
         <h5 class="mb-4">Daftar Juri Ditugaskan</h5>
-        <table class="mb-4 table table-sm" style="max-width: 720px;">
-            <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>Nilai Inovatif</th>
-                    <th>Nilai Aplikatif</th>
-                    <th>Nilai Kritis</th>
-                    <th>Total Nilai Abstrak</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for p in submisi.penilaians.all %}
-                <tr>
-                    <td>{{ p.reviewer.nama }}</td>
-                    {% for i in p.get_nilai1_list %}
-                    <td>{{ i|default:'-' }}</td>
+        <div class="div-table">
+            <table class="mb-4 table table-sm" style="max-width: 720px;">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Nilai Inovatif</th>
+                        <th>Nilai Aplikatif</th>
+                        <th>Nilai Kritis</th>
+                        <th>Total Nilai Abstrak</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in submisi.penilaians.all %}
+                    <tr>
+                        <td>{{ p.reviewer.nama }}</td>
+                        {% for i in p.get_nilai1_list %}
+                        <td>{{ i|default:'-' }}</td>
+                        {% endfor %}
+                        <td>{{ p.nilai1 }}</td>
+                    </tr>
                     {% endfor %}
-                    <td>{{ p.nilai1 }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </section>
     <hr class="hr-kemkes">
     {% endif %}
 
     <section>
         <h5 class="mb-4">Daftar Seluruh Juri yang Tersedia di Sistem</h5>
-        <table id="table-reviewer" class="table table-sm table-borderless">
-            <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>Jabatan</th>
-                    <th>Instansi</th>
-                    <th>Kategori Juri</th>
-                    <th>Kepakaran</th>
-                    <th>Submisi Ditugaskan</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for r in reviewers %}
-                <tr>
-                    <td>{{ r.nama }}</td>
-                    <td>{{ r.jabatan }}</td>
-                    <td>{{ r.instansi }}</td>
-                    <td>{{ r.get_kategori_display }}</td>
-                    <td>{{ r.kepakaran|default:'-' }}</td>
-                    <td>{{ r.submisis.count }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="div-table" style="overflow-x: auto;">
+            <table id="table-reviewer" class="table table-sm table-borderless">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Jabatan</th>
+                        <th>Instansi</th>
+                        <th>Kategori Juri</th>
+                        <th>Kepakaran</th>
+                        <th>Submisi Ditugaskan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in reviewers %}
+                    <tr>
+                        <td>{{ r.nama }}</td>
+                        <td>{{ r.jabatan }}</td>
+                        <td>{{ r.instansi }}</td>
+                        <td>{{ r.get_kategori_display }}</td>
+                        <td>{{ r.kepakaran|default:'-' }}</td>
+                        <td>{{ r.submisis.count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </section>
     {% endif %}
 </div>

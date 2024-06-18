@@ -220,7 +220,8 @@ def detail_submisi(request, id_submisi):
     if request.user.is_staff:
         context["form_penugasan_juri"] = FormPenugasanJuri(instance=submisi)
         context["reviewers"] = Reviewer.objects.all().order_by("nama")
-        # NOTE handle post di view func lain
+        return render(request, "hp_awards/detail_submisi_admin.html", context)
+        # NOTE handle POST penugasan juri di view func lain
     if request.session.get("role", False) == "reviewer":
         return render(request, "hp_awards/detail_submisi_reviewer.html", context)
     if request.session.get("role", False) == "admin":
@@ -335,6 +336,7 @@ def login_view(request):
         else:
             # masuk sebagai admin
             user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             login(request, user)
             request.session["role"] = "reviewer" if role == "reviewer" else "admin"
