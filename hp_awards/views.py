@@ -336,6 +336,7 @@ def unduh_hasil_penilaian_abstrak(request):
                 "Nilai Rata-rata",
             ]
         )
+        header_row.extend(["Policy Question"])
         ws.append(header_row)
 
         for s in submisis:
@@ -357,6 +358,15 @@ def unduh_hasil_penilaian_abstrak(request):
                         else "Belum"
                     ),
                     s.total_skor_abstrak or "-",
+                ]
+            )
+            row.extend(
+                [
+                    (
+                        f"LAINNYA: {s.policy_question_custom}"
+                        if s.policy_question.pk == 1
+                        else str(s.policy_question)
+                    )
                 ]
             )
             ws.append(row)
@@ -383,9 +393,15 @@ def login_view(request):
             if role == "reviewer":
                 # masuk sebagai reviewer
                 # cek apa ada Reviewer dengan u dan p yang sudah ada
-                if Reviewer.objects.filter(username=username, passphrase=password).exists():
-                    reviewer = Reviewer.objects.get(username=username, passphrase=password)
-                    user = authenticate(request, username="reviewer", password="reviewer")
+                if Reviewer.objects.filter(
+                    username=username, passphrase=password
+                ).exists():
+                    reviewer = Reviewer.objects.get(
+                        username=username, passphrase=password
+                    )
+                    user = authenticate(
+                        request, username="reviewer", password="reviewer"
+                    )
                 else:
                     messages.error(request, "Username atau password juri salah")
                     return redirect("hp_awards:login")
@@ -401,7 +417,9 @@ def login_view(request):
                     reviewer.username if role == "reviewer" else user.username
                 )
                 request.session["username_reviewer"] = (
-                    Reviewer.objects.get(username=username, passphrase=password).username
+                    Reviewer.objects.get(
+                        username=username, passphrase=password
+                    ).username
                     if role == "reviewer"
                     else None
                 )
