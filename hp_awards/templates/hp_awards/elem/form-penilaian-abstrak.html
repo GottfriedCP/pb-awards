@@ -1,45 +1,58 @@
 <form method="POST" action="{% url 'hp_awards:set_nilai_abstrak' %}">
     {% csrf_token %}
     <input type="hidden" name="id_submisi" value="{{ submisi.kode_submisi }}">
-    <table class="table">
+    <table id="table-skor-abstrak" class="table table-hover table-bordered mb-5">
         <thead>
             <tr>
-                <th>Item Penilaian</th>
-                <th>Penjelasan Item</th>
-                <th>Nilai</th>
+                <th rowspan="2" class="cell-center">Item Penilaian</th>
+                <th colspan="5" class="text-center">Nilai (Skala Likert)</th>
+            </tr>
+            <tr>
+                <th style="width: 100px;">Tertinggi</th>
+                <th style="width: 100px;"></th>
+                <th style="width: 100px;"></th>
+                <th style="width: 100px;"></th>
+                <th style="width: 100px;">Terendah</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Inovatif</td>
-                <td>Ide/gagasan memuat hal baru dalam menyelesaikan masalah yang ditemukan</td>
+                <td><b>Inovatif</b><br>Ide/gagasan memuat hal baru dalam menyelesaikan masalah yang ditemukan</td>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="5" name="inovatif" id="idinovatif1">
+                        <input class="form-check-input" type="radio" value="30" name="inovatif" id="idinovatif1">
                         <label class="form-check-label" for="idinovatif1">
                             5
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="4" name="inovatif" id="idinovatif2">
+                        <input class="form-check-input" type="radio" value="24" name="inovatif" id="idinovatif2">
                         <label class="form-check-label" for="idinovatif2">
                             4
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="3" name="inovatif" id="idinovatif3">
+                        <input class="form-check-input" type="radio" value="18" name="inovatif" id="idinovatif3">
                         <label class="form-check-label" for="idinovatif3">
                             3
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="2" name="inovatif" id="idinovatif4">
+                        <input class="form-check-input" type="radio" value="12" name="inovatif" id="idinovatif4">
                         <label class="form-check-label" for="idinovatif4">
                             2
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="1" name="inovatif" id="idinovatif5" checked>
+                        <input class="form-check-input" type="radio" value="6" name="inovatif" id="idinovatif5" checked>
                         <label class="form-check-label" for="idinovatif5">
                             1
                         </label>
@@ -47,35 +60,42 @@
                 </td>
             </tr>
             <tr>
-                <td>Aplikatif</td>
-                <td>Ide/gagasan dapat diimplementasikan</td>
+                <td><b>Aplikatif</b><br>Ide/gagasan dapat diimplementasikan</td>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="5" name="aplikatif" id="idaplikatif1">
+                        <input class="form-check-input" type="radio" value="40" name="aplikatif" id="idaplikatif1">
                         <label class="form-check-label" for="idaplikatif1">
                             5
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="4" name="aplikatif" id="idaplikatif2">
+                        <input class="form-check-input" type="radio" value="32" name="aplikatif" id="idaplikatif2">
                         <label class="form-check-label" for="idaplikatif2">
                             4
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="3" name="aplikatif" id="idaplikatif3">
+                        <input class="form-check-input" type="radio" value="24" name="aplikatif" id="idaplikatif3">
                         <label class="form-check-label" for="idaplikatif3">
                             3
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="2" name="aplikatif" id="idaplikatif4">
+                        <input class="form-check-input" type="radio" value="16" name="aplikatif" id="idaplikatif4">
                         <label class="form-check-label" for="idaplikatif4">
                             2
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="1" name="aplikatif" id="idaplikatif5" checked>
+                        <input class="form-check-input" type="radio" value="8" name="aplikatif" id="idaplikatif5" checked>
                         <label class="form-check-label" for="idaplikatif5">
                             1
                         </label>
@@ -83,35 +103,42 @@
                 </td>
             </tr>
             <tr>
-                <td>Kritis</td>
-                <td>Ide/gagasan berisi telaah kritis suatu permasalahan yang aktual sesuai tema dan policy question</td>
+                <td><b>Kritis</b><br>Ide/gagasan berisi telaah kritis suatu permasalahan yang aktual sesuai tema dan policy question</td>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="5" name="kritis" id="idkritis1">
+                        <input class="form-check-input" type="radio" value="30" name="kritis" id="idkritis1">
                         <label class="form-check-label" for="idkritis1">
                             5
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="4" name="kritis" id="idkritis2">
+                        <input class="form-check-input" type="radio" value="24" name="kritis" id="idkritis2">
                         <label class="form-check-label" for="idkritis2">
                             4
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="3" name="kritis" id="idkritis3">
+                        <input class="form-check-input" type="radio" value="18" name="kritis" id="idkritis3">
                         <label class="form-check-label" for="idkritis3">
                             3
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="2" name="kritis" id="idkritis4">
+                        <input class="form-check-input" type="radio" value="12" name="kritis" id="idkritis4">
                         <label class="form-check-label" for="idkritis4">
                             2
                         </label>
                     </div>
+                </td>
+                <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="1" name="kritis" id="idkritis5" checked>
+                        <input class="form-check-input" type="radio" value="6" name="kritis" id="idkritis5" checked>
                         <label class="form-check-label" for="idkritis5">
                             1
                         </label>
@@ -120,9 +147,32 @@
             </tr>
         </tbody>
     </table>
+    <div class="mb-5 fs-5" id="skor-total">
+        Total Skor = 
+    </div>
     <span class="fs-5" style="color: red;">Penilaian yang sudah diberikan <b>tidak dapat diubah</b>. Mohon cek kembali
         isian Bapak/Ibu sebelum melanjutkan</span>
     <div class="d-grid gap-2">
         <button class="mt-3 btn btn-kemkes" type="submit">Simpan Penilaian</button>
     </div>
 </form>
+
+<script>
+    $(document).ready(function () {
+
+        // Function to calculate the sum of radio values
+        function calculateSum() {
+            var sum = 0;
+            $("#table-skor-abstrak input:radio:checked").each(function () {
+                sum += parseInt($(this).val(), 10);
+            });
+            return `Total Skor = ${sum}`;
+        }
+
+        // Update the sum on page load and whenever a radio button is clicked
+        $("#skor-total").text(calculateSum());
+        $("#table-skor-abstrak input:radio").click(function () {
+            $("#skor-total").text(calculateSum());
+        });
+    });
+</script>

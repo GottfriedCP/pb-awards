@@ -11,7 +11,7 @@
     </div>
     <h3>"{{ submisi.judul_pb }}"</h3>
     <section class="my-5">
-        <h5><i>Policy Question</i> yang dipilih peserta</h5>
+        <h5>guna menjawab <i>Policy Question</i> sebagai berikut:</h5>
         {% if submisi.policy_question.pk == 1 %}LAINNYA: <br>
         {% endif %}
         {{ submisi.policy_question_custom }}
@@ -25,8 +25,7 @@
     
     <hr class="hr-kemkes">
     <section>
-        <h3>Form Penilaian Judul dan Abstrak</h3>
-        <p class="text-center">5 = tertinggi, 1 = terendah</p>
+        <h3 class="text-center my-5">Form Penilaian Judul dan Abstrak</h3>
         {% include 'hp_awards/elem/form-penilaian-abstrak.html' %}
     </section>
 </div>

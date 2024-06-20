@@ -15,31 +15,12 @@
 <div class="container my-5">
     <h1>Submisi</h1>
     {% if request.user.is_staff %}
-    <!-- <div>
-        <h3>Laporan Submisi</h3>
-        <table class="table table-sm table-borderless" style="max-width: 320px;">
-            <tr>
-                <th>Total submisi masuk</th>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th>- Umum</th>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th>- Mahasiswa S1</th>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th>- Mahasiswa S2</th>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-        </table>
-    </div> -->
+    <div class="d-flex justify-content-start flex-wrap">
+        <form class="m-3" method="POST" action="{% url 'hp_awards:unduh_nilai_abstrak' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-kemkes">Unduh Hasil Penilaian Abstrak</button>
+        </form>
+    </div>
     {% endif %}
 
     {% if submisis %}

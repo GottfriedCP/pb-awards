@@ -1,20 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import (
-    Avg,
-    Count,
-    Min,
-    Sum,
-    Case,
-    When,
-    BooleanField,
-    IntegerField,
-    ExpressionWrapper,
-    Q,
-)
+from django.db.models import Avg, Count, Q
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
+
+from openpyxl import Workbook
 
 from .forms import FormPendaftaran, FormPenugasanJuri, FormCaptcha, FormKontak
 from .models import Pernyataan, Submisi, Reviewer
@@ -85,7 +77,7 @@ def kontak(request):
             kirim_pertanyaan_pengunjung(nama, email, pertanyaan)
             messages.info(request, "Pertanyaan Anda berhasil dikirim")
             form = None
-    
+
     context = {
         "page_title": "informasi",
         "form": form,
@@ -147,7 +139,7 @@ def registrasi(request):
 
 def list_submisi(request):
     context = {
-        "page_title": "informasi",
+        "page_title": "",
     }
     # jika user adalah staf/admin
     if request.user.is_staff:
@@ -316,6 +308,67 @@ def tetapkan_nilai(request):
     return redirect("hp_awards:list_submisi")
 
 
+@login_required
+def unduh_hasil_penilaian_abstrak(request):
+    if request.method == "POST":
+        submisis = Submisi.objects.prefetch_related(
+            "reviewers", "penilaians", "kolaborators"
+        )
+        submisis = submisis.annotate(total_skor_abstrak=Avg("penilaians__nilai1"))
+        submisis = submisis.annotate(
+            reviewer_menilai=Count(
+                "penilaians", filter=Q(penilaians__string_nilai1__isnull=False)
+            )
+        )
+        submisis = submisis.all().order_by("-created_at", "kategori_pendaftar")
+
+        wb = Workbook()
+        ws = wb.active
+
+        # Judul kolom
+        header_row = ["Judul", "Penulis Utama", "Kategori", "Individu/Tim"]
+        header_row.extend(["Tanggal Submisi", "Status"])
+        header_row.extend(
+            [
+                "Jumlah Juri",
+                "Juri Sudah Menilai",
+                "Penilaian Lengkap",
+                "Nilai Rata-rata",
+            ]
+        )
+        ws.append(header_row)
+
+        for s in submisis:
+            row = [
+                s.judul_pb,
+                s.nama,
+                s.get_kategori_pendaftar_display(),
+                "Tim" if s.kolaborators.exists() else "Individu",
+            ]
+            row.extend([timezone.make_naive(s.created_at), s.get_status_display()])
+            row.extend(
+                [
+                    s.reviewers.count(),
+                    s.reviewer_menilai or "-",
+                    (
+                        "Ya"
+                        if s.reviewers.count() == s.reviewer_menilai
+                        and s.reviewers.count() > 0
+                        else "Belum"
+                    ),
+                    s.total_skor_abstrak or "-",
+                ]
+            )
+            ws.append(row)
+        response = HttpResponse(content_type="application/vnd.ms-excel")
+        response["Content-Disposition"] = (
+            "attachment; filename=hasil_nilai_abstrak.xlsx"
+        )
+
+        wb.save(response)
+        return response
+
+
 def login_view(request):
     if request.user.is_authenticated:
         return redirect("hp_awards:home")
@@ -336,7 +389,7 @@ def login_view(request):
         else:
             # masuk sebagai admin
             user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
             login(request, user)
             request.session["role"] = "reviewer" if role == "reviewer" else "admin"
