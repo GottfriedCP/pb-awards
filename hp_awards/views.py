@@ -372,41 +372,44 @@ def unduh_hasil_penilaian_abstrak(request):
 def login_view(request):
     if request.user.is_authenticated:
         return redirect("hp_awards:home")
+    form_captcha = FormCaptcha()
     user = None
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        role = request.POST["role"]
-        if role == "reviewer":
-            # masuk sebagai reviewer
-            # cek apa ada Reviewer dengan u dan p yang sudah ada
-            if Reviewer.objects.filter(username=username, passphrase=password).exists():
-                reviewer = Reviewer.objects.get(username=username, passphrase=password)
-                user = authenticate(request, username="reviewer", password="reviewer")
+        form_captcha = FormCaptcha(request.POST)
+        if form_captcha.is_valid():
+            username = request.POST["username"]
+            password = request.POST["password"]
+            role = request.POST["role"]
+            if role == "reviewer":
+                # masuk sebagai reviewer
+                # cek apa ada Reviewer dengan u dan p yang sudah ada
+                if Reviewer.objects.filter(username=username, passphrase=password).exists():
+                    reviewer = Reviewer.objects.get(username=username, passphrase=password)
+                    user = authenticate(request, username="reviewer", password="reviewer")
+                else:
+                    messages.error(request, "Username atau password juri salah")
+                    return redirect("hp_awards:login")
             else:
-                messages.error(request, "Username atau password juri salah")
-                return redirect("hp_awards:login")
-        else:
-            # masuk sebagai admin
-            user = authenticate(request, username=username, password=password)
+                # masuk sebagai admin
+                user = authenticate(request, username=username, password=password)
 
-        if user is not None:
-            login(request, user)
-            request.session["role"] = "reviewer" if role == "reviewer" else "admin"
-            # nama yg muncul pada navbar kanan atas
-            request.session["nama_bar"] = (
-                reviewer.username if role == "reviewer" else user.username
-            )
-            request.session["username_reviewer"] = (
-                Reviewer.objects.get(username=username, passphrase=password).username
-                if role == "reviewer"
-                else None
-            )
-            return redirect("hp_awards:list_submisi")
-        else:
-            return HttpResponse("Basic admin user not found")
+            if user is not None:
+                login(request, user)
+                request.session["role"] = "reviewer" if role == "reviewer" else "admin"
+                # nama yg muncul pada navbar kanan atas
+                request.session["nama_bar"] = (
+                    reviewer.username if role == "reviewer" else user.username
+                )
+                request.session["username_reviewer"] = (
+                    Reviewer.objects.get(username=username, passphrase=password).username
+                    if role == "reviewer"
+                    else None
+                )
+                return redirect("hp_awards:list_submisi")
+            else:
+                return HttpResponse("Basic admin user not found")
 
-    return render(request, "hp_awards/login.html")
+    return render(request, "hp_awards/login.html", {"form_captcha": form_captcha})
 
 
 def logout_view(request):
