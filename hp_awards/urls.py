@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import views_htmx
 
 app_name = "hp_awards"
 urlpatterns = [
@@ -22,7 +23,13 @@ urlpatterns = [
     ),
     path("submisi-set-gugur/", views.gugur_submisi, name="set_gugur"),
     path("submisi-set-nilai-abstrak/", views.tetapkan_nilai, name="set_nilai_abstrak"),
-    path("unduh-nilai-abstrak/", views.unduh_hasil_penilaian_abstrak, name="unduh_nilai_abstrak"),
+    path(
+        "unduh-nilai-abstrak/",
+        views.unduh_hasil_penilaian_abstrak,
+        name="unduh_nilai_abstrak",
+    ),
     path("login/", views.login_view, name="login"),
     path("logout/", views.logout_view, name="logout"),
+    # HTMX views response
+    path("hx/get-stats/", views_htmx.get_stats, name="hx_get_stats"),
 ]

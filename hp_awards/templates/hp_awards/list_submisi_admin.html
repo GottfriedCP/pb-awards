@@ -15,6 +15,8 @@
 <div class="container my-5">
     <h1>Submisi</h1>
     {% if request.user.is_staff %}
+    <div id="div-stats" hx-get="{% url 'hp_awards:hx_get_stats' %}" hx-trigger="load">
+    </div>
     <div class="d-flex justify-content-start flex-wrap">
         <form class="m-3" method="POST" action="{% url 'hp_awards:unduh_nilai_abstrak' %}">
             {% csrf_token %}
