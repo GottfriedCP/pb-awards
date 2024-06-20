@@ -31,6 +31,7 @@
                     <th>Judul</th>
                     <th>Nama Penulis Utama</th>
                     <th>Kategori</th>
+                    <th>Individu/Tim</th>
                     <th>Tanggal Submisi</th>
                     <th>Status</th>
                     <th>Jumlah Reviewer</th>
@@ -48,6 +49,7 @@
                     <!-- <td>{{ submisi.afiliasi }}</td>
                     <td>{{ submisi.get_pendidikan_display }}</td> -->
                     <td>{{ submisi.get_kategori_pendaftar_display }}</td>
+                    <td>{% if submisi.kolaborators.exists %}Tim{% else %}Individu{% endif %}</td>
                     <td>{{ submisi.created_at|date:'Y-m-d' }}</td>
                     <td>{{ submisi.get_status_display }}</td>
                     <td>{{ submisi.reviewers.count }}</td>
