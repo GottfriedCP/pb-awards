@@ -384,7 +384,7 @@ def unduh_hasil_penilaian_abstrak(request):
             ws.append(row)
         response = HttpResponse(content_type="application/vnd.ms-excel")
         response["Content-Disposition"] = (
-            "attachment; filename=hasil_nilai_abstrak.xlsx"
+            f"attachment; filename=hasil_nilai_abstrak-{str(timezone.localtime())}.xlsx"
         )
 
         wb.save(response)
