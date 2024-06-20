@@ -16,6 +16,12 @@
         
                 <dt>Waktu submisi</dt>
                 <dd>{{ submisi.created_at|date:'d-m-Y, H:m' }}</dd>
+
+                <dt>Nomor WA</dt>
+                <dd>{{ submisi.wa }}</dd>
+
+                <dt>Email</dt>
+                <dd>{{ submisi.email }}</dd>
         
                 {% if submisi.kategori_pendaftar == 'umum' %}
                 <dt>Pendidikan</dt>

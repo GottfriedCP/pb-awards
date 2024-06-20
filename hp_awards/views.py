@@ -327,6 +327,9 @@ def unduh_hasil_penilaian_abstrak(request):
 
         # Judul kolom
         header_row = ["Judul", "Penulis Utama", "Kategori", "Individu/Tim"]
+        header_row.extend(
+            ["WA", "Email", "Pekerjaan", "Instansi / Perguruan Tinggi", "Pendidikan"]
+        )
         header_row.extend(["Tanggal Submisi", "Status"])
         header_row.extend(
             [
@@ -346,6 +349,15 @@ def unduh_hasil_penilaian_abstrak(request):
                 s.get_kategori_pendaftar_display(),
                 "Tim" if s.kolaborators.exists() else "Individu",
             ]
+            row.extend(
+                [
+                    s.wa,
+                    s.email,
+                    s.pekerjaan or "-",
+                    s.afiliasi or "-",
+                    s.pendidikan or "-",
+                ]
+            )
             row.extend([timezone.make_naive(s.created_at), s.get_status_display()])
             row.extend(
                 [
