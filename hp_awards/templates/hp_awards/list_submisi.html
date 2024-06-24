@@ -29,36 +29,11 @@
     </form>
     {% endif %}
 
-    {% if request.user.is_staff %}
-    <div>
-        <h3>Laporan Submisi</h3>
-        <table class="table table-sm table-borderless" style="max-width: 320px;">
-            <tr>
-                <th>Total submisi masuk</th>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th>- Umum</th>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th>- Mahasiswa S1</th>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th>- Mahasiswa S2</th>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-        </table>
-    </div>
-    {% endif %}
-
     {% if submisis %}
     <h1>Submisi</h1>
+    <div class="my-3">
+        Masih punya abstrak lain yang ingin didaftarkan? <a class="color-kemkes" href="{% url 'hp_awards:registrasi' %}">Klik di sini</a>
+    </div>
     <div class="my-5">
         <table class="table">
             <thead>
