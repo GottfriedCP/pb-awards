@@ -27,8 +27,11 @@
             href="https://drive.google.com/file/d/1RbH3wAY3Dfq5oPT_N5o18x975uH7831B/view"><b>Surat keterangan Mahasiswa Aktif</b></a>
         (jika Anda mendaftar Kategori Mahasiswa)
     </div>
-    {% if form_has_errors %}<span class="color-red">Terdapat kesalahan pengisian form. Cek teks merah</span>{% endif %}
-    {{ form.non_field_errors }}
+    <div class="fs-5">
+        <!-- FORM ERROR MESSAGES -->
+        {% if form_has_errors %}<span class="color-red fs-5">Terdapat kesalahan pengisian form. Cek teks merah</span>{% endif %}
+        {{ form.non_field_errors }}
+    </div>
     <form method="POST" class="my-3 form-kemkes" enctype="multipart/form-data">
         {% csrf_token %}
         <h3 class="mt-5 mb-4">Pernyataan</h3>

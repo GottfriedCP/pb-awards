@@ -5,13 +5,13 @@
 
 {% block body_bl %}
 <div class="container my-5">
-    <h1>Submisi</h1>
+    <h1>Form Penilaian</h1>
     <div class="mb-3">
         Kode submisi: <code>{{ submisi.kode_submisi }}</code>
     </div>
     <h3>"{{ submisi.judul_pb }}"</h3>
-    <section class="my-5">
-        <h5>guna menjawab <i>Policy Question</i> sebagai berikut:</h5>
+    <section class="mt-3 mb-5">
+        <h5>untuk menjawab <i>Policy Question</i> sebagai berikut:</h5>
         {% if submisi.policy_question.pk == 1 %}LAINNYA: <br>
         {% endif %}
         {{ submisi.policy_question_custom }}
@@ -25,7 +25,6 @@
     
     <hr class="hr-kemkes">
     <section>
-        <h3 class="text-center my-5">Form Penilaian Judul dan Abstrak</h3>
         {% include 'hp_awards/elem/form-penilaian-abstrak.html' %}
     </section>
 </div>

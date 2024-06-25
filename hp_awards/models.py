@@ -11,7 +11,7 @@ from django_resized import ResizedImageField
 from .validators import filesize_validator
 
 pdf_validator = FileExtensionValidator(
-    allowed_extensions=["pdf", "jpg", "jpeg", "png", "bmp"]
+    allowed_extensions=["docx", "doc", "pdf", "jpg", "jpeg", "png", "bmp"]
 )
 
 
@@ -267,8 +267,8 @@ class PolicyQuestion(TimestampedModel):
 
 class Kolaborator(TimestampedModel):
     nama = models.CharField(max_length=100)
-    wa = models.CharField(max_length=15, verbose_name="nomor WA", blank=True, null=True)
-    email = models.EmailField(max_length=50, blank=True, null=True)
+    wa = models.CharField(max_length=30, verbose_name="nomor WA", blank=True, null=True)
+    email = models.EmailField(max_length=70, blank=True, null=True)
     jabatan = models.CharField(max_length=100, blank=True, null=True)
     peran = models.CharField(max_length=100, blank=True, null=True)
 

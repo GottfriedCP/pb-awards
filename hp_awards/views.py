@@ -10,7 +10,7 @@ from openpyxl import Workbook
 
 from .forms import FormPendaftaran, FormPenugasanJuri, FormCaptcha, FormKontak
 from .models import Pernyataan, Submisi, Reviewer
-from .helpers import send_welcome_email_async, kirim_pertanyaan_pengunjung
+from .helpers import kirim_konfirmasi_submisi, kirim_pertanyaan_pengunjung
 
 
 def home(request):
@@ -124,7 +124,7 @@ def registrasi(request):
                 "wa": submisi.wa,
                 "email": submisi.email,
             }
-            send_welcome_email_async(submisi=submisi)
+            kirim_konfirmasi_submisi(submisi=submisi)
             return render(request, "hp_awards/registrasi_sukses.html", context)
     context = {
         "form": form,

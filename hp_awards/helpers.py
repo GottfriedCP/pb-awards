@@ -5,32 +5,37 @@ from django.utils.html import strip_tags
 import threading
 
 
-def send_welcome_email(submisi):
-    recipient_list = [submisi.email]
+def kirim_konfirmasi_submisi(submisi):
+    def _kirim(submisi):
+        recipient_list = [submisi.email]
 
-    context = {
-        "submisi": submisi,
-    }
+        context = {
+            "submisi": submisi,
+        }
 
-    html_content = render_to_string("hp_awards/mail/welcome.html", context)
-    text_content = strip_tags(html_content)  # Optional: Plain text version
+        html_content = render_to_string("hp_awards/mail/welcome.html", context)
+        text_content = strip_tags(html_content)  # Optional: Plain text version
 
-    # Create email object with MultiAlternatives
-    email = EmailMultiAlternatives(
-        subject="Submisi Abstrak SiBijaKs Awards 2024",
-        body=text_content,
-        from_email="sibijaksawards@gmail.com",
-        to=recipient_list,
-    )
-    email.attach_alternative(html_content, "text/html")  # Attach HTML version
+        # Create email object with MultiAlternatives
+        email = EmailMultiAlternatives(
+            subject="Submisi Abstrak SiBijaKs Awards 2024",
+            body=text_content,
+            from_email="sibijaksawards@gmail.com",
+            to=recipient_list,
+            cc=[
+                "sibijaksawards@gmail.com",
+                "healthpolicyawards@gmail.com",
+                "perpustakaanbkpk@gmail.com",
+                "gottfriedcpn@gmail.com",
+            ],
+        )
+        email.attach_alternative(html_content, "text/html")  # Attach HTML version
 
-    # Send the email
-    email.send()
+        # Send the email
+        email.send()
 
-
-def send_welcome_email_async(submisi):
     try:
-        thread = threading.Thread(target=send_welcome_email, args=(submisi,))
+        thread = threading.Thread(target=_kirim, args=(submisi,))
         thread.start()
     except:
         return False
@@ -38,13 +43,9 @@ def send_welcome_email_async(submisi):
 
 
 def kirim_pertanyaan_pengunjung(nama: str, email: str, pertanyaan: str):
-    def _send(nama, email, pertanyaan):
+    def _kirim(nama, email, pertanyaan):
         # recipient_list = ["sibijaksawards@gmail.com"]
-        recipient_list = [
-            "sibijaksawards@gmail.com",
-            "healthpolicyawards@gmail.com",
-            "gottfriedcpn@gmail.com",
-        ]
+        recipient_list = ["sibijaksawards@gmail.com", "healthpolicyawards@gmail.com"]
 
         # context = {}
 
@@ -58,6 +59,9 @@ def kirim_pertanyaan_pengunjung(nama: str, email: str, pertanyaan: str):
             from_email="sibijaksawards@gmail.com",
             reply_to=(email,),
             to=recipient_list,
+            cc=[
+                "gottfriedcpn@gmail.com",
+            ],
         )
         # email.attach_alternative(html_content, "text/html")  # Attach HTML version
 
@@ -65,7 +69,7 @@ def kirim_pertanyaan_pengunjung(nama: str, email: str, pertanyaan: str):
         email.send()
 
     try:
-        thread = threading.Thread(target=_send, args=(nama, email, pertanyaan))
+        thread = threading.Thread(target=_kirim, args=(nama, email, pertanyaan))
         thread.start()
     except Exception as e:
         # print(e)
