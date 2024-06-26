@@ -63,9 +63,12 @@
                     </thead>
                     <tbody id="tbody-collab">
                         <tr class="tr-collab">
-                            <td><input type="text" class="form-control form-control-sm" name="kolab-nama" placeholder="Nama anggota tim"></td>
-                            <td><input type="text" class="form-control form-control-sm" name="kolab-wa" placeholder="08XXXXXXX"></td>
-                            <td><input type="email" class="form-control form-control-sm" name="kolab-email" placeholder="email@email.com"></td>
+                            <td><input type="text" maxlength="100" class="form-control form-control-sm" name="kolab-nama"
+                                    placeholder="Nama anggota tim"></td>
+                            <td><input type="text" maxlength="30" class="wa-kolab form-control form-control-sm" name="kolab-wa" placeholder="08XXXXXXX">
+                            </td>
+                            <td><input type="email" maxlength="70" class="form-control form-control-sm" name="kolab-email"
+                                    placeholder="email@email.com"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -118,6 +121,7 @@
 
         // Append the new row to the tbody
         tbody.append(newRow);
+        enforceNumeric();
     }
 
     $(document).ready(function () {
@@ -228,9 +232,20 @@
             }
         });
 
+        // Pada dynamic form kolaborator, WA hanya angka
+        enforceNumeric();
+
         // HANYA UNTUK DEMO
         // Hide Mahasiswa S2
         $("#id_kategori_pendaftar option[value='mhs2']").remove();
     });
+    
+    function enforceNumeric() {
+        // Pada dynamic form kolaborator, WA hanya angka
+        $(".wa-kolab").on("input keypress paste", function () {
+            var val = $(this).val();
+            $(this).val(val.replace(/[^0-9]/g, ""));
+        });
+    }
 </script>
 {% endblock %}
