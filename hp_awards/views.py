@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
+from bs4 import BeautifulSoup
 from openpyxl import Workbook
 
 from .forms import FormPendaftaran, FormPenugasanJuri, FormCaptcha, FormKontak
@@ -326,7 +327,7 @@ def unduh_hasil_penilaian_abstrak(request):
         ws = wb.active
 
         # Judul kolom
-        header_row = ["Judul", "Penulis Utama", "Kategori", "Individu/Tim"]
+        header_row = ["Judul", "Abstrak", "Penulis Utama", "Kategori", "Individu/Tim"]
         header_row.extend(
             ["WA", "Email", "Pekerjaan", "Instansi / Perguruan Tinggi", "Pendidikan"]
         )
@@ -345,6 +346,7 @@ def unduh_hasil_penilaian_abstrak(request):
         for s in submisis:
             row = [
                 s.judul_pb,
+                BeautifulSoup(s.abstrak_pb, "html.parser").get_text(),
                 s.nama,
                 s.get_kategori_pendaftar_display(),
                 "Tim" if s.kolaborators.exists() else "Individu",
