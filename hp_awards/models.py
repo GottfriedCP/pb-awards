@@ -219,6 +219,9 @@ class Submisi(TimestampedModel):
 
     class Meta:
         verbose_name_plural = "Submisi"
+        permissions = [
+            ("change_manage_submissions", "Bisa mengatur submisi"),
+        ]
 
 
 class Pernyataan(TimestampedModel):
