@@ -191,7 +191,7 @@
         $('#id_policy_question').select2({width: '100%'});
 
         // Summernote
-        $('#id_abstrak_pb').summernote({
+        $('#id_abstrak_pbx').summernote({
             toolbar: [
                 // [groupName, [list of button]]
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -206,14 +206,14 @@
                     var wordCount = contents.split(/\s+/).length;
                     $("#id_abstrak_pb_helptext").text(wordCount + " / 250 kata");
 
-                    if (wordCount > maxWords) {
-                        // Remove extra words
-                        var trimmedText = contents.split(/\s+/, maxWords).join(" ");
-                        $('#id_abstrak_pb').summernote('reset');
-                        $('#id_abstrak_pb').summernote('pasteHTML', trimmedText);
-                        // $(this).val(trimmedText);
-                        // $("#wordCount").text(maxWords + " words (limit reached)");
-                    }
+                    // if (wordCount > maxWords) {
+                    //     // Remove extra words
+                    //     var trimmedText = contents.split(/\s+/, maxWords).join(" ");
+                    //     $('#id_abstrak_pb').summernote('reset');
+                    //     $('#id_abstrak_pb').summernote('pasteHTML', trimmedText);
+                    //     // $(this).val(trimmedText);
+                    //     // $("#wordCount").text(maxWords + " words (limit reached)");
+                    // }
                 }
             }
         });
