@@ -359,3 +359,10 @@ class Penilaian(TimestampedModel):
         if self.string_nilai1:
             return str(self.string_nilai1).split(sep="|")
         return [None, None, None]
+
+    def __str__(self):
+        return f"{self.submisi} {self.reviewer}"
+
+    class Meta:
+        verbose_name = "Penilaian"
+        verbose_name_plural = verbose_name

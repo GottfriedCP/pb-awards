@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import Avg, Count, Q
+from django.db.models import Avg, Count, Q, FloatField
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -11,7 +11,7 @@ from openpyxl import Workbook
 
 from .forms import FormPendaftaran, FormPenugasanJuri, FormCaptcha, FormKontak
 from .models import Pernyataan, Submisi, Reviewer
-from .helpers import kirim_konfirmasi_submisi, kirim_pertanyaan_pengunjung
+from .helpers import kirim_konfirmasi_submisi, kirim_pertanyaan_pengunjung, Round
 
 
 def home(request):
@@ -165,15 +165,14 @@ def list_submisi(request):
 
     # jika user adalah reviewer
     if request.user.is_authenticated and request.session.get("role") == "reviewer":
-        reviewer = Reviewer.objects.prefetch_related("penilaians").get(
+        reviewer = Reviewer.objects.prefetch_related("penilaians", "penilaians__submisi").get(
             username=request.session["username_reviewer"]
         )
         submisis = (
             Submisi.objects.prefetch_related("reviewers")
-            .filter(reviewers__username=request.session.get("username_reviewer"))
-            .exclude(penilaians__string_nilai1__isnull=False)
+            .filter(reviewers__in=[reviewer], penilaians__reviewer=reviewer)
         )
-        context["submisis"] = submisis
+        context["penilaians"] = reviewer.penilaians.all()
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
 
     form_captcha = FormCaptcha()
@@ -315,7 +314,11 @@ def unduh_hasil_penilaian_abstrak(request):
         submisis = Submisi.objects.prefetch_related(
             "reviewers", "penilaians", "kolaborators"
         )
-        submisis = submisis.annotate(total_skor_abstrak=Avg("penilaians__nilai1"))
+        submisis = submisis.annotate(
+            total_skor_abstrak=Round(
+                Avg("penilaians__nilai1"), 2, output_field=FloatField()
+            )
+        )
         submisis = submisis.annotate(
             reviewer_menilai=Count(
                 "penilaians", filter=Q(penilaians__string_nilai1__isnull=False)

@@ -1,8 +1,14 @@
 from django.core.mail import EmailMultiAlternatives
+from django.db.models import Func
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
 import threading
+
+
+class Round(Func):
+    function = "ROUND"
+    arity = 2
 
 
 def kirim_konfirmasi_submisi(submisi):

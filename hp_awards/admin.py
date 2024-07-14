@@ -41,3 +41,19 @@ class ReviewerAdmin(admin.ModelAdmin):
     form = forms.ReviewerForm
     # exclude = ("passphrase",)
     list_display = ["nama", "jabatan", "instansi", "username"]
+
+
+def reset_nilai_abstrak(modeladmin, request, queryset):
+    for obj in queryset:
+        obj.nilai1 = 0
+        obj.string_nilai1 = None
+        obj.save()
+
+
+reset_nilai_abstrak.short_description = "Reset nilai abstrak dari juri terpilih"
+
+
+@admin.register(models.Penilaian)
+class PenilaianAdmin(admin.ModelAdmin):
+    list_display = ["submisi", "reviewer", "nilai1", "nilai2", "nilai3"]
+    actions = [reset_nilai_abstrak]
