@@ -29,10 +29,10 @@ def kirim_konfirmasi_submisi(submisi):
             from_email="sibijaksawards@gmail.com",
             to=recipient_list,
             cc=[
-                "sibijaksawards@gmail.com",
+                # "sibijaksawards@gmail.com",
                 "healthpolicyawards@gmail.com",
                 "perpustakaanbkpk@gmail.com",
-                "gottfriedcpn@gmail.com",
+                # "gottfriedcpn@gmail.com",
             ],
         )
         email.attach_alternative(html_content, "text/html")  # Attach HTML version
