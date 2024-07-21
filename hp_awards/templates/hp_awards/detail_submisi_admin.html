@@ -187,9 +187,9 @@
                     {% for r in reviewers %}
                     <tr>
                         <td>{{ r.nama }}</td>
-                        <td>{{ r.jabatan }}</td>
-                        <td>{{ r.instansi }}</td>
-                        <td>{{ r.get_kategori_display }}</td>
+                        <td>{{ r.jabatan|default:'-' }}</td>
+                        <td>{{ r.instansi|default:'-' }}</td>
+                        <td>{{ r.get_kategori_display|default:'-' }}</td>
                         <td>{{ r.kepakaran|default:'-' }}</td>
                         <td>{{ r.submisis.count }}</td>
                     </tr>
