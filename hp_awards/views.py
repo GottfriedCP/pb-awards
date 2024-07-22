@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import Avg, Count, Q, FloatField
+from django.db.models import Avg, Count, F, Q, FloatField, ExpressionWrapper, Sum
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -12,6 +12,8 @@ from openpyxl import Workbook
 from .forms import FormPendaftaran, FormPenugasanJuri, FormCaptcha, FormKontak
 from .models import Pernyataan, Submisi, Reviewer
 from .helpers import kirim_konfirmasi_submisi, kirim_pertanyaan_pengunjung, Round
+
+import decimal
 
 
 def home(request):
@@ -146,13 +148,23 @@ def list_submisi(request):
     context = {
         "page_title": "",
     }
+    ctx = decimal.getcontext()
+    ctx.rounding = decimal.ROUND_HALF_UP
+
     # jika user adalah staf/admin
     if request.user.is_staff:
         submisis = Submisi.objects.prefetch_related("reviewers", "penilaians")
-        submisis = submisis.annotate(total_skor_abstrak=Avg("penilaians__nilai1"))
+        # submisis = submisis.annotate(total_skor_abstrak=Avg("penilaians__nilai1"))
+        submisis = submisis.annotate(total_skor_abstrak=Sum("penilaians__nilai1"))
         submisis = submisis.annotate(
             reviewer_menilai=Count(
                 "penilaians", filter=Q(penilaians__string_nilai1__isnull=False)
+            )
+        )
+        submisis = submisis.annotate(
+            rerata_skor_abstrak=ExpressionWrapper(
+                F("total_skor_abstrak") / F("reviewer_menilai"),
+                output_field=FloatField(),
             )
         )
         context["submisis"] = submisis.all().order_by(
@@ -169,12 +181,11 @@ def list_submisi(request):
 
     # jika user adalah reviewer
     if request.user.is_authenticated and request.session.get("role") == "reviewer":
-        reviewer = Reviewer.objects.prefetch_related("penilaians", "penilaians__submisi").get(
-            username=request.session["username_reviewer"]
-        )
-        submisis = (
-            Submisi.objects.prefetch_related("reviewers")
-            .filter(reviewers__in=[reviewer], penilaians__reviewer=reviewer)
+        reviewer = Reviewer.objects.prefetch_related(
+            "penilaians", "penilaians__submisi"
+        ).get(username=request.session["username_reviewer"])
+        submisis = Submisi.objects.prefetch_related("reviewers").filter(
+            reviewers__in=[reviewer], penilaians__reviewer=reviewer
         )
         context["penilaians"] = reviewer.penilaians.all()
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
@@ -318,16 +329,18 @@ def unduh_hasil_penilaian_abstrak(request):
         submisis = Submisi.objects.prefetch_related(
             "reviewers", "penilaians", "kolaborators"
         )
-        submisis = submisis.annotate(
-            total_skor_abstrak=Round(
-                Avg("penilaians__nilai1"), 2, output_field=FloatField()
-            )
-        )
+        # submisis = submisis.annotate(
+        #     total_skor_abstrak=Round(
+        #         Avg("penilaians__nilai1"), 2, output_field=FloatField()
+        #     )
+        # )
+        submisis = submisis.annotate(total_skor_abstrak=Sum("penilaians__nilai1"))
         submisis = submisis.annotate(
             reviewer_menilai=Count(
                 "penilaians", filter=Q(penilaians__string_nilai1__isnull=False)
             )
         )
+        submisis = submisis.annotate(rerata_skor_abstrak=ExpressionWrapper(F("total_skor_abstrak") / F("reviewer_menilai"), output_field=FloatField(),))
         submisis = submisis.all().order_by("-created_at", "kategori_pendaftar")
 
         wb = Workbook()
@@ -378,7 +391,7 @@ def unduh_hasil_penilaian_abstrak(request):
                         and s.reviewers.count() > 0
                         else "Belum"
                     ),
-                    s.total_skor_abstrak or "-",
+                    s.rerata_skor_abstrak or "-",
                 ]
             )
             row.extend(
