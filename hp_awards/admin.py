@@ -42,6 +42,7 @@ class ReviewerAdmin(admin.ModelAdmin):
     form = forms.ReviewerForm
     # exclude = ("passphrase",)
     list_display = ["nama", "jabatan", "instansi", "username"]
+    search_fields = ["nama", "username"]
 
 
 def reset_nilai_abstrak(modeladmin, request, queryset):
