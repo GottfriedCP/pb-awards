@@ -1,7 +1,17 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import Avg, Count, F, Q, FloatField, ExpressionWrapper, Sum
+from django.db.models import (
+    Case,
+    When,
+    Avg,
+    Count,
+    F,
+    Q,
+    FloatField,
+    ExpressionWrapper,
+    Sum,
+)
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -162,9 +172,12 @@ def list_submisi(request):
             )
         )
         submisis = submisis.annotate(
-            rerata_skor_abstrak=ExpressionWrapper(
-                F("total_skor_abstrak") / F("reviewer_menilai"),
-                output_field=FloatField(),
+            rerata_skor_abstrak=Case(
+                When(Q(reviewer_menilai=0), then=0.0),
+                default=ExpressionWrapper(
+                    F("total_skor_abstrak") / F("reviewer_menilai"),
+                    output_field=FloatField(),
+                ),
             )
         )
         context["submisis"] = submisis.all().order_by(
@@ -340,7 +353,15 @@ def unduh_hasil_penilaian_abstrak(request):
                 "penilaians", filter=Q(penilaians__string_nilai1__isnull=False)
             )
         )
-        submisis = submisis.annotate(rerata_skor_abstrak=ExpressionWrapper(F("total_skor_abstrak") / F("reviewer_menilai"), output_field=FloatField(),))
+        submisis = submisis.annotate(
+            rerata_skor_abstrak=Case(
+                When(Q(reviewer_menilai=0), then=0.0),
+                default=ExpressionWrapper(
+                    F("total_skor_abstrak") / F("reviewer_menilai"),
+                    output_field=FloatField(),
+                ),
+            )
+        )
         submisis = submisis.all().order_by("-created_at", "kategori_pendaftar")
 
         wb = Workbook()
