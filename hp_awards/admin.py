@@ -14,6 +14,7 @@ class SubmisiAdmin(admin.ModelAdmin):
     list_display = ["nama", "kategori_pendaftar", "created_at", "status", "judul_pb"]
     list_filter = ["status", "kategori_pendaftar"]
     filter_horizontal = ["kolaborators"]
+    search_fields = ["nama", "judul_pb"]
 
 
 @admin.register(models.Pernyataan)
