@@ -13,8 +13,10 @@
     <section class="mb-5">
         <h5>untuk menjawab <i>Policy Question</i> sebagai berikut:</h5>
         {% if submisi.policy_question.pk == 1 %}LAINNYA: <br>
-        {% endif %}
         {{ submisi.policy_question_custom }}
+        {% else %}
+        {{ submisi.policy_question|default:'-' }}
+        {% endif %}
     </section>
     <section class="my-5">
         <h2>Abstrak</h2>
