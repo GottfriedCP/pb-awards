@@ -112,8 +112,8 @@ def policy_questions(request):
 def registrasi(request):
     # handle pendaftaran jika sudah ditutup
     now = timezone.localdate()
-    # if now.day > 21 and now.month >= 7 and now.year >= 2024:
-    #     raise Http404("Periode registrasi sudah ditutup.")
+    if now.day > 21 and now.month >= 7 and now.year >= 2024:
+        raise Http404("Periode registrasi sudah ditutup.")
     form = FormPendaftaran()
     form_captcha = FormCaptcha()
     if request.method == "POST":
