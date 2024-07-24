@@ -32,7 +32,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td><a href="{% url 'hp_awards:detail_submisi' penilaian.submisi.kode_submisi %}" class="color-kemkes">{{ penilaian.submisi.kode_submisi }}</a></td>
                     <td>{{ penilaian.submisi.judul_pb }}</td>
-                    <td>{% if penilaian.nilai1 > 0 %}Nilai: {{ penilaian.nilai1 }}{% else %}{{ penilaian.submisi.get_status_display }}{% endif %}</td>
+                    <td>{% if penilaian.nilai1 > 0 %}Nilai: {{ penilaian.nilai1 }}{% else %}Belum dinilai{% endif %}</td>
                     <td>
                         <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:detail_submisi' penilaian.submisi.kode_submisi %}">
                             {% if penilaian.nilai1 > 0 %}Nilai Ulang{% else %}Lihat{% endif %}
