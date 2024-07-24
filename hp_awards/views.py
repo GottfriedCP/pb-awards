@@ -197,9 +197,7 @@ def list_submisi(request):
         reviewer = Reviewer.objects.prefetch_related(
             "penilaians", "penilaians__submisi"
         ).get(username=request.session["username_reviewer"])
-        submisis = Submisi.objects.prefetch_related("reviewers").filter(
-            reviewers__in=[reviewer], penilaians__reviewer=reviewer
-        )
+        context["reviewer"] = reviewer
         context["penilaians"] = reviewer.penilaians.all()
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
 
