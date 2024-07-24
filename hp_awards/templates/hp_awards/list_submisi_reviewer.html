@@ -6,9 +6,13 @@
 {% block body_bl %}
 <div class="container my-5">
     <h1>Naskah Ditugaskan</h1>
-    <div>
-        Juri: {{ reviewer.nama }}
-    </div>
+    <dl>
+        <dt>Juri</dt>
+        <dd>{{ reviewer.nama }}</dd>
+
+        <dt>Jumlah naskah abstrak <span style="text-decoration: underline;">belum dinilai</span></dt>
+        <dd>{{ todo_count }}</dd>
+    </dl>
 
     {% if penilaians %}
     <div class="my-5">

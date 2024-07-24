@@ -198,6 +198,7 @@ def list_submisi(request):
             "penilaians", "penilaians__submisi"
         ).get(username=request.session["username_reviewer"])
         context["reviewer"] = reviewer
+        context["todo_count"] = reviewer.penilaians.filter(nilai1=0).count()
         context["penilaians"] = reviewer.penilaians.all()
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
 
