@@ -13,7 +13,7 @@
 
 {% block body_bl %}
 <div class="container my-5">
-    <h1>Submisi</h1>
+    <h1>Naskah Masuk</h1>
     {% if request.user.is_staff %}
     <div id="div-stats" hx-get="{% url 'hp_awards:hx_get_stats' %}" hx-trigger="load">
     </div>
