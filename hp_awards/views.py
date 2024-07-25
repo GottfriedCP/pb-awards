@@ -377,6 +377,12 @@ def unduh_hasil_penilaian_abstrak(request):
                 "Jumlah Juri",
                 "Juri Sudah Menilai",
                 "Penilaian Lengkap",
+                "Nama Juri 1",
+                "Nilai Juri 1",
+                "Nama Juri 2",
+                "Nilai Juri 2",
+                "Nama Juri 3",
+                "Nilai Juri 3",
                 "Nilai Rata-rata",
             ]
         )
@@ -384,6 +390,8 @@ def unduh_hasil_penilaian_abstrak(request):
         ws.append(header_row)
 
         for s in submisis:
+            juris = [p.reviewer.nama for p in s.penilaians.all()]
+            skors = [p.nilai1 if p.nilai1 > 0 else '-' for p in s.penilaians.all()]
             row = [
                 s.judul_pb,
                 BeautifulSoup(s.abstrak_pb, "html.parser").get_text(),
@@ -411,6 +419,12 @@ def unduh_hasil_penilaian_abstrak(request):
                         and s.reviewers.count() > 0
                         else "Belum"
                     ),
+                    juris[0] if len(juris) > 0 else '-',
+                    skors[0] if len(skors) > 0 else '-',
+                    juris[1] if len(juris) > 1 else '-',
+                    skors[1] if len(skors) > 1 else '-',
+                    juris[2] if len(juris) > 2 else '-',
+                    skors[2] if len(skors) > 2 else '-',
                     s.rerata_skor_abstrak or "-",
                 ]
             )
