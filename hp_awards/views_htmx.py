@@ -31,8 +31,11 @@ def get_stats(request):
     context["naskah_eligible"] = submisis.filter(reviewers__isnull=False).count()
 
     # Juri dan penilaian
-    juris = Reviewer.objects.prefetch_related("penilaians").all()
-    jumlah_juri = juris.count()
+    juris = Reviewer.objects.prefetch_related("penilaians")
+    jumlah_juri = 0
+    for j in juris:
+        if j.penilaians.count() > 0:
+            jumlah_juri += 1
     juri_selesai = 0
     for j in juris:
         if j.penilaians.count() == j.penilaians.filter(nilai1__gt=0).count():

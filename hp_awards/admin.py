@@ -58,4 +58,6 @@ reset_nilai_abstrak.short_description = "Reset nilai abstrak dari juri terpilih"
 @admin.register(models.Penilaian)
 class PenilaianAdmin(admin.ModelAdmin):
     list_display = ["submisi", "reviewer", "nilai1", "nilai2", "nilai3"]
+    list_filter = ["reviewer__nama"]
+    search_fields = ["reviewer"]
     actions = [reset_nilai_abstrak]
