@@ -27,7 +27,7 @@
     {% endif %}
     {% endif %}
 
-    {% if submisis %}
+    {% if submisis and request.user.username != 'kabadan' %}
     <div class="my-5 div-table">
         <table id="datatable" class="table">
             <thead>
@@ -86,7 +86,7 @@
         </table>
     </div>
     {% else %}
-    Tidak ada submisi untuk dinilai
+    -
     {% endif %}
 </div>
 {% endblock %}
