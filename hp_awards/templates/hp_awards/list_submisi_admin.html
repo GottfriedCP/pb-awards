@@ -17,12 +17,14 @@
     {% if request.user.is_staff %}
     <div id="div-stats" hx-get="{% url 'hp_awards:hx_get_stats' %}" hx-trigger="load">
     </div>
+    {% if request.user.username != 'kabadan' %}
     <div class="d-flex justify-content-start flex-wrap">
         <form class="m-3" method="POST" action="{% url 'hp_awards:unduh_nilai_abstrak' %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-kemkes">Unduh Hasil Penilaian Abstrak</button>
         </form>
     </div>
+    {% endif %}
     {% endif %}
 
     {% if submisis %}
