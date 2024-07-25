@@ -41,6 +41,6 @@
     <tr>
         <td><b>Jumlah Juri Selesai Menilai</b></td>
         <td>:</td>
-        <td>{{ juri_selesai }} ({{ progress_juri }}%)</td>
+        <td>{{ juri_selesai }} ({{ progress_juri|floatformat:'2u'|default:0 }}%)</td>
     </tr>
 </table>
