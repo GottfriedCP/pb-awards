@@ -128,11 +128,13 @@
                     <li class="nav-item {% if page_title == 'home' %}nav-item-active{% endif %}">
                         <a class="nav-link" aria-current="page" href="/">Beranda</a>
                     </li>
+                    {% comment %}
                     <li class="nav-item {% if page_titled == '' %}nav-item-active{% endif %}">
                         <a class="nav-link" aria-current="page" target="_blank"
                             href="https://drive.google.com/file/d/1RbH3wAY3Dfq5oPT_N5o18x975uH7831B/view">Unduh
                             Surat</a>
                     </li>
+                    {% endcomment %}
                     <li class="nav-item {% if page_title == 'tentang' %}nav-item-active{% endif %}">
                         <a class="nav-link" aria-current="page" href="{% url 'hp_awards:tentang' %}">Tentang Lomba</a>
                     </li>
@@ -153,13 +155,8 @@
                 {% else %}
                 <a class="btn btn-outline-kemkes mx-3 my-1" href="{% url 'hp_awards:list_submisi' %}">Status Submisi</a>
                 {% endif %}
-                {% if not hide_registration_navbar and request.session.role != 'reviewer' %}
-                <!-- <a href="{% url 'hp_awards:registrasi' %}"
-                    class="d-block btn btn-outline-kemkes mx-2 my-1 {% if page_title == 'umum' %}btn-kemkes{% endif %}">
-                    Daftar Sekarang</a> -->
-                {% endif %}
                 {% if request.user.is_authenticated %}
-                <a class="color-kemkes">Halo, {{ request.session.nama_bar|default:request.user.username }}</a>
+                <a class="color-kemkes" style="text-decoration: none;">Halo, {{ request.session.nama_bar|default:request.user.username }}</a>
                 <form method="POST" action="{% url 'hp_awards:logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-link color-kemkes">Logout</button>
