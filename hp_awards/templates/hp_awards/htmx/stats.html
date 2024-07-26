@@ -62,7 +62,7 @@
             <td>{{ j.nama }}</td>
             <td class="text-center">{{ j.penilaian_ditugaskan }}</td>
             <td class="text-center">{{ j.penilaian_selesai }}</td>
-            <td class="text-center">{{ j.selesai|yesno:'Sudah,Belum' }}</td>
+            <td class="text-center">{% if j.penilaian_ditugaskan > 0 %}{{ j.selesai|yesno:'Sudah,Belum' }}{% else %}-{% endif %}</td>
         </tr>
         {% endfor %}
     </tbody>
