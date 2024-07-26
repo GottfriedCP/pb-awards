@@ -49,16 +49,18 @@
     <thead>
         <tr>
             <th>Nama</th>
-            <th>Naskah ditugaskan</th>
-            <th>Naskah selesai dinilai</th>
+            <th class="text-center">Naskah ditugaskan</th>
+            <th class="text-center">Naskah selesai dinilai</th>
+            <th class="text-center">Selesai</th>
         </tr>
     </thead>
     <tbody>
         {% for j in juris %}
         <tr>
             <td>{{ j.nama }}</td>
-            <td>{{ j.penilaian_ditugaskan }}</td>
-            <td>{{ j.penilaian_selesai }}</td>
+            <td class="text-center">{{ j.penilaian_ditugaskan }}</td>
+            <td class="text-center">{{ j.penilaian_selesai }}</td>
+            <td class="text-center">{{ j.selesai|yesno:'Sudah,Belum' }}</td>
         </tr>
         {% endfor %}
     </tbody>

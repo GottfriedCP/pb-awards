@@ -1,4 +1,4 @@
-from django.db.models import Count, Q
+from django.db.models import Count, F, Q, Case, When, BooleanField
 from django.shortcuts import render
 
 from .models import Submisi, Reviewer
@@ -52,5 +52,6 @@ def get_stats(request):
     juris = juris.annotate(
         penilaian_selesai=Count("penilaians", filter=Q(penilaians__nilai1__gt=0))
     )
+    juris = juris.annotate(selesai=Case(When(penilaian_ditugaskan=F("penilaian_selesai"), then=True), default=False, output_field=BooleanField()))
     context["juris"] = juris
     return render(request, "hp_awards/htmx/stats.html", context)
