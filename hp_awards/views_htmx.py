@@ -32,10 +32,15 @@ def get_stats(request):
 
     # Juri dan penilaian
     juris = Reviewer.objects.prefetch_related("penilaians")
-    jumlah_juri = juris.aggregate(_=Count("penilaians", filter=Q(penilaians__nilai1__gt=0)))["_"]
+    jumlah_juri = (
+        juris.annotate(penugasan=Count("penilaians")).filter(penugasan__gt=0).count()
+    )
     juri_selesai = 0
     for j in juris:
-        if j.penilaians.count() > 0 and j.penilaians.count() == j.penilaians.filter(nilai1__gt=0).count():
+        if (
+            j.penilaians.count() > 0
+            and j.penilaians.count() == j.penilaians.filter(nilai1__gt=0).count()
+        ):
             juri_selesai += 1
     context["jumlah_juri"] = jumlah_juri
     context["juri_selesai"] = juri_selesai
@@ -44,6 +49,8 @@ def get_stats(request):
     )
     # tabel progress juri
     juris = juris.annotate(penilaian_ditugaskan=Count("penilaians"))
-    juris = juris.annotate(penilaian_selesai=Count("penilaians", filter=Q(penilaians__nilai1__gt=0)))
+    juris = juris.annotate(
+        penilaian_selesai=Count("penilaians", filter=Q(penilaians__nilai1__gt=0))
+    )
     context["juris"] = juris
     return render(request, "hp_awards/htmx/stats.html", context)
