@@ -32,13 +32,10 @@ def get_stats(request):
 
     # Juri dan penilaian
     juris = Reviewer.objects.prefetch_related("penilaians")
-    jumlah_juri = 0
-    for j in juris:
-        if j.penilaians.count() > 0:
-            jumlah_juri += 1
+    jumlah_juri = juris.aggregate(_=Count("penilaians", filter=Q(penilaians__nilai1__gt=0)))["_"]
     juri_selesai = 0
     for j in juris:
-        if j.penilaians.count() == j.penilaians.filter(nilai1__gt=0).count():
+        if j.penilaians.count() > 0 and j.penilaians.count() == j.penilaians.filter(nilai1__gt=0).count():
             juri_selesai += 1
     context["jumlah_juri"] = jumlah_juri
     context["juri_selesai"] = juri_selesai
