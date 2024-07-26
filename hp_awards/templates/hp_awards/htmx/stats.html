@@ -44,22 +44,3 @@
         <td>{{ juri_selesai }} ({{ progress_juri|floatformat:'2u'|default:0 }}%)</td>
     </tr>
 </table>
-<h5 class="mt-3">Detail Progress Juri</h5>
-<table class="table table-sm" style="width: 900px; max-width: 80vw;">
-    <thead>
-        <tr>
-            <th>Nama</th>
-            <th>Naskah ditugaskan</th>
-            <th>Naskah selesai dinilai</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for j in juris %}
-        <tr>
-            <td>{{ j.nama }}</td>
-            <td>{{ j.penilaian_ditugaskan }}</td>
-            <td>{{ j.penilaian_selesai }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
