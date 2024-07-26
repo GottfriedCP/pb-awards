@@ -48,6 +48,7 @@
 <table class="table table-sm" style="width: 900px; max-width: 80vw;">
     <thead>
         <tr>
+            <th>No.</th>
             <th>Nama</th>
             <th class="text-center">Naskah ditugaskan</th>
             <th class="text-center">Naskah selesai dinilai</th>
@@ -57,6 +58,7 @@
     <tbody>
         {% for j in juris %}
         <tr>
+            <td>{{ forloop.counter }}</td>
             <td>{{ j.nama }}</td>
             <td class="text-center">{{ j.penilaian_ditugaskan }}</td>
             <td class="text-center">{{ j.penilaian_selesai }}</td>
