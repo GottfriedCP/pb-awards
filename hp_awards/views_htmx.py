@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.shortcuts import render
 
 from .models import Submisi, Reviewer
@@ -45,4 +45,8 @@ def get_stats(request):
     context["progress_juri"] = (
         juri_selesai / jumlah_juri * 100.00 if jumlah_juri > 0 else 0.0
     )
+    # tabel progress juri
+    juris = juris.annotate(penilaian_ditugaskan=Count("penilaians"))
+    juris = juris.annotate(penilaian_selesai=Count("penilaians", filter=Q(penilaians__nilai1__gt=0)))
+    context["juris"] = juris
     return render(request, "hp_awards/htmx/stats.html", context)
