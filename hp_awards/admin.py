@@ -9,12 +9,22 @@ admin.site.site_title = "HP Awards"
 admin.site.index_title = "Beranda"
 
 
+def gugurkan_naskah(modeladmin, request, queryset):
+    for obj in queryset:
+        obj.status = models.Submisi.GUGUR
+        obj.save()
+
+
+gugurkan_naskah.short_description = "Gugurkan Naskah"
+
+
 @admin.register(models.Submisi)
 class SubmisiAdmin(admin.ModelAdmin):
     list_display = ["nama", "kategori_pendaftar", "created_at", "status", "judul_pb"]
     list_filter = ["status", "kategori_pendaftar"]
     filter_horizontal = ["kolaborators"]
     search_fields = ["nama", "judul_pb"]
+    actions = [gugurkan_naskah]
 
 
 @admin.register(models.Pernyataan)

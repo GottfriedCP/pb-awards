@@ -19,7 +19,13 @@ from django.utils import timezone
 from bs4 import BeautifulSoup
 from openpyxl import Workbook
 
-from .forms import FormPendaftaran, FormPenugasanJuri, FormCaptcha, FormKontak
+from .forms import (
+    FormPendaftaran,
+    FormPenugasanJuri,
+    FormCaptcha,
+    FormKontak,
+    FormUnggahFulltext,
+)
 from .models import Pernyataan, Submisi, Reviewer
 from .helpers import kirim_konfirmasi_submisi, kirim_pertanyaan_pengunjung, Round
 
@@ -235,6 +241,7 @@ def detail_submisi(request, id_submisi):
     context = {
         "submisi": submisi,
         "submisi_class": Submisi,
+        "form_naskah": FormUnggahFulltext(instance=submisi),
     }
     if request.user.is_staff:
         context["form_penugasan_juri"] = FormPenugasanJuri(instance=submisi)
@@ -283,11 +290,25 @@ def edit_submisi(request, id_submisi):
 
 
 @login_required
+def unggah_naskah(request):
+    if request.method == "POST":
+        kode_submisi = request.POST.get("kode_submisi")
+        submisi = get_object_or_404(Submisi, kode_submisi=kode_submisi)
+        form_fulltext = FormUnggahFulltext(
+            request.POST, request.FILES, instance=submisi
+        )
+        if form_fulltext.is_valid():
+            form_fulltext.save()
+        return redirect("hp_awards:detail_submisi", submisi.kode_submisi)
+    return redirect("hp_awards:list_submisi")
+
+
+@login_required
 def gugur_submisi(request):
     if request.method == "POST":
         kode_submisi = request.POST.get("kode_submisi")
         submisi = get_object_or_404(Submisi, kode_submisi=kode_submisi)
-        submisi.status = Submisi.GUGUR
+        submisi.status = Submisi.TUNGGU2
         submisi.save()
     return redirect("hp_awards:list_submisi")
 

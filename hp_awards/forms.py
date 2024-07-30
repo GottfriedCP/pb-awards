@@ -75,6 +75,17 @@ class FormPenugasanJuri(forms.ModelForm):
         }
 
 
+class FormUnggahFulltext(forms.ModelForm):
+    class Meta:
+        model = Submisi
+        fields = ["file_pb_pdf", "file_pb_doc", "file_turnitin"]
+        labels = {
+            "file_pb_pdf": "1. File Naskah format DOC atau DOCX",
+            "file_pb_doc": "2. File Naskah format PDF",
+            "file_turnitin": "3. File Bukti Bebas Plagiarisme (misalnya Turnitin)",
+        }
+
+
 class ReviewerForm(forms.ModelForm):
     # tidak perlu ada Meta karena
     # sejauh ini Form ini hanya untuk situs admin
@@ -89,6 +100,8 @@ class ReviewerForm(forms.ModelForm):
 
 class FormKontak(forms.Form):
     nama = forms.CharField(label="Nama", max_length=150, required=True)
-    email = forms.EmailField(required=True, max_length=50, help_text="Kami akan merespon ke alamat email ini")
+    email = forms.EmailField(
+        required=True, max_length=50, help_text="Kami akan merespon ke alamat email ini"
+    )
     wa = forms.CharField(label="Nomor WA", max_length=20, required=False)
     pertanyaan = forms.CharField(required=True, widget=forms.Textarea)

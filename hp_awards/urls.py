@@ -16,6 +16,7 @@ urlpatterns = [
     path("list-submisi/", views.list_submisi, name="list_submisi"),
     path("submisi/<str:id_submisi>/", views.detail_submisi, name="detail_submisi"),
     path("submisi/<str:id_submisi>/edit/", views.edit_submisi, name="edit_submisi"),
+    path("unggah-naskah/", views.unggah_naskah, name="unggah_naskah"),
     path(
         "submisi/<str:id_submisi>/set-juri/",
         views.tetapkan_reviewer,

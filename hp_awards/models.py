@@ -15,6 +15,21 @@ pdf_validator = FileExtensionValidator(
 )
 
 
+def randomize_name_doc(instance, filename):
+    ext = filename.split(".")[-1]
+    return f"dokumen_pb_doc/{instance.kode_submisi}.{ext}"
+
+
+def randomize_name_pdf(instance, filename):
+    ext = filename.split(".")[-1]
+    return f"dokumen_pb_pdf/{instance.kode_submisi}.{ext}"
+
+
+def randomize_name_turnitin(instance, filename):
+    ext = filename.split(".")[-1]
+    return f"dokumen_turnitin/{instance.kode_submisi}.{ext}"
+
+
 class TimestampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -179,20 +194,28 @@ class Submisi(TimestampedModel):
 
     # status submisi
     TUNGGU = "tunggu"
+    TUNGGU2 = "tunggu2"  # tunggu penugasan juri tahap 2
     IN_REVIEW = "review"
     GUGUR = "gugur"
     STATUS_CHOICES = {
-        TUNGGU: "Menunggu Review",
-        IN_REVIEW: "Dalam Review",
+        TUNGGU: "Menunggu Penilaian",
+        TUNGGU2: "Unggah Naskah / Menunggu Penilaian",
+        IN_REVIEW: "Dalam Penilaian",
         GUGUR: "Gugur",
     }
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=TUNGGU)
     # field paska penilaian abstrak
     file_pb_pdf = models.FileField(
-        blank=True, null=True, upload_to="dokumen_pb_pdf/", verbose_name="file PB PDF"
+        blank=True, null=True, upload_to=randomize_name_pdf, verbose_name="file PB PDF"
     )
     file_pb_doc = models.FileField(
-        blank=True, null=True, upload_to="dokumen_pb_doc/", verbose_name="file PB DOC"
+        blank=True, null=True, upload_to=randomize_name_doc, verbose_name="file PB DOC"
+    )
+    file_turnitin = models.FileField(
+        blank=True,
+        null=True,
+        upload_to=randomize_name_turnitin,
+        verbose_name="file Turnitin",
     )
     file_pb_ppt = models.FileField(
         blank=True, null=True, upload_to="dokumen_pb_ppt/", verbose_name="file PB PPT"
