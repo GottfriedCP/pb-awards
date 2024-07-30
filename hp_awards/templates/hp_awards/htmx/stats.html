@@ -45,25 +45,29 @@
     </tr>
 </table>
 <h5 class="mt-3">Detail Progress Juri</h5>
-<table class="table table-sm" style="width: 900px; max-width: 80vw;">
-    <thead>
-        <tr>
-            <th>No.</th>
-            <th>Nama</th>
-            <th class="text-center">Naskah ditugaskan</th>
-            <th class="text-center">Naskah selesai dinilai</th>
-            <th class="text-center">Selesai</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for j in juris %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ j.nama }}</td>
-            <td class="text-center">{{ j.penilaian_ditugaskan }}</td>
-            <td class="text-center">{{ j.penilaian_selesai }}</td>
-            <td class="text-center">{% if j.penilaian_ditugaskan == 0 %}-{% elif j.selesai %}Sudah{% else %}<span class="text-warning">Belum</span>{% endif %}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div style="overflow-x: auto;">
+    <table class="table table-sm" style="width: 900px; max-width: 80vw;">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nama</th>
+                <th>No. HP</th>
+                <th class="text-center">Naskah ditugaskan</th>
+                <th class="text-center">Naskah selesai dinilai</th>
+                <th class="text-center">Selesai</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for j in juris %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ j.nama|default:'-' }}</td>
+                <td>{{ j.username|default:'-' }}</td>
+                <td class="text-center">{{ j.penilaian_ditugaskan }}</td>
+                <td class="text-center">{{ j.penilaian_selesai }}</td>
+                <td class="text-center">{% if j.penilaian_ditugaskan == 0 %}-{% elif j.selesai %}Sudah{% else %}<span class="text-warning">Belum</span>{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
