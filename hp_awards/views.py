@@ -298,8 +298,13 @@ def unggah_naskah(request):
             request.POST, request.FILES, instance=submisi
         )
         if form_fulltext.is_valid():
-            form_fulltext.save()
-        return redirect("hp_awards:detail_submisi", submisi.kode_submisi)
+            submisi = form_fulltext.save()
+        # return redirect("hp_awards:detail_submisi", submisi.kode_submisi)
+        context = {
+            "submisi": submisi,
+            "form_naskah": FormUnggahFulltext(instance=submisi),
+        }
+        return render(request, "hp_awards/htmx/form-unggah-naskah.html", context)
     return redirect("hp_awards:list_submisi")
 
 

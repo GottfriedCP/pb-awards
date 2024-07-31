@@ -3,6 +3,18 @@
 
 {% block title_bl %}Submisi{% endblock %}
 
+{% block head_bl %}
+<style>
+    .spinner {
+        display: none;
+    }
+
+    .htmx-request {
+        display: block !important;
+    }
+</style>
+{% endblock %}
+
 {% block body_bl %}
 <div class="container my-5">
     <h1>Submisi</h1>
@@ -96,8 +108,8 @@
         {% endif %}
     </section>
     <hr class="hr-kemkes">
-    {% comment %}
     {% if submisi.status != 'GUGUR' %}
+    {% comment %}
     <!-- UNGGAH FILE TAHAP 2 -->
     <section>
         <h2 class="color-kemkes">Penilaian Tahap II</h2>
@@ -106,15 +118,18 @@
             Mohon unggah tiga berkas di bawah, lalu klik "Unggah Naskah"
         </p>
         <p class="my-3">Ukuran setiap file tidak boleh melebihi 10 MB</p>
-        <form class="p-2" enctype="multipart/form-data" method="POST" action="{% url 'hp_awards:unggah_naskah' %}" style="border: .2rem solid green;">
+        <form class="p-2" enctype="multipart/form-data" hx-target="this" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .2rem solid green;">
             {% csrf_token %}
             <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
             {% bootstrap_form form_naskah %}
             <button type="submit" class="btn btn-kemkes">Unggah Naskah</button>
         </form>
+        <div id="spinner" class="my-3 spinner progress" role="progressbar">
+            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+        </div>
     </section>
-    {% endif %}
     {% endcomment %}
+    {% endif %}
 </div>
 {% endblock %}
 

@@ -14,6 +14,14 @@
         text-overflow: inherit !important;
         white-space: normal !important;
     }
+
+    .spinner {
+        display: none;
+    }
+
+    .htmx-request {
+        display: block !important;
+    }
 </style>
 {% endblock %}
 
@@ -113,20 +121,24 @@
         {% endif %}
     </section>
     <hr class="hr-kemkes">
-    <!-- UNGGAH FILE TAHAP 2 -->
-    {% comment %}
     {% if submisi.status != 'GUGUR' %}
+    {% comment %}
+    <!-- UNGGAH FILE TAHAP 2 -->
     <section>
         <h2>Penilaian Tahap II</h2>
-        <form enctype="multipart/form-data" method="POST" action="{% url 'hp_awards:unggah_naskah' %}">
+        <form class="p-2" enctype="multipart/form-data" hx-target="this" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .2rem solid green;">
             {% csrf_token %}
             <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
             {% bootstrap_form form_naskah %}
             <button type="submit" class="btn btn-kemkes">Unggah Naskah</button>
         </form>
+        <div id="spinner" class="my-3 spinner progress" role="progressbar">
+            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+        </div>
     </section>
-    {% endif %}
     {% endcomment %}
+    {% endif %}
+    
     <!-- ADMIN/PANITIA -->
     {% if request.user.is_staff and perms.hp_awards.change_manage_submissions and submisi.status != submisi_class.GUGUR %}
     <h1 class="fs-3 color-kemkes text-center">Menu Admin/Panitia Lomba</h1>

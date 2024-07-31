@@ -1,0 +1,8 @@
+{% load django_bootstrap5 %}
+<form class="p-2" enctype="multipart/form-data" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .2rem solid green;">
+    {% csrf_token %}
+    <div class="my-3 p-2 bg-success-subtle">Berkas berhasil diubah</div>
+    <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
+    {% bootstrap_form form_naskah %}
+    <button type="submit" class="btn btn-kemkes">Unggah Naskah</button>
+</form>
