@@ -197,6 +197,7 @@ def list_submisi(request):
         email = request.session.get("email")
         submisis = Submisi.objects.filter(wa=wa, email=email)
         context["submisis"] = submisis
+        context["ada_lolos"] = submisis.filter(status=Submisi.TUNGGU2).exists()
 
     # jika user adalah reviewer
     if request.user.is_authenticated and request.session.get("role") == "reviewer":
@@ -204,7 +205,7 @@ def list_submisi(request):
             "penilaians", "penilaians__submisi"
         ).get(username=request.session["username_reviewer"])
         context["reviewer"] = reviewer
-        context["todo_count"] = reviewer.penilaians.filter(nilai1=0).count()
+        context["todo_count"] = reviewer.penilaians.filter(nilai2=0).count()
         context["penilaians"] = reviewer.penilaians.all()
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
 

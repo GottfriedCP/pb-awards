@@ -27,7 +27,7 @@
 
 {% block body_bl %}
 <div class="container my-5">
-    <h1>Submisi</h1>
+    <h1>Naskah</h1>
     <h3>{{ submisi.judul_pb }}</h3>
     <h6 class="mt-3">Oleh: <b>{{ submisi.nama }}</b></h6>
     <div class="row my-5">
@@ -121,27 +121,25 @@
         {% endif %}
     </section>
     <hr class="hr-kemkes">
-    {% if submisi.status != 'GUGUR' %}
-    {% comment %}
+    {% if submisi.status == 'tunggu2' %}
     <!-- UNGGAH FILE TAHAP 2 -->
     <section>
-        <h2>Penilaian Tahap II</h2>
-        <form class="p-2" enctype="multipart/form-data" hx-target="this" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .2rem solid green;">
+        <h2>Penilaian Tahap 2</h2>
+        <form id="form-unggah" class="p-3" enctype="multipart/form-data" hx-target="this" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .1rem solid green;">
             {% csrf_token %}
             <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
             {% bootstrap_form form_naskah %}
-            <button type="submit" class="btn btn-kemkes">Unggah Naskah</button>
+            <button type="submit" class="btn btn-kemkes">Unggah/Perbarui Naskah</button>
         </form>
         <div id="spinner" class="my-3 spinner progress" role="progressbar">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 100%"></div>
         </div>
     </section>
-    {% endcomment %}
     {% endif %}
     
     <!-- ADMIN/PANITIA -->
     {% if request.user.is_staff and perms.hp_awards.change_manage_submissions and submisi.status != submisi_class.GUGUR %}
-    <h1 class="fs-3 color-kemkes text-center">Menu Admin/Panitia Lomba</h1>
+    <h1 class="fs-3 color-kemkes text-center mt-5">Menu Admin/Panitia Lomba</h1>
     <section id="assign-reviewer" class="mb-5">
         <div class="row">
             <div class="col-md-9 mt-5">
@@ -153,6 +151,9 @@
                 </form>
             </div>
             <div class="col-md-3 mt-5">
+                {% if submisi.status == 'tunggu2' %}
+                <h3>Naskah ini lolos ke tahap 2 (fulltext)</h3>
+                {% else %}
                 <h2>Loloskan Abstrak</h2>
                 <p>Tekan tombol di bawah untuk meloloskan ke tahap 2</p>
                 <form method="POST" action="{% url 'hp_awards:set_gugur' %}">
@@ -160,6 +161,7 @@
                     <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
                     <button class="btn btn-kemkes" type="submit">Loloskan Abstrak</button>
                 </form>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -172,20 +174,16 @@
                 <thead>
                     <tr>
                         <th>Nama</th>
-                        <th>Nilai Inovatif</th>
-                        <th>Nilai Aplikatif</th>
-                        <th>Nilai Kritis</th>
-                        <th>Total Nilai Abstrak</th>
+                        <th>Username</th>
+                        <th class="text-center">Total Nilai Naskah <i>Policy Brief</i></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for p in submisi.penilaians.all %}
                     <tr>
                         <td>{{ p.reviewer.nama }}</td>
-                        {% for i in p.get_nilai1_list %}
-                        <td>{{ i|default:'-' }}</td>
-                        {% endfor %}
-                        <td>{{ p.nilai1 }}</td>
+                        <td>{{ p.reviewer.username }}</td>
+                        <td class="text-center">{% if p.nilai2 > 0 %}{{ p.nilai2 }}{% else %}-{% endif %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -230,6 +228,8 @@
 
 {% block body_add_bl %}
 <script>
+    // sembunyikan checkbox dj bs5
+    $('#form-unggah .form-check').hide();
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function () {
         $('#id_reviewers').select2();

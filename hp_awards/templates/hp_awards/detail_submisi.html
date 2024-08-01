@@ -108,33 +108,39 @@
         {% endif %}
     </section>
     <hr class="hr-kemkes">
-    {% if submisi.status != 'GUGUR' %}
-    {% comment %}
+    {% if submisi.status == 'tunggu2' %}
     <!-- UNGGAH FILE TAHAP 2 -->
     <section>
-        <h2 class="color-kemkes">Penilaian Tahap II</h2>
+        <h2 class="color-kemkes">Penilaian Tahap 2</h2>
         <p class="fs-5 my-3">
-            Selamat! Naskah abstrak yang Bapak/Ibu kirim lolos ke tahap 2.<br> 
-            Mohon unggah tiga berkas di bawah, lalu klik "Unggah Naskah"
+            <span class="color-kemkes">Selamat! Naskah ini lolos ke tahap 2.</span><br> 
+            Mohon unggah tiga berkas sesuai ketentuan, lalu klik "Unggah Naskah"
         </p>
-        <p class="my-3">Ukuran setiap file tidak boleh melebihi 10 MB</p>
-        <form class="p-2" enctype="multipart/form-data" hx-target="this" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .2rem solid green;">
+        <div class="my-3 p-2 bg-info-subtle">
+            <ul>
+                <li>Ukuran setiap file tidak boleh melebihi 10 MB</li>
+                <li>Pastikan Anda mendapat pesan "Berkas berhasil diunggah" setelah mengunggah berkas dengan lengkap</li>
+            </ul>
+        </div>
+        <form id="form-unggah" class="p-3" enctype="multipart/form-data" hx-target="this" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .2rem solid green;">
             {% csrf_token %}
             <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
             {% bootstrap_form form_naskah %}
-            <button type="submit" class="btn btn-kemkes">Unggah Naskah</button>
+            <button type="submit" class="btn btn-kemkes">Unggah/Perbarui Naskah</button>
         </form>
         <div id="spinner" class="my-3 spinner progress" role="progressbar">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 100%"></div>
         </div>
     </section>
-    {% endcomment %}
     {% endif %}
 </div>
 {% endblock %}
 
 {% block body_add_bl %}
 <script>
+    // sembunyikan checkbox dj bs5
+    $('#form-unggah .form-check').hide();
+    $('#form-unggah input').attr('required', true);
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function () {
         $('#id_reviewers').select2();

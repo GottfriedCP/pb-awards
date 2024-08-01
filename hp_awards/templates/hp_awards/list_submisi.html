@@ -30,18 +30,18 @@
     {% endif %}
 
     {% if submisis %}
-    <h1>Submisi</h1>
-    <div class="my-3">
-        Masih punya abstrak lain yang ingin didaftarkan? <a class="color-kemkes" href="{% url 'hp_awards:registrasi' %}">Klik di sini</a>
+    <h1>Naskah Terkirim</h1>
+    {% if ada_lolos %}
+    <div class="bg-success-subtle m-3 p-2">
+        Terdapat naskah yang lolos ke tahap 2. Mohon cek tabel di bawah dan unggah naskah <i>policy brief</i> lengkap sebelum 31 Agustus 2024 pukul 23:59 WIB.
     </div>
-    <div class="my-5">
+    {% endif %}
+    <div class="my-5" style="overflow-x: auto;">
         <table class="table">
             <thead>
                 <tr>
                     <th>Judul</th>
-                    <th>Nama Penulis Utama</th>
-                    <!-- <th>Afiliasi</th>
-                    <th>Pendidikan</th> -->
+                    <th>Penulis Utama</th>
                     <th>Kategori</th>
                     <th>Tanggal Submisi</th>
                     <th>Status</th>
@@ -53,8 +53,6 @@
                 <tr>
                     <td><a href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}" class="color-kemkes">{{ submisi.judul_pb }}</a></td>
                     <td>{{ submisi.nama }}</td>
-                    <!-- <td>{{ submisi.afiliasi }}</td>
-                    <td>{{ submisi.get_pendidikan_display }}</td> -->
                     <td>{{ submisi.get_kategori_pendaftar_display }}</td>
                     <td>{{ submisi.created_at|date:'d-m-Y' }}</td>
                     <td>{{ submisi.get_status_display }}</td>
