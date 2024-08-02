@@ -233,6 +233,7 @@ def list_submisi(request):
             else:
                 return HttpResponse("Basic user not found")
             context["submisis"] = submisis
+            context["ada_lolos"] = submisis.filter(status=Submisi.TUNGGU2).exists()
     return render(request, "hp_awards/list_submisi.html", context)
 
 
