@@ -114,7 +114,7 @@
         <h2 class="color-kemkes">Penilaian Tahap 2</h2>
         <p class="fs-5 my-3">
             <span class="color-kemkes">Selamat! Naskah ini lolos ke tahap 2.</span><br> 
-            Mohon unggah tiga berkas sesuai ketentuan, lalu klik "Unggah Naskah"
+            Mohon unggah berkas-berkas sesuai ketentuan, lalu klik "Unggah Naskah"
         </p>
         <div class="my-3 p-2 bg-info-subtle">
             <ul>
@@ -126,7 +126,7 @@
             {% csrf_token %}
             <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
             {% bootstrap_form form_naskah %}
-            <button type="submit" class="btn btn-kemkes">Unggah/Perbarui Naskah</button>
+            <button type="submit" class="btn btn-kemkes mt-3">Unggah/Perbarui Naskah</button>
         </form>
         <div id="spinner" class="my-3 spinner progress" role="progressbar">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 100%"></div>

@@ -220,6 +220,7 @@ class Submisi(TimestampedModel):
     file_pb_ppt = models.FileField(
         blank=True, null=True, upload_to="dokumen_pb_ppt/", verbose_name="file PB PPT"
     )
+    link_dakung = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.nama} - {self.judul_pb}"

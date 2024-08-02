@@ -347,18 +347,23 @@ def tetapkan_nilai(request):
     if request.method == "POST":
         id_submisi = request.POST["id_submisi"]
         submisi = Submisi.objects.get(kode_submisi=id_submisi)
-
-        nilai_inovatif = int(request.POST["inovatif"])
-        nilai_aplikatif = int(request.POST["aplikatif"])
-        nilai_kritis = int(request.POST["kritis"])
-        nilai1 = nilai_inovatif + nilai_aplikatif + nilai_kritis
-        string_nilai1 = f"{nilai_inovatif}|{nilai_aplikatif}|{nilai_kritis}"
-        # reviewer.penilaians.all().delete()  # DON'T
-
         penilaian = reviewer.penilaians.get(submisi=submisi)
-        penilaian.nilai1 = nilai1
-        penilaian.string_nilai1 = string_nilai1
-        penilaian.save()
+        print(request.POST['skor-total'])
+        # ABSTRAK
+        # id_submisi = request.POST["id_submisi"]
+        # submisi = Submisi.objects.get(kode_submisi=id_submisi)
+
+        # nilai_inovatif = int(request.POST["inovatif"])
+        # nilai_aplikatif = int(request.POST["aplikatif"])
+        # nilai_kritis = int(request.POST["kritis"])
+        # nilai1 = nilai_inovatif + nilai_aplikatif + nilai_kritis
+        # string_nilai1 = f"{nilai_inovatif}|{nilai_aplikatif}|{nilai_kritis}"
+        # # reviewer.penilaians.all().delete()  # DON'T
+
+        # penilaian = reviewer.penilaians.get(submisi=submisi)
+        # penilaian.nilai1 = nilai1
+        # penilaian.string_nilai1 = string_nilai1
+        # penilaian.save()
     return redirect("hp_awards:list_submisi")
 
 
@@ -394,7 +399,7 @@ def unduh_hasil_penilaian_abstrak(request):
         ws = wb.active
 
         # Judul kolom
-        header_row = ["Judul", "Abstrak", "Penulis Utama", "Kategori", "Individu/Tim"]
+        header_row = ["No. Urut", "Judul", "Abstrak", "Penulis Utama", "Kategori", "Individu/Tim"]
         header_row.extend(
             ["WA", "Email", "Pekerjaan", "Instansi / Perguruan Tinggi", "Pendidikan"]
         )
@@ -426,6 +431,7 @@ def unduh_hasil_penilaian_abstrak(request):
                 p.string_nilai1 if p.string_nilai1 else "-" for p in s.penilaians.all()
             ]
             row = [
+                s.id,
                 s.judul_pb,
                 BeautifulSoup(s.abstrak_pb, "html.parser").get_text(),
                 s.nama,

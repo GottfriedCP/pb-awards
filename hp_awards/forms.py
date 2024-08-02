@@ -78,11 +78,12 @@ class FormPenugasanJuri(forms.ModelForm):
 class FormUnggahFulltext(forms.ModelForm):
     class Meta:
         model = Submisi
-        fields = ["file_pb_pdf", "file_pb_doc", "file_turnitin"]
+        fields = ["file_pb_pdf", "file_pb_doc", "file_turnitin", "link_dakung"]
         labels = {
-            "file_pb_pdf": "1. File Naskah format DOC atau DOCX",
-            "file_pb_doc": "2. File Naskah format PDF",
+            "file_pb_pdf": "1. File Naskah format PDF",
+            "file_pb_doc": "2. File Naskah format DOC/DOCX",
             "file_turnitin": "3. File Bukti Bebas Plagiarisme (misalnya Turnitin)",
+            "link_dakung": "4. Link Data Dukung (Jika Ada. Jangan lupa izinkan akses untuk panitia)."
         }
 
 

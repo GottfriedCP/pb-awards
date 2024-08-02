@@ -1,0 +1,279 @@
+<form method="POST" action="{% url 'hp_awards:set_nilai_abstrak' %}">
+    {% csrf_token %}
+    <input type="hidden" name="id_submisi" value="{{ submisi.kode_submisi }}">
+    <table id="table-skor-pb" class="table table-hover table-bordered mb-5">
+        <thead>
+            <tr>
+                <th class="text-center">No.</th>
+                <th>Kriteria</th>
+                <th>Skor (Skala Likert)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center"><b>1</b></td>
+                <td colspan="2"><b>Judul</b></td>
+            </tr>
+            <tr>
+                <td class="text-center">a.</td>
+                <td>Menarik (sehingga pembaca menjadi ingin mengetahui lebih lanjut)</td>
+                <td>
+                    <select class="form-select" name="1">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">b.</td>
+                <td>Memunculkan minat pembaca</td>
+                <td>
+                    <select class="form-select" name="2">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">c.</td>
+                <td>Singkat dan jelas mewakili substansi isi tulisan</td>
+                <td>
+                    <select class="form-select" name="3">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center"><b>2</b></td>
+                <td colspan="2"><b>Ringkasan Eksekutif</b></td>
+            </tr>
+            <tr>
+                <td class="text-center">a.</td>
+                <td>Terdapat faktor-faktor yang menjadi akar masalahnya</td>
+                <td>
+                    <select class="form-select" name="4">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">b.</td>
+                <td>Dengan jelas menggambarkan mengapa masalah tersebut perlu/strategis</td>
+                <td>
+                    <select class="form-select" name="5">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">c.</td>
+                <td>Dengan jelas menggambarkan bagaimana solusi untuk menyelesaikan masalah tersebut</td>
+                <td>
+                    <select class="form-select" name="6">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">d.</td>
+                <td>Menjelaskan siapa yang menjadi subyek dalam menyelesaikan masalah</td>
+                <td>
+                    <select class="form-select" name="7">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center"><b>3</b></td>
+                <td colspan="2"><b>Pendahuluan</b></td>
+            </tr>
+            <tr>
+                <td class="text-center">a.</td>
+                <td>Terdiri dari beberapa kalimat ringkas akan tetapi menarik minat untuk membaca keseluruhan</td>
+                <td>
+                    <select class="form-select" name="8">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">b.</td>
+                <td>Mengungkapkan urgensi dari topik yang diangkat</td>
+                <td>
+                    <select class="form-select" name="9">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center"><b>4</b></td>
+                <td colspan="2"><b>Deskripsi Masalah</b></td>
+            </tr>
+            <tr>
+                <td class="text-center">a.</td>
+                <td>Spesifik langsung ke inti permasalahan</td>
+                <td>
+                    <select class="form-select" name="10">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">b.</td>
+                <td>Terukur disertai bukti-bukti yang memadai (evidence based)</td>
+                <td>
+                    <select class="form-select" name="11">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">c.</td>
+                <td>Analisis (apa, di mana, siapa, mengapa, dampak/efek)</td>
+                <td>
+                    <select class="form-select" name="12">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center"><b>5</b></td>
+                <td colspan="2"><b>Rekomendasi</b></td>
+            </tr>
+            <tr>
+                <td class="text-center">a.</td>
+                <td>Spesifik memberikan solusi terhadapa permasalahan yang diangkat</td>
+                <td>
+                    <select class="form-select" name="13">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">b.</td>
+                <td>Terukur, dalam arti solusi yang ditawarkan sesuai dengan kemampuan pemangku kepentingan (stakeholder) serta didukung oleh faktor-faktor yang ada</td>
+                <td>
+                    <select class="form-select" name="14">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">c.</td>
+                <td>Alternatif disertai analisis singkat, metode penentuan/pemilihan dan gambaran alternatif yang dipilih</td>
+                <td>
+                    <select class="form-select" name="15">
+                        <option value="5">5 (tertinggi)</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option selected value="1">1 (terendah)</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="mb-5 fs-5" id="skor-total">
+        Total Skor = 
+    </div>
+    <input type="hidden" name="skor-total" value="0">
+    <!-- <span class="fs-5" style="color: red;">Penilaian yang sudah diberikan <b>tidak dapat diubah</b>. Mohon cek kembali
+        isian Bapak/Ibu sebelum melanjutkan</span> -->
+    <div class="d-grid gap-2">
+        <button class="mt-3 btn btn-kemkes" type="submit">Simpan Penilaian</button>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        function calculateSum() {
+            // Get the selected values of select fields with name "a" and "b"
+            let v1 = parseInt($('select[name="1"]').val());
+            let v2 = parseInt($('select[name="2"]').val());
+            let v3 = parseInt($('select[name="3"]').val());
+            let v4 = parseInt($('select[name="4"]').val());
+            let v5 = parseInt($('select[name="5"]').val());
+            let v6 = parseInt($('select[name="6"]').val());
+            let v7 = parseInt($('select[name="7"]').val());
+            let v8 = parseInt($('select[name="8"]').val());
+            let v9 = parseInt($('select[name="9"]').val());
+            let v10 = parseInt($('select[name="10"]').val());
+            let v11 = parseInt($('select[name="11"]').val());
+            let v12 = parseInt($('select[name="12"]').val());
+            let v13 = parseInt($('select[name="13"]').val());
+            let v14 = parseInt($('select[name="14"]').val());
+            let v15 = parseInt($('select[name="15"]').val());
+
+            // Calculate the sum
+            let k1 = (v1 + v2 + v3)/3.0;
+            let k2 = (v4 + v5 + v6 + v7)/4.0;
+            let k3 = (v8 + v9)/2.0;
+            let k4 = (v10 + v11 + v12)*2.33;
+            let k5 = (v13 + v14 + v15)*2.0;
+            
+            sum = (k1 + k2 + k3 + k4 + k5).toFixed(0);
+
+            // Display the result
+            $('#skor-total').text('Total Skor = ' + sum);
+            $('input[name="skor-total"]').val(sum);
+        };
+        $('.form-select').on('change', function () {
+            calculateSum();
+        });
+        calculateSum();
+    });
+</script>
