@@ -127,6 +127,7 @@
             <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
             {% bootstrap_form form_naskah %}
             <button type="submit" class="btn btn-kemkes mt-3">Unggah/Perbarui Naskah</button>
+            <script>$('#form-unggah input').not('[type="checkbox"]').attr('required', true);</script>
         </form>
         <div id="spinner" class="my-3 spinner progress" role="progressbar">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 100%"></div>
@@ -140,7 +141,7 @@
 <script>
     // sembunyikan checkbox dj bs5
     $('#form-unggah .form-check').hide();
-    $('#form-unggah input').attr('required', true);
+    // $('#form-unggah input').attr('required', true);
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function () {
         $('#id_reviewers').select2();
