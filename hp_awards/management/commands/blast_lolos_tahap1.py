@@ -49,6 +49,7 @@ class Command(BaseCommand):
 
             # Send the email
             email.send()
+            self.stdout.write(self.style.SUCCESS(f"mengirim email ke {n}"))
             n += 1
         self.stdout.write(
             self.style.SUCCESS(f"{n} email terkirim")
