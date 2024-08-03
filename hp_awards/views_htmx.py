@@ -28,7 +28,7 @@ def get_stats(request):
     context["kategori_umum_tim"] = submisis.filter(
         kategori_pendaftar=umum, jumlah_kolaborator__gt=0
     ).count()
-    context["naskah_eligible"] = submisis.filter(reviewers__isnull=False).count()
+    context["naskah_tahap2"] = submisis.filter(status=Submisi.TUNGGU2).count()
 
     # Juri dan penilaian
     juris = Reviewer.objects.prefetch_related("penilaians").exclude(
@@ -41,7 +41,7 @@ def get_stats(request):
     for j in juris:
         if (
             j.penilaians.count() > 0
-            and j.penilaians.count() == j.penilaians.filter(nilai1__gt=0).count()
+            and j.penilaians.count() == j.penilaians.filter(nilai2__gt=0).count()
         ):
             juri_selesai += 1
     context["jumlah_juri"] = jumlah_juri
@@ -49,10 +49,10 @@ def get_stats(request):
     context["progress_juri"] = (
         juri_selesai / jumlah_juri * 100.00 if jumlah_juri > 0 else 0.0
     )
-    # tabel progress juri
+    # TABEL PROGRESS JURI
     juris = juris.annotate(penilaian_ditugaskan=Count("penilaians"))
     juris = juris.annotate(
-        penilaian_selesai=Count("penilaians", filter=Q(penilaians__nilai1__gt=0))
+        penilaian_selesai=Count("penilaians", filter=Q(penilaians__nilai2__gt=0))
     )
     juris = juris.annotate(
         selesai=Case(

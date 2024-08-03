@@ -170,16 +170,15 @@ def list_submisi(request):
     # jika user adalah staf/admin
     if request.user.is_staff:
         submisis = Submisi.objects.prefetch_related("reviewers", "penilaians")
-        # submisis = submisis.annotate(total_skor_abstrak=Avg("penilaians__nilai1"))
-        submisis = submisis.annotate(total_skor_abstrak=Sum("penilaians__nilai1"))
+        submisis = submisis.annotate(total_skor_abstrak=Sum("penilaians__nilai2"))
         submisis = submisis.annotate(
             reviewer_menilai=Count(
-                "penilaians", filter=Q(penilaians__string_nilai1__isnull=False)
+                "penilaians", filter=Q(penilaians__nilai2__gt=0)
             )
         )
         submisis = submisis.annotate(
             rerata_skor_abstrak=Case(
-                When(Q(reviewer_menilai=0), then=0.0),
+                When(reviewer_menilai=0, then=0.0),
                 default=ExpressionWrapper(
                     F("total_skor_abstrak") / F("reviewer_menilai"),
                     output_field=FloatField(),

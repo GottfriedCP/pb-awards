@@ -48,7 +48,7 @@ class Command(BaseCommand):
             email.attach_alternative(html_content, "text/html")  # Attach HTML version
 
             # Send the email
-            email.send()
+            # email.send()
             n += 1
         self.stdout.write(
             self.style.SUCCESS(f"{n} email terkirim")
