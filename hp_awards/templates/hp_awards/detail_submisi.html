@@ -122,6 +122,25 @@
                 <li>Pastikan Anda mendapat pesan "Berkas berhasil diunggah" setelah mengunggah berkas dengan lengkap</li>
             </ul>
         </div>
+        <div id="petunjuk-naskah">
+            <ol type="1">
+                <li>Jumlah halaman policy brief terdiri dari 2-4 halaman dengan maksimal 2.000 kata tidak termasuk judul dan daftar pustaka</li>
+                <li>Sistematika naskah policy brief terdiri dari:
+                    <ol type="a">
+                        <li>Judul</li>
+                        <li>Ringkasan Eksekutif</li>
+                        <li>Latar Belakang/Pendahuluan</li>
+                        <li>Deskripsi Masalah (termasuk analisis)</li>
+                        <li>Rekomendasi</li>
+                        <li>Apendiks (jika diperlukan)</li>
+                        <li>Daftar Referensi Utama (referensi ditulis menggunakan APA Style)</li>
+                    </ol>
+                </li>
+                <li>Policy Brief ditulis dengan ukuran kertas A4<br>Margin: kiri 4 cm, kanan 3 cm, atas 3 cm, bawah 3 cm</li>
+                <li>Dikumpulkan dalam format file PDF dan DOC/DOCX</li>
+                <li>Hasil uji plagiarisme maksimal 25% dan dibuktikan dengan lembar pernyataan keaslian (digabung satu PDF)</li>
+            </ol>
+        </div>
         <form id="form-unggah" class="p-3" enctype="multipart/form-data" hx-target="this" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .2rem solid green;">
             {% csrf_token %}
             <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
