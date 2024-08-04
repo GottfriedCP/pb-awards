@@ -83,7 +83,7 @@ class FormUnggahFulltext(forms.ModelForm):
             "file_pb_pdf": "1. File Naskah format PDF",
             "file_pb_doc": "2. File Naskah format DOC/DOCX",
             "file_turnitin": "3. File Bukti Bebas Plagiarisme (misalnya Turnitin)",
-            "link_dakung": "4. Link Data Dukung (Jika Ada. Jangan lupa izinkan akses untuk panitia)."
+            "link_dakung": "4. Link Apendiks dan Data Dukung (Jika Ada. Jangan lupa izinkan akses untuk panitia)."
         }
 
 
