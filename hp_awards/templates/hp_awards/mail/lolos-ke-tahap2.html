@@ -10,7 +10,7 @@
 <body style="font-family: 'Poppins', sans-serif; font-weight: 400; font-style: normal;">
     <div style="margin: 0 1rem;">
         <div style="margin-bottom: 9px;">Yth. Bapak/Ibu {{ nama }},</div>
-        Judul naskah di bawah ini lolos ke Tahap 2 - Penilaian Naskah <i>Policy Brief</i> Lengkap.<br>
+        Judul naskah di bawah ini lolos ke Tahap 2 (Penilaian Naskah <i>Policy Brief</i>).<br>
         Silakan <i>login</i> menggunakan nomor WA dan email Anda untuk melihat status submisi.
         <dl>
             <dt>No WA Anda:</dt>
@@ -19,18 +19,18 @@
             <dt>Email Anda:</dt>
             <dd><b>{{ email }}</b></dd>
         </dl>
-        <h5>Mohon login dan mengunggah naskah <i>Policy Brief</i> sesuai ketentuan <b>sebelum 3 September 2024 pukul 23.59 WIB</b></h5>
+        <h5>Mohon <i>login</i> dan mengunggah naskah <i>Policy Brief</i> sesuai ketentuan <b>sebelum 3 September 2024 pukul 23.59 WIB</b></h5>
         <table style="border-collapse: collapse; width: 100%;">
             <thead>
                 <tr>
-                    <th style="text-align: center; border: .1rem solid black;">Kode Submisi</th>
-                    <th style="border: .1rem solid black;">Judul</th>
+                    <th style="text-align: center; border: .1rem solid black;">No. Urut</th>
+                    <th style="border: .1rem solid black;">Judul Naskah</th>
                 </tr>
             </thead>
             <tbody>
                 {% for s in submisis %}
                 <tr>
-                    <td style="text-align: center; border: .1rem solid black;">{{ s.kode_submisi }}</td>
+                    <td style="text-align: center; border: .1rem solid black;">{{ s.id }}</td>
                     <td style="padding-left: 10px; border: .1rem solid black;">{{ s.judul_pb }}</td>
                 </tr>
                 {% endfor %}
