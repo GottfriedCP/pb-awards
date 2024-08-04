@@ -188,8 +188,11 @@ class Submisi(TimestampedModel):
         "Kolaborator", related_name="submisis", blank=True, verbose_name="kolaborators"
     )
     # bool check tahapan
+    nilai1 = models.DecimalField(default=0, max_digits=5, decimal_places=2)
     lolos_tahap_1 = models.BooleanField(default=False)
+    nilai2 = models.DecimalField(default=0, max_digits=5, decimal_places=2)
     lolos_tahap_2 = models.BooleanField(default=False)
+    nilai3 = models.DecimalField(default=0, max_digits=5, decimal_places=2)
     lolos_tahap_3 = models.BooleanField(default=False)
 
     # status submisi

@@ -480,6 +480,8 @@ def unduh_hasil_penilaian_abstrak(request):
                 ]
             )
             ws.append(row)
+            s.nilai1 = s.rerata_skor_abstrak
+            s.save()
         response = HttpResponse(content_type="application/vnd.ms-excel")
         response["Content-Disposition"] = (
             f"attachment; filename=hasil_nilai_abstrak-{str(timezone.localtime())}.xlsx"
