@@ -198,11 +198,13 @@ class Submisi(TimestampedModel):
     # status submisi
     TUNGGU = "tunggu"
     TUNGGU2 = "tunggu2"  # tunggu penugasan juri tahap 2
+    TUNGGU3 = "tunggu3"  # tunggu penugasan juri tahap 3
     IN_REVIEW = "review"
     GUGUR = "gugur"
     STATUS_CHOICES = {
         TUNGGU: "Menunggu Penilaian",
         TUNGGU2: "Unggah Naskah / Menunggu Penilaian",
+        TUNGGU3: "Unggah PPT / Menunggu Penilaian",
         IN_REVIEW: "Dalam Penilaian",
         GUGUR: "Gugur",
     }
