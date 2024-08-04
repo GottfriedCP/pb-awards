@@ -218,7 +218,7 @@ def list_submisi(request):
         #     messages.error(request, "Anda diduga Robot. Coba lagi lain waktu.")
         #     return redirect("hp_awards:list_submisi")
         wa = request.POST.get("wa")
-        email = request.POST.get("email")
+        email = str(request.POST.get("email")).lower()
         if Submisi.objects.filter(wa=wa, email=email).exists():
             submisis = Submisi.objects.filter(wa=wa, email=email)
             # log in sebagai generic user
