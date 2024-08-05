@@ -29,6 +29,7 @@ from .forms import (
 from .models import Pernyataan, Submisi, Reviewer
 from .helpers import kirim_konfirmasi_submisi, kirim_pertanyaan_pengunjung, Round
 
+from datetime import datetime
 import decimal
 
 
@@ -117,8 +118,9 @@ def policy_questions(request):
 
 def registrasi(request):
     # handle pendaftaran jika sudah ditutup
-    now = timezone.localdate()
-    if now.day > 21 and now.month >= 7 and now.year >= 2024:
+    now = timezone.localtime()
+    tanggal_tutup = timezone.make_aware(datetime(year=2024, month=7, day=21))
+    if now >= tanggal_tutup:
         raise Http404("Periode registrasi sudah ditutup.")
     form = FormPendaftaran()
     form_captcha = FormCaptcha()

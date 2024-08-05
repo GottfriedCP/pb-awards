@@ -7,7 +7,7 @@
 <div class="container my-5">
     {% bootstrap_messages %}
     {% if not request.user.is_authenticated %}
-    <h1>Login</h1>
+    <h1>Login Peserta</h1>
     <ul>
         <li>Ingin melakukan pendaftaran dan pengiriman abstrak? <a class="color-kemkes" href="{% url 'hp_awards:registrasi' %}">Klik di sini</a></li>
         <li>Anda juri atau panitia? Login <a class="color-kemkes" href="{% url 'hp_awards:login' %}">di sini</a></li>
