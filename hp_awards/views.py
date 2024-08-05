@@ -430,6 +430,7 @@ def unduh_hasil_penilaian_abstrak(request):
                 "Nilai Rata-rata",
             ]
         )
+        header_row.extend(["Berkas PB PDF"])
         header_row.extend(["Policy Question"])
         ws.append(header_row)
 
@@ -481,6 +482,7 @@ def unduh_hasil_penilaian_abstrak(request):
                     s.rerata_skor_pb or "-",
                 ]
             )
+            row.extend(["Sudah Unggah" if s.file_pb_pdf else "Belum Unggah"])
             row.extend(
                 [
                     (

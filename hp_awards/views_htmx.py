@@ -29,6 +29,9 @@ def get_stats(request):
         kategori_pendaftar=umum, jumlah_kolaborator__gt=0
     ).count()
     context["naskah_tahap2"] = submisis.filter(status=Submisi.TUNGGU2).count()
+    context["naskah_tahap2_lengkap"] = submisis.filter(
+        status=Submisi.TUNGGU2, file_pb_pdf__isnull=False
+    ).count()
 
     # Juri dan penilaian
     juris = Reviewer.objects.prefetch_related("penilaians").exclude(
