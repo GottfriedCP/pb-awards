@@ -31,7 +31,7 @@ def get_stats(request):
     context["naskah_tahap2"] = submisis.filter(status=Submisi.TUNGGU2).count()
     context["naskah_tahap2_lengkap"] = submisis.filter(
         status=Submisi.TUNGGU2, file_pb_pdf__isnull=False
-    ).count()
+    ).exclude(file_pb_pdf__exact="").count()
 
     # Juri dan penilaian
     juris = Reviewer.objects.prefetch_related("penilaians").exclude(

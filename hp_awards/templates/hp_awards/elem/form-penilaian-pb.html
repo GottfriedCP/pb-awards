@@ -268,6 +268,9 @@
             sum = (k1 + k2 + k3 + k4 + k5).toFixed(0);
 
             // Display the result
+            if (isNaN(sum)) {
+                sum = "Penilaian belum lengkap."
+            }
             $('#skor-total').text('Total Skor = ' + sum);
             $('input[name="skor-total"]').val(sum);
         };

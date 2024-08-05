@@ -204,8 +204,12 @@ def list_submisi(request):
             "penilaians", "penilaians__submisi"
         ).get(username=request.session["username_reviewer"])
         context["reviewer"] = reviewer
-        context["todo_count"] = reviewer.penilaians.filter(nilai2=0).count()
-        context["penilaians"] = reviewer.penilaians.all().order_by("-nilai2")
+        context["todo_count"] = reviewer.penilaians.filter(
+            nilai2=0, status=Submisi.TUNGGU2
+        ).count()
+        context["penilaians"] = reviewer.penilaians.filter(
+            status=Submisi.TUNGGU2
+        ).order_by("-nilai2")
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
 
     form_captcha = FormCaptcha()
@@ -333,12 +337,12 @@ def tetapkan_reviewer(request, id_submisi):
         form_penugasan_juri = FormPenugasanJuri(request.POST, instance=submisi)
         if form_penugasan_juri.is_valid():
             submisi = form_penugasan_juri.save()
-            if submisi.reviewers.count() > 0:
-                submisi.status = Submisi.IN_REVIEW
-                submisi.save()
-            else:
-                submisi.status = Submisi.TUNGGU
-                submisi.save()
+            # if submisi.reviewers.count() > 0:
+            #     submisi.status = Submisi.TUNGGU2
+            #     submisi.save()
+            # else:
+            #     submisi.status = Submisi.TUNGGU2
+            #     submisi.save()
             return redirect("hp_awards:detail_submisi", submisi.kode_submisi)
         context["form_penugasan_juri"] = form_penugasan_juri
     return render(request, "hp_awards/detail_submisi.html", context)
