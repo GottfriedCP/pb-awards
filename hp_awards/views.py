@@ -174,9 +174,7 @@ def list_submisi(request):
         submisis = Submisi.objects.prefetch_related("reviewers", "penilaians")
         submisis = submisis.annotate(total_skor_abstrak=Sum("penilaians__nilai2"))
         submisis = submisis.annotate(
-            reviewer_menilai=Count(
-                "penilaians", filter=Q(penilaians__nilai2__gt=0)
-            )
+            reviewer_menilai=Count("penilaians", filter=Q(penilaians__nilai2__gt=0))
         )
         submisis = submisis.annotate(
             rerata_skor_abstrak=Case(
@@ -207,7 +205,7 @@ def list_submisi(request):
         ).get(username=request.session["username_reviewer"])
         context["reviewer"] = reviewer
         context["todo_count"] = reviewer.penilaians.filter(nilai2=0).count()
-        context["penilaians"] = reviewer.penilaians.all()
+        context["penilaians"] = reviewer.penilaians.all().order_by("-nilai2")
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
 
     form_captcha = FormCaptcha()
@@ -246,6 +244,12 @@ def detail_submisi(request, id_submisi):
         "submisi_class": Submisi,
         "form_naskah": FormUnggahFulltext(instance=submisi),
     }
+    try:
+        url_pb_pdf = f"{request.scheme}://{request.get_host()}{submisi.file_pb_pdf.url}"
+    except:
+        url_pb_pdf = ""
+    context["url_pb_pdf"] = url_pb_pdf
+
     if request.user.is_staff:
         context["form_penugasan_juri"] = FormPenugasanJuri(instance=submisi)
         context["reviewers"] = Reviewer.objects.all().order_by("nama")
@@ -350,7 +354,11 @@ def tetapkan_nilai(request):
         id_submisi = request.POST["id_submisi"]
         submisi = Submisi.objects.get(kode_submisi=id_submisi)
         penilaian = reviewer.penilaians.get(submisi=submisi)
-        print(request.POST['skor-total'])
+        nilai2 = request.POST["skor-total"]
+        print(nilai2)
+        penilaian.nilai2 = nilai2
+        penilaian.string_nilai2 = None
+        penilaian.save()
         # ABSTRAK
         # id_submisi = request.POST["id_submisi"]
         # submisi = Submisi.objects.get(kode_submisi=id_submisi)
@@ -360,7 +368,6 @@ def tetapkan_nilai(request):
         # nilai_kritis = int(request.POST["kritis"])
         # nilai1 = nilai_inovatif + nilai_aplikatif + nilai_kritis
         # string_nilai1 = f"{nilai_inovatif}|{nilai_aplikatif}|{nilai_kritis}"
-        # # reviewer.penilaians.all().delete()  # DON'T
 
         # penilaian = reviewer.penilaians.get(submisi=submisi)
         # penilaian.nilai1 = nilai1
@@ -375,22 +382,16 @@ def unduh_hasil_penilaian_abstrak(request):
         submisis = Submisi.objects.prefetch_related(
             "reviewers", "penilaians", "kolaborators"
         )
-        # submisis = submisis.annotate(
-        #     total_skor_abstrak=Round(
-        #         Avg("penilaians__nilai1"), 2, output_field=FloatField()
-        #     )
-        # )
-        submisis = submisis.annotate(total_skor_abstrak=Sum("penilaians__nilai1"))
+        # submisis = submisis.annotate(total_skor_abstrak=Sum("penilaians__nilai1"))
+        submisis = submisis.annotate(total_skor_pb=Sum("penilaians__nilai2"))
         submisis = submisis.annotate(
-            reviewer_menilai=Count(
-                "penilaians", filter=Q(penilaians__string_nilai1__isnull=False)
-            )
+            reviewer_menilai=Count("penilaians", filter=Q(penilaians__nilai2__gt=0))
         )
         submisis = submisis.annotate(
-            rerata_skor_abstrak=Case(
+            rerata_skor_pb=Case(
                 When(Q(reviewer_menilai=0), then=0.0),
                 default=ExpressionWrapper(
-                    F("total_skor_abstrak") / F("reviewer_menilai"),
+                    F("total_skor_pb") / F("reviewer_menilai"),
                     output_field=FloatField(),
                 ),
             )
@@ -401,11 +402,18 @@ def unduh_hasil_penilaian_abstrak(request):
         ws = wb.active
 
         # Judul kolom
-        header_row = ["No. Urut", "Judul", "Abstrak", "Penulis Utama", "Kategori", "Individu/Tim"]
+        header_row = [
+            "No. Urut",
+            "Judul",
+            "Abstrak",
+            "Penulis Utama",
+            "Kategori",
+            "Individu/Tim",
+        ]
         header_row.extend(
             ["WA", "Email", "Pekerjaan", "Instansi / Perguruan Tinggi", "Pendidikan"]
         )
-        header_row.extend(["Tanggal Submisi", "Status"])
+        header_row.extend(["Tanggal Submisi", "Status", "Nilai Abstrak"])
         header_row.extend(
             [
                 "Jumlah Juri",
@@ -428,9 +436,9 @@ def unduh_hasil_penilaian_abstrak(request):
 
         for s in submisis:
             juris = [p.reviewer.nama for p in s.penilaians.all()]
-            skors = [p.nilai1 if p.nilai1 > 0 else "-" for p in s.penilaians.all()]
+            skors = [p.nilai2 if p.nilai2 > 0 else "-" for p in s.penilaians.all()]
             detail_skors = [
-                p.string_nilai1 if p.string_nilai1 else "-" for p in s.penilaians.all()
+                p.string_nilai2 if p.string_nilai2 else "-" for p in s.penilaians.all()
             ]
             row = [
                 s.id,
@@ -449,7 +457,9 @@ def unduh_hasil_penilaian_abstrak(request):
                     s.pendidikan or "-",
                 ]
             )
-            row.extend([timezone.make_naive(s.created_at), s.get_status_display()])
+            row.extend(
+                [timezone.make_naive(s.created_at), s.get_status_display(), s.nilai1]
+            )
             row.extend(
                 [
                     s.reviewers.count(),
@@ -469,7 +479,7 @@ def unduh_hasil_penilaian_abstrak(request):
                     juris[2] if len(juris) > 2 else "-",
                     skors[2] if len(skors) > 2 else "-",
                     detail_skors[2] if len(detail_skors) > 2 else "-",
-                    s.rerata_skor_abstrak or "-",
+                    s.rerata_skor_pb or "-",
                 ]
             )
             row.extend(
@@ -482,8 +492,6 @@ def unduh_hasil_penilaian_abstrak(request):
                 ]
             )
             ws.append(row)
-            s.nilai1 = s.rerata_skor_abstrak
-            s.save()
         response = HttpResponse(content_type="application/vnd.ms-excel")
         response["Content-Disposition"] = (
             f"attachment; filename=hasil_nilai_abstrak-{str(timezone.localtime())}.xlsx"

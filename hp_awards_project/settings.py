@@ -151,6 +151,8 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "mediaroot"
+X_FRAME_OPTIONS = "SAMEORIGIN"
+XS_SHARING_ALLOWED_METHODS = ["POST", "GET", "OPTIONS", "PUT", "DELETE"]
 
 
 # Default primary key field type
