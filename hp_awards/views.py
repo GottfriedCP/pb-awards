@@ -355,7 +355,6 @@ def tetapkan_nilai(request):
         submisi = Submisi.objects.get(kode_submisi=id_submisi)
         penilaian = reviewer.penilaians.get(submisi=submisi)
         nilai2 = request.POST["skor-total"]
-        print(nilai2)
         penilaian.nilai2 = nilai2
         penilaian.string_nilai2 = None
         penilaian.save()
