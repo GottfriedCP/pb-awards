@@ -43,6 +43,7 @@
                     <th>Reviewer Sudah Menilai</th>
                     <th>Nilai</th>
                     <th>Reviewer Sudah Menilai Semua</th>
+                    <th>Naskah PB</th>
                     <th>Tindakan</th>
                 </tr>
             </thead>
@@ -61,6 +62,7 @@
                     <td>{{ submisi.reviewer_menilai|default:'-' }}</td>
                     <td>{{ submisi.rerata_skor_abstrak|floatformat:'2u'|default:'-' }}</td>
                     <td>{% if submisi.reviewers.count == submisi.reviewer_menilai and submisi.reviewers.count > 0 %}Ya{% else %}Belum{% endif %}</td>
+                    <td>{% if submisi.file_pb_pdf or submisi.file_pb_doc %}Ada{% else %}Belum{% endif %}</td>
                     <td>
                         <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:detail_submisi' submisi.kode_submisi %}">Lihat</a>
                         {% comment %}
