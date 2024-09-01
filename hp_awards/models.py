@@ -211,19 +211,32 @@ class Submisi(TimestampedModel):
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=TUNGGU)
     # field paska penilaian abstrak
     file_pb_pdf = models.FileField(
-        blank=True, null=True, upload_to=randomize_name_pdf, verbose_name="file PB PDF"
+        max_length=500,
+        blank=True,
+        null=True,
+        upload_to=randomize_name_pdf,
+        verbose_name="file PB PDF",
     )
     file_pb_doc = models.FileField(
-        blank=True, null=True, upload_to=randomize_name_doc, verbose_name="file PB DOC"
+        max_length=500,
+        blank=True,
+        null=True,
+        upload_to=randomize_name_doc,
+        verbose_name="file PB DOC",
     )
     file_turnitin = models.FileField(
+        max_length=500,
         blank=True,
         null=True,
         upload_to=randomize_name_turnitin,
         verbose_name="file Turnitin",
     )
     file_pb_ppt = models.FileField(
-        blank=True, null=True, upload_to="dokumen_pb_ppt/", verbose_name="file PB PPT"
+        max_length=500,
+        blank=True,
+        null=True,
+        upload_to="dokumen_pb_ppt/",
+        verbose_name="file PB PPT",
     )
     link_dakung = models.TextField(blank=True, null=True)
 
