@@ -424,13 +424,13 @@ def unduh_hasil_penilaian_abstrak(request):
                 "Penilaian Lengkap",
                 "Nama Juri 1",
                 "Nilai Juri 1",
-                "Detail Nilai Juri 1 (Inovatif|Aplikatif|Kritis)",
+                "Detail Nilai Juri 1",
                 "Nama Juri 2",
                 "Nilai Juri 2",
-                "Detail Nilai Juri 2 (Inovatif|Aplikatif|Kritis)",
+                "Detail Nilai Juri 2",
                 "Nama Juri 3",
                 "Nilai Juri 3",
-                "Detail Nilai Juri 3 (Inovatif|Aplikatif|Kritis)",
+                "Detail Nilai Juri 3",
                 "Nilai Rata-rata",
             ]
         )
