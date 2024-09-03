@@ -39,7 +39,6 @@ class Command(BaseCommand):
                 from_email="healthpolicyawards@gmail.com",
                 to=[email],
                 cc=[
-                    # "sibijaksawards@gmail.com",
                     # "healthpolicyawards@gmail.com",
                     # "perpustakaanbkpk@gmail.com",
                     "gottfriedcpn@gmail.com",

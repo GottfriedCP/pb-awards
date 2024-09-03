@@ -26,10 +26,9 @@ def kirim_konfirmasi_submisi(submisi):
         email = EmailMultiAlternatives(
             subject="Submisi Abstrak SiBijaKs Awards 2024",
             body=text_content,
-            from_email="sibijaksawards@gmail.com",
+            from_email="healthpolicyawards@gmail.com",
             to=recipient_list,
             cc=[
-                # "sibijaksawards@gmail.com",
                 "healthpolicyawards@gmail.com",
                 "perpustakaanbkpk@gmail.com",
                 # "gottfriedcpn@gmail.com",
@@ -50,8 +49,7 @@ def kirim_konfirmasi_submisi(submisi):
 
 def kirim_pertanyaan_pengunjung(nama: str, email: str, pertanyaan: str):
     def _kirim(nama, email, pertanyaan):
-        # recipient_list = ["sibijaksawards@gmail.com"]
-        recipient_list = ["sibijaksawards@gmail.com", "healthpolicyawards@gmail.com"]
+        recipient_list = ["healthpolicyawards@gmail.com"]
 
         # context = {}
 
@@ -62,7 +60,7 @@ def kirim_pertanyaan_pengunjung(nama: str, email: str, pertanyaan: str):
         email = EmailMultiAlternatives(
             subject=f"Pertanyaan dari {nama}",
             body=strip_tags(pertanyaan),
-            from_email="sibijaksawards@gmail.com",
+            from_email="healthpolicyawards@gmail.com",
             reply_to=(email,),
             to=recipient_list,
             cc=[

@@ -103,7 +103,7 @@ DATABASES = {
 }
 
 ADMINS = [("Gottfried", "gottfriedcpn@gmail.com")]
-SERVER_EMAIL = "sibijaksawards@gmail.com"
+SERVER_EMAIL = "healthpolicyawards@gmail.com"
 
 EMAIL_HOST = env("EMAIL_HOST")
 EMAIL_PORT = env.int("EMAIL_PORT")
