@@ -33,8 +33,8 @@ class Command(BaseCommand):
             text_content = strip_tags(html_content)  # Optional: Plain text version
 
             # Create email object with MultiAlternatives
-            email = EmailMultiAlternatives(
-                subject="SiBijaKs Awards 2024 - Naskah Lolos ke Tahap 2",
+            mail = EmailMultiAlternatives(
+                subject="SiBijaKs Awards 2024 | Segera Unggah Naskah untuk Tahap 2",
                 body=text_content,
                 from_email="healthpolicyawards@gmail.com",
                 to=[email],
@@ -45,10 +45,10 @@ class Command(BaseCommand):
                     "gottfriedcpn@gmail.com",
                 ] if n == 1 else [],
             )
-            email.attach_alternative(html_content, "text/html")  # Attach HTML version
+            mail.attach_alternative(html_content, "text/html")  # Attach HTML version
 
             # Send the email
-            email.send()
+            mail.send()
             self.stdout.write(self.style.SUCCESS(f"mengirim email ke {n}"))
             n += 1
         self.stdout.write(
