@@ -504,6 +504,7 @@ def unduh_hasil_penilaian_abstrak(request):
 
         wb.save(response)
         return response
+    return redirect("hp_awards:list_submisi")
 
 
 def login_view(request):
