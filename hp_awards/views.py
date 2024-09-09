@@ -205,7 +205,7 @@ def list_submisi(request):
         ).get(username=request.session["username_reviewer"])
         context["reviewer"] = reviewer
         context["todo_count"] = reviewer.penilaians.filter(
-            nilai2=0, submisi__status=Submisi.TUNGGU2
+            string_nilai2__isnull=True, submisi__status=Submisi.TUNGGU2
         ).count()
         context["penilaians"] = reviewer.penilaians.filter(
             submisi__status=Submisi.TUNGGU2
@@ -358,9 +358,15 @@ def tetapkan_nilai(request):
         id_submisi = request.POST["id_submisi"]
         submisi = Submisi.objects.get(kode_submisi=id_submisi)
         penilaian = reviewer.penilaians.get(submisi=submisi)
-        nilai2 = request.POST["skor-total"]
-        penilaian.nilai2 = nilai2
-        penilaian.string_nilai2 = None
+        # nilai2 = request.POST["skor-total"]
+        # penilaian.nilai2 = nilai2
+        string_nilai2_list = []
+        for i in range(1,15):
+            string_nilai2_list.append(request.POST[f"{i}"])
+        # Perlakuan khusus dimensi B3
+        if string_nilai2_list[2] != "5":
+            string_nilai2_list[3] = "0"
+        penilaian.string_nilai2 = "|".join(string_nilai2_list)
         penilaian.save()
         # ABSTRAK
         # id_submisi = request.POST["id_submisi"]
@@ -499,7 +505,7 @@ def unduh_hasil_penilaian_abstrak(request):
             ws.append(row)
         response = HttpResponse(content_type="application/vnd.ms-excel")
         response["Content-Disposition"] = (
-            f"attachment; filename=hasil_nilai_abstrak-{str(timezone.localtime())}.xlsx"
+            f"attachment; filename=hasil_nilai-{str(timezone.localtime())}.xlsx"
         )
 
         wb.save(response)

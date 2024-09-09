@@ -5,234 +5,211 @@
         <thead>
             <tr>
                 <th class="text-center">No.</th>
-                <th>Kriteria</th>
-                <th>Skor (Skala Likert)</th>
+                <th class="text-center">Dimensi dan Penilaian</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="text-center"><b>1</b></td>
-                <td colspan="2"><b>Judul</b></td>
+                <td class="text-center"><b>A</b></td>
+                <td><b>Judul</b></td>
             </tr>
             <tr>
-                <td class="text-center">a.</td>
-                <td>Menarik (sehingga pembaca menjadi ingin mengetahui lebih lanjut)</td>
-                <td>
-                    <select class="form-select" name="1">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">1.</td>
+                <td>Menarik (sehingga pembaca menjadi ingin mengetahui lebih lanjut)
+                    <select class="form-select my-3" name="1">
+                        <option value="5">Sangat Menarik</option>
+                        <option value="4">Menarik</option>
+                        <option value="3">Cukup Menarik</option>
+                        <option value="2">Kurang Menarik</option>
+                        <option selected value="1">Tidak Menarik</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-center">b.</td>
-                <td>Memunculkan minat pembaca</td>
-                <td>
-                    <select class="form-select" name="2">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">2.</td>
+                <td>Judul mewakili substansi isi tulisan
+                    <select class="form-select my-3" name="2">
+                        <option value="5">Sangat mewakili</option>
+                        <option value="4">Mewakili</option>
+                        <option value="3">Cukup Mewakili</option>
+                        <option value="2">Kurang Mewakili</option>
+                        <option selected value="1">Tidak mewakili</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-center">c.</td>
-                <td>Singkat dan jelas mewakili substansi isi tulisan</td>
-                <td>
-                    <select class="form-select" name="3">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center"><b>2</b></td>
+                <td class="text-center"><b>B</b></td>
                 <td colspan="2"><b>Ringkasan Eksekutif</b></td>
             </tr>
             <tr>
-                <td class="text-center">a.</td>
-                <td>Terdapat faktor-faktor yang menjadi akar masalahnya</td>
-                <td>
-                    <select class="form-select" name="4">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">3.</td>
+                <td>Kelengkapan komponen Ringkasan Eksekutif, meliputi 4 komponen yaitu:
+                    <ol>
+                        <li>Terdapat faktor-faktor yang menjadi akar masalahnya;</li>
+                        <li>Terdapat gambaran mengapa masalah tersebut perlu/strategis;</li>
+                        <li>Terdapat gambaran bagaimana solusi untuk menyelesaikan masalah tersebut;</li>
+                        <li>Menjelaskan siapa policy maker yang menjadi subjek untuk menyelesaikan masalah</li>
+                    </ol>
+                    <select class="form-select my-3" name="3">
+                        <option value="5">Terdapat 4 komponen yang tercantum dalam ringkasan eksekutif</option>
+                        <option value="4">Terdapat 3 komponen yang tercantum dalam ringkasan eksekutif</option>
+                        <option value="3">Terdapat 2 komponen yang tercantum dalam ringkasan eksekutif</option>
+                        <option value="2">Terdapat 1 komponen yang tercantum dalam ringkasan eksekutif</option>
+                        <option selected value="1">Tidak terdapat komponen yang tercantum dalam ringkasan eksekutif</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="q4">
+                <td class="text-center">4.</td>
+                <td>Kejelasan mengenai masing-masing komponen pada poin <b>B3</b> (hanya diisi jika terdapat lengkap 4 komponen)
+                    <select class="form-select my-3" name="4">
+                        <option value="5">Terdapat 4 komponen jelas</option>
+                        <option value="4">Terdapat 3 komponen yang jelas</option>
+                        <option value="3">Terdapat 2 komponen yang jelas</option>
+                        <option value="2">Hanya 1 komponen yang jelas</option>
+                        <option selected value="1">4 komponen tidak jelas</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-center">b.</td>
-                <td>Dengan jelas menggambarkan mengapa masalah tersebut perlu/strategis</td>
-                <td>
-                    <select class="form-select" name="5">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">c.</td>
-                <td>Dengan jelas menggambarkan bagaimana solusi untuk menyelesaikan masalah tersebut</td>
-                <td>
-                    <select class="form-select" name="6">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">d.</td>
-                <td>Menjelaskan siapa yang menjadi subyek dalam menyelesaikan masalah</td>
-                <td>
-                    <select class="form-select" name="7">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center"><b>3</b></td>
+                <td class="text-center"><b>C</b></td>
                 <td colspan="2"><b>Pendahuluan</b></td>
             </tr>
             <tr>
-                <td class="text-center">a.</td>
-                <td>Terdiri dari beberapa kalimat ringkas akan tetapi menarik minat untuk membaca keseluruhan</td>
-                <td>
-                    <select class="form-select" name="8">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">5.</td>
+                <td>Kejelasan menyampaikan urgensi dari masalah yang diangkat (hubungan masalah dengan prioritas nasional atau global)
+                    <select class="form-select my-3" name="5">
+                        <option value="5">Urgensi dari masalah yang diangkat disampaikan sangat jelas</option>
+                        <option value="4">Urgensi dari masalah yang diangkat disampaikan jelas</option>
+                        <option value="3">Urgensi dari masalah yang diangkat disampaikan cukup jelas</option>
+                        <option value="2">Urgensi dari masalah yang diangkat disampaikan kurang jelas</option>
+                        <option selected value="1">Urgensi dari masalah yang diangkat disampaikan tidak jelas</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-center">b.</td>
-                <td>Mengungkapkan urgensi dari topik yang diangkat</td>
-                <td>
-                    <select class="form-select" name="9">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">6.</td>
+                <td>Tingkat kepentingan <i>(importance)</i> substansi <i>policy brief</i>
+                    <select class="form-select my-3" name="6">
+                        <option value="5">Sangat penting</option>
+                        <option value="4">Penting</option>
+                        <option value="3">Cukup penting</option>
+                        <option value="2">Tidak penting</option>
+                        <option selected value="1">Sangat tidak penting</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-center"><b>4</b></td>
+                <td class="text-center"><b>D</b></td>
                 <td colspan="2"><b>Deskripsi Masalah</b></td>
             </tr>
             <tr>
-                <td class="text-center">a.</td>
-                <td>Spesifik langsung ke inti permasalahan</td>
-                <td>
-                    <select class="form-select" name="10">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">7.</td>
+                <td>Kejelasan menggambarkan masalah yang diangkat (data pendukung masalah)
+                    <select class="form-select my-3" name="7">
+                        <option value="5">Masalah yang diangkat sangat jelas</option>
+                        <option value="4">Masalah yang diangkat jelas</option>
+                        <option value="3">Masalah yang diangkat cukup jelas</option>
+                        <option value="2">Masalah yang diangkat kurang jelas</option>
+                        <option selected value="1">Masalah yang diangkat tidak jelas</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-center">b.</td>
-                <td>Terukur disertai bukti-bukti yang memadai (evidence based)</td>
-                <td>
-                    <select class="form-select" name="11">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">8.</td>
+                <td>Kejelasan diagnosis penyebab masalah (disertai dengan data/bukti pendukung)
+                    <select class="form-select my-3" name="8">
+                        <option value="5">Diagnosis penyebab masalah sangat jelas</option>
+                        <option value="4">Diagnosis penyebab masalah jelas</option>
+                        <option value="3">Diagnosis penyebab masalah cukup jelas</option>
+                        <option value="2">Diagnosis penyebab masalah kurang jelas</option>
+                        <option selected value="1">Diagnosis penyebab masalah tidak jelas</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-center">c.</td>
-                <td>Analisis (apa, di mana, siapa, mengapa, dampak/efek)</td>
-                <td>
-                    <select class="form-select" name="12">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">9.</td>
+                <td>Penyertaan <i>evidence</i> (SKI) untuk diagnosis penyebab masalah
+                    <select class="form-select my-3" name="9">
+                        <option value="5">Evidence yang digunakan sangat relevan</option>
+                        <option value="4">Evidence yang digunakan relevan</option>
+                        <option value="3">Evidence yang digunakan cukup relevan</option>
+                        <option value="2">Evidence yang digunakan tidak relevan</option>
+                        <option selected value="1">Tidak ada evidence</option>
+                    </select>
+                </td>
+            </tr>
+            <tr></tr>
+                <td class="text-center">10.</td>
+                <td>Kejelasan analisis dampak yang ditimbulkan jika masalah tidak diselesaikan (menggunakan metode <i>forecasting</i>)
+                    <select class="form-select my-3" name="10">
+                        <option value="5">Analisis dampak yang ditimbulkan jika masalah tidak diselesaikan sangat jelas</option>
+                        <option value="4">Analisis dampak yang ditimbulkan jika masalah tidak diselesaikan jelas</option>
+                        <option value="3">Analisis dampak yang ditimbulkan jika masalah tidak diselesaikan cukup jelas</option>
+                        <option value="2">Analisis dampak yang ditimbulkan jika masalah tidak diselesaikan kurang jelas</option>
+                        <option selected value="1">Analisis dampak yang ditimbulkan jika masalah tidak diselesaikan tidak jelas</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-center"><b>5</b></td>
+                <td class="text-center"><b>E</b></td>
                 <td colspan="2"><b>Rekomendasi</b></td>
             </tr>
             <tr>
-                <td class="text-center">a.</td>
-                <td>Spesifik memberikan solusi terhadapa permasalahan yang diangkat</td>
-                <td>
-                    <select class="form-select" name="13">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">11.</td>
+                <td>Kejelasan kausalitas antara alternatif pemecahan masalah dengan penyebab masalah
+                    <select class="form-select my-3" name="11">
+                        <option value="5">Kausalitas antara alternatif pemecahan masalah dengan penyebab masalah sangat jelas</option>
+                        <option value="4">Kausalitas antara alternatif pemecahan masalah dengan penyebab masalah jelas</option>
+                        <option value="3">Kausalitas antara alternatif pemecahan masalah dengan penyebab masalah cukup jelas</option>
+                        <option value="2">Kausalitas antara alternatif pemecahan masalah dengan penyebab masalah kurang jelas</option>
+                        <option selected value="1">Kausalitas antara alternatif pemecahan masalah dengan penyebab masalah tidak jelas</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-center">b.</td>
-                <td>Terukur, dalam arti solusi yang ditawarkan sesuai dengan kemampuan pemangku kepentingan (stakeholder) serta didukung oleh faktor-faktor yang ada</td>
-                <td>
-                    <select class="form-select" name="14">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">12.</td>
+                <td>Kejelasan dan relevansi kriteria yang digunakan untuk analisis alternatif pemecahan masalah
+                    <select class="form-select my-3" name="12">
+                        <option value="5">Kriteria yang digunakan untuk analisis alternatif pemecahan masalah sangat jelas</option>
+                        <option value="4">Kriteria yang digunakan untuk analisis alternatif pemecahan masalah jelas</option>
+                        <option value="3">Kriteria yang digunakan untuk analisis alternatif pemecahan masalah cukup jelas</option>
+                        <option value="2">Kriteria yang digunakan untuk analisis alternatif pemecahan masalah kurang jelas</option>
+                        <option selected value="1">Kriteria yang digunakan untuk analisis alternatif pemecahan masalah tidak jelas</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-center">c.</td>
-                <td>Alternatif disertai analisis singkat, metode penentuan/pemilihan dan gambaran alternatif yang dipilih</td>
-                <td>
-                    <select class="form-select" name="15">
-                        <option value="5">5 (tertinggi)</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option selected value="1">1 (terendah)</option>
+                <td class="text-center">13.</td>
+                <td>Analisis alternatif pemecahan masalah dilakukan dengan metode yang jelas
+                    <select class="form-select my-3" name="13">
+                        <option value="5">Metode yang digunakan untuk analisis alternatif pemecahan masalah sangat jelas</option>
+                        <option value="4">Metode yang digunakan untuk analisis alternatif pemecahan masalah jelas</option>
+                        <option value="3">Metode yang digunakan untuk analisis alternatif pemecahan masalah cukup jelas</option>
+                        <option value="2">Metode yang digunakan untuk analisis alternatif pemecahan masalah kurang jelas </option>
+                        <option selected value="1">Metode yang digunakan untuk analisis alternatif pemecahan masalah tidak jelas</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">14.</td>
+                <td>Alternatif yang ditawarkan sesuai dengan kewenangan pembuat kebijakan
+                    <select class="form-select my-3" name="14">
+                        <option value="5">Alternatif yang ditawarkan sangat sesuai dengan kewenangan pembuat kebijakan (policy maker)</option>
+                        <option value="4">Alternatif yang ditawarkan sesuai dengan kewenangan pembuat kebijakan (policy maker)</option>
+                        <option value="3">Alternatif yang ditawarkan cukup sesuai dengan kewenangan pembuat kebijakan (policy maker)</option>
+                        <option value="2">Alternatif yang ditawarkan kurang sesuai dengan kewenangan pembuat kebijakan (policy maker)  </option>
+                        <option selected value="1">Alternatif yang ditawarkan tidak sesuai dengan kewenangan pembuat kebijakan (policy maker)</option>
                     </select>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div class="mb-5 fs-5" id="skor-total">
+    <!-- <div class="mb-5 fs-5" id="skor-total">
         Total Skor = 
-    </div>
+    </div> -->
     <input type="hidden" name="skor-total" value="0">
-    <!-- <span class="fs-5" style="color: red;">Penilaian yang sudah diberikan <b>tidak dapat diubah</b>. Mohon cek kembali
-        isian Bapak/Ibu sebelum melanjutkan</span> -->
+    
     <div class="d-grid gap-2">
         <button class="mt-3 btn btn-kemkes" type="submit">Simpan Penilaian</button>
     </div>
@@ -240,39 +217,51 @@
 
 <script>
     $(document).ready(function () {
-        function calculateSum() {
-            // Get the selected values of select fields with name "a" and "b"
-            let v1 = parseInt($('select[name="1"]').val());
-            let v2 = parseInt($('select[name="2"]').val());
-            let v3 = parseInt($('select[name="3"]').val());
-            let v4 = parseInt($('select[name="4"]').val());
-            let v5 = parseInt($('select[name="5"]').val());
-            let v6 = parseInt($('select[name="6"]').val());
-            let v7 = parseInt($('select[name="7"]').val());
-            let v8 = parseInt($('select[name="8"]').val());
-            let v9 = parseInt($('select[name="9"]').val());
-            let v10 = parseInt($('select[name="10"]').val());
-            let v11 = parseInt($('select[name="11"]').val());
-            let v12 = parseInt($('select[name="12"]').val());
-            let v13 = parseInt($('select[name="13"]').val());
-            let v14 = parseInt($('select[name="14"]').val());
-            let v15 = parseInt($('select[name="15"]').val());
-
-            // Calculate the sum
-            let k1 = (v1 + v2 + v3)/3.0;
-            let k2 = (v4 + v5 + v6 + v7)/4.0;
-            let k3 = (v8 + v9)/2.0;
-            let k4 = (v10 + v11 + v12)*2.33;
-            let k5 = (v13 + v14 + v15)*2.0;
-            
-            sum = (k1 + k2 + k3 + k4 + k5).toFixed(0);
-
-            // Display the result
-            if (isNaN(sum)) {
-                sum = "Penilaian belum lengkap."
+        if ($('select[name="3"]').val() === '5') {
+            $('#q4').show();
+        } else {
+            $('#q4').hide();
+        }
+        $('select[name="3"]').on('change', function () {
+            if ($(this).val() === '5') {
+                $('#q4').show();
+            } else {
+                $('#q4').hide();
             }
-            $('#skor-total').text('Total Skor = ' + sum);
-            $('input[name="skor-total"]').val(sum);
+        });
+        function calculateSum() {
+            // // Get the selected values of select fields with name "a" and "b"
+            // let v1 = parseInt($('select[name="1"]').val());
+            // let v2 = parseInt($('select[name="2"]').val());
+            // let v3 = parseInt($('select[name="3"]').val());
+            // let v4 = parseInt($('select[name="4"]').val());
+            // let v5 = parseInt($('select[name="5"]').val());
+            // let v6 = parseInt($('select[name="6"]').val());
+            // let v7 = parseInt($('select[name="7"]').val());
+            // let v8 = parseInt($('select[name="8"]').val());
+            // let v9 = parseInt($('select[name="9"]').val());
+            // let v10 = parseInt($('select[name="10"]').val());
+            // let v11 = parseInt($('select[name="11"]').val());
+            // let v12 = parseInt($('select[name="12"]').val());
+            // let v13 = parseInt($('select[name="13"]').val());
+            // let v14 = parseInt($('select[name="14"]').val());
+            // let v15 = parseInt($('select[name="15"]').val());
+
+            // // Calculate the sum
+            // let k1 = (v1 + v2 + v3)/3.0;
+            // let k2 = (v4 + v5 + v6 + v7)/4.0;
+            // let k3 = (v8 + v9)/2.0;
+            // let k4 = (v10 + v11 + v12)*2.33;
+            // let k5 = (v13 + v14 + v15)*2.0;
+
+            // sum = (k1 + k2 + k3 + k4 + k5).toFixed(0);
+
+            // // Display the result
+            // if (isNaN(sum)) {
+            //     sum = "Penilaian belum lengkap."
+            // }
+            // $('#skor-total').text('Total Skor = ' + sum);
+            // $('input[name="skor-total"]').val(sum);
         };
         $('.form-select').on('change', function () {
             calculateSum();
