@@ -205,10 +205,10 @@ def list_submisi(request):
         ).get(username=request.session["username_reviewer"])
         context["reviewer"] = reviewer
         context["todo_count"] = reviewer.penilaians.filter(
-            nilai2=0, status=Submisi.TUNGGU2
+            nilai2=0, submisi__status=Submisi.TUNGGU2
         ).count()
         context["penilaians"] = reviewer.penilaians.filter(
-            status=Submisi.TUNGGU2
+            submisi__status=Submisi.TUNGGU2
         ).order_by("-nilai2")
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
 
