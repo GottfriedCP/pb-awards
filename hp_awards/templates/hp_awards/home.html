@@ -27,7 +27,7 @@
 
 {% block body_bl %}
 <div id="div-banner-desktop">
-    <img id="banner-desktop" src="{% static 'img/banner12.png' %}" style="width: 100vw;">
+    <img id="banner-desktop" src="{% static 'img/banner0.png' %}" style="width: 100vw;">
 </div>
 <div id="div-banner-mobile">
     <img id="banner-mobile" src="{% static 'img/banner-mobile2.png' %}" style="width: 100vw;">
@@ -43,13 +43,7 @@
         </div>
         <p class="text-center"></p>
     </section>
-    <section class="mt-4 mb-5">
-        {% comment %}
-        <div class="text-center">
-            <a href="{% url 'hp_awards:registrasi' %}" class="d-block color-kemkes fs-1" style="font-weight: 700;">Daftar Sekarang</a>
-        </div>
-        {% endcomment %}
-    </section>
+    {% comment %}
     <section id="countdown">
         <h3 class="color-kemkes text-center fs-1">Batas Akhir Pengiriman Naskah <i>Policy Brief</i> Lengkap</h3>
         <p class="text-center mb-3 fs-2"><b>6 September 2024 pukul 23.59 WIB</b></p>
@@ -57,6 +51,7 @@
             <script>(function(d, s, id) { var js, pjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//www.tickcounter.com/static/js/loader.js"; pjs.parentNode.insertBefore(js, pjs); }(document, "script", "tickcounter-sdk"));</script><a data-type="countdown" data-id="5742630" class="tickcounter" style="display:block; left:0; width:720px; max-width: 90vw; height:0; position:relative; padding-bottom:10%; margin:0 auto;" title="My countdown" href="//www.tickcounter.com/">Batas akhir pengiriman PB lengkap</a>
         </div>
     </section>
+    {% endcomment %}
     <section class="my-5">
         <h2 class="text-center color-kemkes">Apa itu SiBijaKs?</h2>
         <hr class="hr-kemkes">
