@@ -5,7 +5,7 @@
 
 {% block head_bl %}
 <style>
-    .spinner {
+    #spinner {
         display: none;
     }
 
@@ -108,6 +108,7 @@
         {% endif %}
     </section>
     <hr class="hr-kemkes">
+    {% comment %}
     {% if submisi.status == 'tunggu2' %}
     <!-- UNGGAH FILE TAHAP 2 -->
     <section>
@@ -154,6 +155,7 @@
         </div>
     </section>
     {% endif %}
+    {% endcomment %}
 </div>
 {% endblock %}
 
