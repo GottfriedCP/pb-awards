@@ -363,7 +363,7 @@ def tetapkan_nilai(request):
         string_nilai2_list = []
         for i in range(1, 15):
             string_nilai2_list.append(request.POST[f"{i}"])
-        
+
         # print(penilaian.string_nilai2)
         i1 = int(request.POST["1"]) / 2.00
         i2 = int(request.POST["2"]) / 2.00
