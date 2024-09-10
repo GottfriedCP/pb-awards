@@ -365,8 +365,9 @@ def tetapkan_nilai(request):
             string_nilai2_list.append(request.POST[f"{i}"])
         # Perlakuan khusus dimensi B3
         if string_nilai2_list[2] != "5":
-            string_nilai2_list[3] = "0"
+            string_nilai2_list[3] = "-"
         penilaian.string_nilai2 = "|".join(string_nilai2_list)
+        print(penilaian.string_nilai2)
         penilaian.save()
         # ABSTRAK
         # id_submisi = request.POST["id_submisi"]
