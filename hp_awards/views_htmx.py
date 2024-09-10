@@ -55,7 +55,7 @@ def get_stats(request):
     # TABEL PROGRESS JURI
     juris = juris.annotate(penilaian_ditugaskan=Count("penilaians"))
     juris = juris.annotate(
-        penilaian_selesai=Count("penilaians", filter=Q(penilaians__nilai2__gt=0))
+        penilaian_selesai=Count("penilaians", filter=Q(penilaians__string_nilai2__isnull=False))
     )
     juris = juris.annotate(
         selesai=Case(
