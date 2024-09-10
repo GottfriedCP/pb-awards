@@ -361,13 +361,32 @@ def tetapkan_nilai(request):
         # nilai2 = request.POST["skor-total"]
         # penilaian.nilai2 = nilai2
         string_nilai2_list = []
-        for i in range(1,15):
+        for i in range(1, 15):
             string_nilai2_list.append(request.POST[f"{i}"])
+        
+        # print(penilaian.string_nilai2)
+        i1 = int(request.POST["1"]) / 2.00
+        i2 = int(request.POST["2"]) / 2.00
+        i3 = int(request.POST["3"]) * 1.00
+        i4 = int(request.POST["4"]) * 1.00
+        i5 = int(request.POST["5"]) * 2.00
+        i6 = int(request.POST["6"]) * 2.00
+        i7 = int(request.POST["7"]) * 1.50
+        i8 = int(request.POST["8"]) * 1.50
+        i9 = int(request.POST["9"]) * 1.50
+        i10 = int(request.POST["10"]) * 1.50
+        i11 = int(request.POST["11"]) * 1.75
+        i12 = int(request.POST["12"]) * 1.75
+        i13 = int(request.POST["13"]) * 1.75
+        i14 = int(request.POST["14"]) * 1.75
         # Perlakuan khusus dimensi B3
         if string_nilai2_list[2] != "5":
             string_nilai2_list[3] = "-"
+            i4 = 0.00
+        penilaian.nilai2 = (
+            i1 + i2 + i3 + i4 + i5 + i6 + i7 + i8 + i9 + i10 + i11 + i12 + i13 + i14
+        )
         penilaian.string_nilai2 = "|".join(string_nilai2_list)
-        # print(penilaian.string_nilai2)
         penilaian.save()
         # ABSTRAK
         # id_submisi = request.POST["id_submisi"]
