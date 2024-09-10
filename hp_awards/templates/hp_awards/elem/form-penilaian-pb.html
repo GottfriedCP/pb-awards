@@ -1,3 +1,8 @@
+<div class="my-3 p-3 bg-info-subtle">
+    <h3>Petunjuk Penilaian Naskah</h3>
+    Terdapat 14 (empat belas) <i>item</i> penilaian dalam lima grup yang harus Bapak/Ibu berikan.<br>
+    Pilih penilaian yang Bapak/Ibu rasa cocok pada <i>dropdown</i> yang tersedia di bawah setiap <i>item</i> penilaian
+</div>
 <form method="POST" action="{% url 'hp_awards:set_nilai_abstrak' %}">
     {% csrf_token %}
     <input type="hidden" name="id_submisi" value="{{ submisi.kode_submisi }}">
@@ -16,6 +21,7 @@
             <tr>
                 <td class="text-center">1.</td>
                 <td>Menarik (sehingga pembaca menjadi ingin mengetahui lebih lanjut)
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="1">
                         <option value="5">Sangat Menarik</option>
                         <option value="4">Menarik</option>
@@ -28,6 +34,7 @@
             <tr>
                 <td class="text-center">2.</td>
                 <td>Judul mewakili substansi isi tulisan
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="2">
                         <option value="5">Sangat mewakili</option>
                         <option value="4">Mewakili</option>
@@ -50,6 +57,7 @@
                         <li>Terdapat gambaran bagaimana solusi untuk menyelesaikan masalah tersebut;</li>
                         <li>Menjelaskan siapa policy maker yang menjadi subjek untuk menyelesaikan masalah</li>
                     </ol>
+                    <small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="3">
                         <option value="5">Terdapat 4 komponen yang tercantum dalam ringkasan eksekutif</option>
                         <option value="4">Terdapat 3 komponen yang tercantum dalam ringkasan eksekutif</option>
@@ -62,6 +70,7 @@
             <tr id="q4">
                 <td class="text-center">4.</td>
                 <td>Kejelasan mengenai masing-masing komponen pada poin <b>B3</b> (hanya diisi jika terdapat lengkap 4 komponen)
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="4">
                         <option value="5">Terdapat 4 komponen jelas</option>
                         <option value="4">Terdapat 3 komponen yang jelas</option>
@@ -78,6 +87,7 @@
             <tr>
                 <td class="text-center">5.</td>
                 <td>Kejelasan menyampaikan urgensi dari masalah yang diangkat (hubungan masalah dengan prioritas nasional atau global)
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="5">
                         <option value="5">Urgensi dari masalah yang diangkat disampaikan sangat jelas</option>
                         <option value="4">Urgensi dari masalah yang diangkat disampaikan jelas</option>
@@ -90,6 +100,7 @@
             <tr>
                 <td class="text-center">6.</td>
                 <td>Tingkat kepentingan <i>(importance)</i> substansi <i>policy brief</i>
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="6">
                         <option value="5">Sangat penting</option>
                         <option value="4">Penting</option>
@@ -106,6 +117,7 @@
             <tr>
                 <td class="text-center">7.</td>
                 <td>Kejelasan menggambarkan masalah yang diangkat (data pendukung masalah)
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="7">
                         <option value="5">Masalah yang diangkat sangat jelas</option>
                         <option value="4">Masalah yang diangkat jelas</option>
@@ -118,6 +130,7 @@
             <tr>
                 <td class="text-center">8.</td>
                 <td>Kejelasan diagnosis penyebab masalah (disertai dengan data/bukti pendukung)
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="8">
                         <option value="5">Diagnosis penyebab masalah sangat jelas</option>
                         <option value="4">Diagnosis penyebab masalah jelas</option>
@@ -130,6 +143,7 @@
             <tr>
                 <td class="text-center">9.</td>
                 <td>Penyertaan <i>evidence</i> (SKI) untuk diagnosis penyebab masalah
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="9">
                         <option value="5">Evidence yang digunakan sangat relevan</option>
                         <option value="4">Evidence yang digunakan relevan</option>
@@ -142,6 +156,7 @@
             <tr></tr>
                 <td class="text-center">10.</td>
                 <td>Kejelasan analisis dampak yang ditimbulkan jika masalah tidak diselesaikan (menggunakan metode <i>forecasting</i>)
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="10">
                         <option value="5">Analisis dampak yang ditimbulkan jika masalah tidak diselesaikan sangat jelas</option>
                         <option value="4">Analisis dampak yang ditimbulkan jika masalah tidak diselesaikan jelas</option>
@@ -158,6 +173,7 @@
             <tr>
                 <td class="text-center">11.</td>
                 <td>Kejelasan kausalitas antara alternatif pemecahan masalah dengan penyebab masalah
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="11">
                         <option value="5">Kausalitas antara alternatif pemecahan masalah dengan penyebab masalah sangat jelas</option>
                         <option value="4">Kausalitas antara alternatif pemecahan masalah dengan penyebab masalah jelas</option>
@@ -170,6 +186,7 @@
             <tr>
                 <td class="text-center">12.</td>
                 <td>Kejelasan dan relevansi kriteria yang digunakan untuk analisis alternatif pemecahan masalah
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="12">
                         <option value="5">Kriteria yang digunakan untuk analisis alternatif pemecahan masalah sangat jelas</option>
                         <option value="4">Kriteria yang digunakan untuk analisis alternatif pemecahan masalah jelas</option>
@@ -182,6 +199,7 @@
             <tr>
                 <td class="text-center">13.</td>
                 <td>Analisis alternatif pemecahan masalah dilakukan dengan metode yang jelas
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="13">
                         <option value="5">Metode yang digunakan untuk analisis alternatif pemecahan masalah sangat jelas</option>
                         <option value="4">Metode yang digunakan untuk analisis alternatif pemecahan masalah jelas</option>
@@ -194,6 +212,7 @@
             <tr>
                 <td class="text-center">14.</td>
                 <td>Alternatif yang ditawarkan sesuai dengan kewenangan pembuat kebijakan
+                    <br><small style="color: blue;">Pilih penilaian Anda:</small>
                     <select class="form-select my-3" name="14">
                         <option value="5">Alternatif yang ditawarkan sangat sesuai dengan kewenangan pembuat kebijakan (policy maker)</option>
                         <option value="4">Alternatif yang ditawarkan sesuai dengan kewenangan pembuat kebijakan (policy maker)</option>
