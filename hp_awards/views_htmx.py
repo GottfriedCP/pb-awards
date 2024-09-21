@@ -28,14 +28,15 @@ def get_stats(request):
     context["kategori_umum_tim"] = submisis.filter(
         kategori_pendaftar=umum, jumlah_kolaborator__gt=0
     ).count()
-    context["naskah_tahap2"] = submisis.filter(status=Submisi.TUNGGU2).count()
-    context["naskah_tahap2_lengkap"] = submisis.filter(
-        status=Submisi.TUNGGU2, file_pb_pdf__isnull=False
-    ).exclude(file_pb_pdf__exact="").count()
+    context["naskah_tahap3"] = submisis.filter(status=Submisi.TUNGGU3).count()
+    context["naskah_tahap3_lengkap"] = submisis.filter(
+        status=Submisi.TUNGGU3, file_pb_ppt__isnull=False
+    ).exclude(file_pb_ppt__exact="").count()
 
     # Juri dan penilaian
+    juri_dummy = "juri"
     juris = Reviewer.objects.prefetch_related("penilaians").exclude(
-        nama__icontains="juri"
+        nama__icontains=juri_dummy
     )
     jumlah_juri = (
         juris.annotate(penugasan=Count("penilaians")).filter(penugasan__gt=0).count()
@@ -44,7 +45,7 @@ def get_stats(request):
     for j in juris:
         if (
             j.penilaians.count() > 0
-            and j.penilaians.count() == j.penilaians.filter(nilai2__gt=0).count()
+            and j.penilaians.count() == j.penilaians.filter(nilai3__gt=0).count()
         ):
             juri_selesai += 1
     context["jumlah_juri"] = jumlah_juri
@@ -55,7 +56,7 @@ def get_stats(request):
     # TABEL PROGRESS JURI
     juris = juris.annotate(penilaian_ditugaskan=Count("penilaians"))
     juris = juris.annotate(
-        penilaian_selesai=Count("penilaians", filter=Q(penilaians__string_nilai2__isnull=False))
+        penilaian_selesai=Count("penilaians", filter=Q(penilaians__string_nilai3__isnull=False))
     )
     juris = juris.annotate(
         selesai=Case(
