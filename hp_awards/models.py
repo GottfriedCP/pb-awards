@@ -30,6 +30,11 @@ def randomize_name_turnitin(instance, filename):
     return f"dokumen_turnitin/{instance.kode_submisi}.{ext}"
 
 
+def randomize_name_ppt(instance, filename):
+    ext = filename.split(".")[-1]
+    return f"dokumen_ppt/{instance.kode_submisi}.{ext}"
+
+
 class TimestampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -235,7 +240,7 @@ class Submisi(TimestampedModel):
         max_length=500,
         blank=True,
         null=True,
-        upload_to="dokumen_pb_ppt/",
+        upload_to=randomize_name_ppt,
         verbose_name="file PB PPT",
     )
     link_dakung = models.TextField(blank=True, null=True)
