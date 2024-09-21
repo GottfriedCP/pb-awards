@@ -108,23 +108,22 @@
         {% endif %}
     </section>
     <hr class="hr-kemkes">
-    {% comment %}
-    {% if submisi.status == 'tunggu2' %}
-    <!-- UNGGAH FILE TAHAP 2 -->
+    {% if submisi.status == 'tunggu3' %}
+    <!-- UNGGAH FILE TAHAP 3 -->
     <section>
-        <h2 class="color-kemkes">Penilaian Tahap 2</h2>
+        <h2 class="color-kemkes">Penilaian Tahap 3</h2>
         <p class="fs-5 my-3">
-            <span class="color-kemkes">Selamat! Naskah ini lolos ke tahap 2.</span><br> 
-            Mohon unggah berkas-berkas sesuai ketentuan, lalu klik "Unggah Naskah"
+            <span class="color-kemkes">Selamat! Naskah ini lolos ke tahap 3.</span><br> 
+            Mohon unggah berkas sesuai ketentuan, lalu klik "Unggah"
         </p>
-        <a class="btn btn-kemkes ms-3 my-3" role="button" href="https://drive.google.com/file/d/1RvGw2wXOKFQSWjDyx8x3UUDcUGgKIblB/view?usp=drive_link" target="_blank">Unduh Panduan Unggah Berkas Tahap 2</a>
+        <!-- <a class="btn btn-kemkes ms-3 my-3" role="button" href="https://drive.google.com/file/d/1RvGw2wXOKFQSWjDyx8x3UUDcUGgKIblB/view?usp=drive_link" target="_blank">Unduh Panduan Unggah Berkas Tahap 3</a> -->
         <div class="my-3 p-2 bg-info-subtle">
             <ul>
                 <li>Ukuran setiap file tidak boleh melebihi 10 MB</li>
-                <li>Pastikan Anda mendapat pesan "Berkas berhasil diunggah" setelah mengunggah berkas dengan lengkap</li>
+                <li>Pastikan Anda mendapat pesan "Berkas berhasil diunggah" setelah mengunggah berkas</li>
             </ul>
         </div>
-        <div id="petunjuk-naskah">
+        <!-- <div id="petunjuk-naskah">
             <ol type="1">
                 <li>Jumlah halaman policy brief terdiri dari 2-4 halaman dengan maksimal 2.000 kata tidak termasuk judul dan daftar pustaka</li>
                 <li>Sistematika naskah policy brief terdiri dari:
@@ -142,12 +141,12 @@
                 <li>Dikumpulkan dalam format file PDF dan DOC/DOCX</li>
                 <li>Hasil uji plagiarisme maksimal 25% dan dibuktikan dengan lembar pernyataan keaslian (digabung satu PDF)</li>
             </ol>
-        </div>
+        </div> -->
         <form id="form-unggah" class="p-3" enctype="multipart/form-data" hx-target="this" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .2rem solid green;">
             {% csrf_token %}
             <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
             {% bootstrap_form form_naskah %}
-            <button type="submit" class="btn btn-kemkes mt-3">Unggah/Perbarui Naskah</button>
+            <button type="submit" class="btn btn-kemkes mt-3">Unggah atau Perbarui PPT</button>
             <script>$('#form-unggah input').not('[type="checkbox"]').attr('required', true);</script>
         </form>
         <div id="spinner" class="my-3 spinner progress" role="progressbar">
@@ -155,7 +154,6 @@
         </div>
     </section>
     {% endif %}
-    {% endcomment %}
 </div>
 {% endblock %}
 

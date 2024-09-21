@@ -121,15 +121,15 @@
         {% endif %}
     </section>
     <hr class="hr-kemkes">
-    {% if submisi.status == 'tunggu2' %}
-    <!-- UNGGAH FILE TAHAP 2 -->
+    {% if submisi.status == 'tunggu3' %}
+    <!-- UNGGAH FILE TAHAP 3 -->
     <section>
-        <h2>Penilaian Tahap 2</h2>
+        <h2>Penilaian Tahap 3</h2>
         <form id="form-unggah" class="p-3" enctype="multipart/form-data" hx-target="this" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .1rem solid green;">
             {% csrf_token %}
             <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
             {% bootstrap_form form_naskah %}
-            <button type="submit" class="btn btn-kemkes">Unggah/Perbarui Naskah</button>
+            <button type="submit" class="btn btn-kemkes">Unggah atau Perbarui PPT</button>
         </form>
         <div id="spinner" class="my-3 spinner progress" role="progressbar">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 100%"></div>

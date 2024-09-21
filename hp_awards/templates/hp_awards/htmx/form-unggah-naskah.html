@@ -1,9 +1,9 @@
 {% load django_bootstrap5 %}
 <form id="form-unggah" class="p-3" enctype="multipart/form-data" hx-swap="outerHTML" hx-indicator="#spinner" hx-post="{% url 'hp_awards:unggah_naskah' %}" style="border: .2rem solid green;">
     {% csrf_token %}
-    <div class="my-3 p-2 bg-success-subtle">Berkas berhasil diunggah</div>
+    <div class="my-3 p-2 bg-success-subtle">PPT berhasil diunggah</div>
     <input type="hidden" name="kode_submisi" value="{{ submisi.kode_submisi }}">
     {% bootstrap_form form_naskah %}
-    <button type="submit" class="btn btn-kemkes">Unggah/Perbarui Naskah</button>
+    <button type="submit" class="btn btn-kemkes">Unggah atau Perbarui PPT</button>
 </form>
 <script>$('#form-unggah .form-check').hide();</script>

@@ -204,7 +204,7 @@ class Submisi(TimestampedModel):
     STATUS_CHOICES = {
         TUNGGU: "Menunggu Penilaian",
         TUNGGU2: "Menunggu Penilaian Naskah",
-        TUNGGU3: "Unggah PPT / Menunggu Penilaian",
+        TUNGGU3: "Unggah PPT",
         IN_REVIEW: "Dalam Penilaian",
         GUGUR: "Gugur",
     }

@@ -27,21 +27,20 @@
 
 {% block body_bl %}
 <div id="div-banner-desktop">
-    <img id="banner-desktop" src="{% static 'img/banner1.png' %}" style="width: 100vw;">
+    <img id="banner-desktop" src="{% static 'img/banner0.png' %}" style="width: 100vw;">
 </div>
 <div id="div-banner-mobile">
-    <img id="banner-mobile" src="{% static 'img/banner1.png' %}" style="width: 100vw;">
+    <img id="banner-mobile" src="{% static 'img/banner0.png' %}" style="width: 100vw;">
 </div>
 <div class="container mb-5">
     <section id="2" class="mt-5 mb-5">
         <div class="d-flex justify-content-center">
-            <!-- <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% url 'hp_awards:syarat_peserta' %}">Ketentuan Peserta</a> -->
-            <a target="_blank" class="btn btn-sm btn-outline-kemkes mx-3"
+            <!-- <a target="_blank" class="btn btn-sm btn-outline-kemkes mx-3"
                 href="https://drive.google.com/file/d/1K3m5kTKHjE8ewso1TMW1BYAZ6AxrbE1i/view?usp=drive_link"><span class="fs-4">Unduh
-                    Pedoman</span></a>
-            <!-- <a class="btn btn-sm btn-outline-kemkes mx-3" href="{% url 'hp_awards:policy_questions' %}"><i>Policy Questions</i></a> -->
+                    Pedoman</span></a> -->
         </div>
-        <p class="text-center"></p>
+        <p class="text-center fs-1 mt-2">Penilaian Tahap 2 telah selesai</p>
+        <p class="text-center fs-3 mt-2">Mohon cek Email atau cek <a class="color-kemkes" href="{% url 'hp_awards:list_submisi' %}">Akun Lomba</a> masing-masing untuk melihat status naskah</p>
     </section>
     {% comment %}
     <section id="countdown">

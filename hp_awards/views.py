@@ -25,6 +25,7 @@ from .forms import (
     FormCaptcha,
     FormKontak,
     FormUnggahFulltext,
+    FormUnggahPPT,
 )
 from .models import Pernyataan, Submisi, Reviewer
 from .helpers import kirim_konfirmasi_submisi, kirim_pertanyaan_pengunjung, Round
@@ -196,7 +197,7 @@ def list_submisi(request):
         email = request.session.get("email")
         submisis = Submisi.objects.filter(wa=wa, email=email)
         context["submisis"] = submisis
-        context["ada_lolos"] = submisis.filter(status=Submisi.TUNGGU2).exists()
+        context["ada_lolos"] = submisis.filter(status=Submisi.TUNGGU3).exists()
 
     # jika user adalah reviewer
     if request.user.is_authenticated and request.session.get("role") == "reviewer":
@@ -236,7 +237,7 @@ def list_submisi(request):
             else:
                 return HttpResponse("Basic user not found")
             context["submisis"] = submisis
-            context["ada_lolos"] = submisis.filter(status=Submisi.TUNGGU2).exists()
+            context["ada_lolos"] = submisis.filter(status=Submisi.TUNGGU3).exists()
     return render(request, "hp_awards/list_submisi.html", context)
 
 
@@ -246,7 +247,7 @@ def detail_submisi(request, id_submisi):
     context = {
         "submisi": submisi,
         "submisi_class": Submisi,
-        "form_naskah": FormUnggahFulltext(instance=submisi),
+        "form_naskah": FormUnggahPPT(instance=submisi),
     }
     try:
         url_pb_pdf = f"{request.scheme}://{request.get_host()}{submisi.file_pb_pdf.url}"
@@ -305,15 +306,15 @@ def unggah_naskah(request):
     if request.method == "POST":
         kode_submisi = request.POST.get("kode_submisi")
         submisi = get_object_or_404(Submisi, kode_submisi=kode_submisi)
-        form_fulltext = FormUnggahFulltext(
+        form = FormUnggahPPT(
             request.POST, request.FILES, instance=submisi
         )
-        if form_fulltext.is_valid():
-            submisi = form_fulltext.save()
+        if form.is_valid():
+            submisi = form.save()
         # return redirect("hp_awards:detail_submisi", submisi.kode_submisi)
         context = {
             "submisi": submisi,
-            "form_naskah": FormUnggahFulltext(instance=submisi),
+            "form_naskah": form,
         }
         return render(request, "hp_awards/htmx/form-unggah-naskah.html", context)
     return redirect("hp_awards:list_submisi")
