@@ -41,8 +41,8 @@ class Command(BaseCommand):
                 cc=[
                     "healthpolicyawards@gmail.com",
                     "perpustakaanbkpk@gmail.com",
-                    "gottfriedcpn@gmail.com",
-                ] if n == 1 else [],
+                    # "gottfriedcpn@gmail.com",
+                ], # if n == 1 else [],
             )
             mail.attach_alternative(html_content, "text/html")  # Attach HTML version
 
