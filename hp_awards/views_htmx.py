@@ -54,6 +54,7 @@ def get_stats(request):
         juri_selesai / jumlah_juri * 100.00 if jumlah_juri > 0 else 0.0
     )
     # TABEL PROGRESS JURI
+    juris = juris.order_by("nama")
     juris = juris.annotate(penilaian_ditugaskan=Count("penilaians"))
     juris = juris.annotate(
         penilaian_selesai=Count("penilaians", filter=Q(penilaians__string_nilai3__isnull=False))
