@@ -306,9 +306,7 @@ def unggah_naskah(request):
     if request.method == "POST":
         kode_submisi = request.POST.get("kode_submisi")
         submisi = get_object_or_404(Submisi, kode_submisi=kode_submisi)
-        form = FormUnggahPPT(
-            request.POST, request.FILES, instance=submisi
-        )
+        form = FormUnggahPPT(request.POST, request.FILES, instance=submisi)
         if form.is_valid():
             submisi = form.save()
         # return redirect("hp_awards:detail_submisi", submisi.kode_submisi)
@@ -443,7 +441,7 @@ def unduh_hasil_penilaian_abstrak(request):
         header_row.extend(
             ["WA", "Email", "Pekerjaan", "Instansi / Perguruan Tinggi", "Pendidikan"]
         )
-        header_row.extend(["Tanggal Submisi", "Status", "Nilai Abstrak"])
+        header_row.extend(["Tanggal Submisi", "Status", "Nilai Abstrak", "Nilai PB"])
         header_row.extend(
             [
                 "Jumlah Juri",
@@ -489,7 +487,12 @@ def unduh_hasil_penilaian_abstrak(request):
                 ]
             )
             row.extend(
-                [timezone.make_naive(s.created_at), s.get_status_display(), s.nilai1]
+                [
+                    timezone.make_naive(s.created_at),
+                    s.get_status_display(),
+                    s.nilai1,
+                    s.nilai2,
+                ]
             )
             row.extend(
                 [
@@ -513,8 +516,6 @@ def unduh_hasil_penilaian_abstrak(request):
                     s.rerata_skor_pb or "-",
                 ]
             )
-            s.nilai2 = s.rerata_skor_pb
-            s.save()
             row.extend(["Sudah Unggah" if s.file_pb_ppt else "Belum Unggah"])
             row.extend(
                 [
