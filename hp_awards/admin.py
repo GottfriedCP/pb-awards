@@ -51,7 +51,8 @@ class KolaboratorAdmin(admin.ModelAdmin):
 class ReviewerAdmin(admin.ModelAdmin):
     form = forms.ReviewerForm
     # exclude = ("passphrase",)
-    list_display = ["nama", "jabatan", "instansi", "username"]
+    list_display = ["nama", "kategori", "jabatan", "instansi", "username"]
+    list_filter = ["kategori"]
     search_fields = ["nama", "username"]
 
 
