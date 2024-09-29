@@ -38,12 +38,16 @@
             </div>
             <div class="col-md-6">
                 {% if submisi.kolaborators.count > 0 %}
-                <h5>Kolaborator</h5>
-                <ol>
-                    {% for kol in submisi.kolaborators.all %}
-                    <li>{{ kol.nama }}</li>
-                    {% endfor %}
-                </ol>
+                <dl class="ms-3">
+                    <dt>Kolaborator</dt>
+                    <dd>
+                        <ol>
+                            {% for kol in submisi.kolaborators.all %}
+                            <li>{{ kol.nama }}</li>
+                            {% endfor %}
+                        </ol>
+                    </dd>
+                </dl>
                 {% endif %}
             </div>
         </div>
