@@ -23,33 +23,18 @@
         <h3>Identitas Penulis</h3>
         <div class="row">
             <div class="col-md-6">
-                <table style="width: 420px;">
-                    <tr>
-                        <td>Nama Penulis Utama</td>
-                        <td>:</td>
-                        <td><b>{{ submisi.nama }}</b></td>
-                    </tr>
-                    <tr>
-                        <td>Pendidikan Penulis Utama</td>
-                        <td>:</td>
-                        <td><b>{{ submisi.get_pendidikan_display|default:"-" }}</b></td>
-                    </tr>
-                    <tr>
-                        <td>Pekerjaan Penulis Utama</td>
-                        <td>:</td>
-                        <td><b>{{ submisi.pekerjaan|default:"-" }}</b></td>
-                    </tr>
-                    <tr>
-                        <td>Afiliasi Penulis Utama</td>
-                        <td>:</td>
-                        <td><b>{{ submisi.afiliasi|default:"-" }}</b></td>
-                    </tr>
-                    <tr>
-                        <td>Kategori</td>
-                        <td>:</td>
-                        <td><b>{{ submisi.get_kategori_pendaftar_display|default:"-" }}</b></td>
-                    </tr>
-                </table>
+                <dl class="ms-3">
+                    <dt>Nama Penulis Utama</dt>
+                    <dd>{{ submisi.nama }}</dd>
+                    <dt>Pendidikan Penulis Utama</dt>
+                    <dd>{{ submisi.get_pendidikan_display|default:"-" }}</dd>
+                    <dt>Pekerjaan Penulis Utama</dt>
+                    <dd>{{ submisi.pekerjaan|default:"-" }}</dd>
+                    <dt>Afiliasi Penulis Utama</dt>
+                    <dd>{{ submisi.afiliasi|default:"-" }}</dd>
+                    <dt>Kategori</dt>
+                    <dd>{{ submisi.get_kategori_pendaftar_display|default:"-" }}</dd>
+                </dl>
             </div>
             <div class="col-md-6">
                 {% if submisi.kolaborators.count > 0 %}
