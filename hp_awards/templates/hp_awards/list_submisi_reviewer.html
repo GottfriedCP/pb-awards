@@ -24,6 +24,7 @@
                 <tr>
                     <th>No.</th>
                     <th>Kode Submisi</th>
+                    <th>Penulis Utama</th><!-- Karena TAHAP 3 -->
                     <th>Judul</th>
                     <th>Status</th>
                     <th>Tindakan</th>
@@ -34,15 +35,13 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td><a href="{% url 'hp_awards:detail_submisi' penilaian.submisi.kode_submisi %}" class="color-kemkes">{{ penilaian.submisi.kode_submisi }}</a></td>
+                    <td>{{ penilaian.submisi.nama }}</td>
                     <td>{{ penilaian.submisi.judul_pb }}</td>
-                    <td>{% if penilaian.nilai2 > 0 %}Nilai: {{ penilaian.nilai2 }}{% else %}Belum dinilai{% endif %}</td>
+                    <td>{% if penilaian.nilai3 > 0 %}Nilai: {{ penilaian.nilai3 }}{% else %}Belum dinilai{% endif %}</td>
                     <td>
                         <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:detail_submisi' penilaian.submisi.kode_submisi %}">
-                            {% if penilaian.string_nilai2 %}Nilai Ulang{% else %}Lihat{% endif %}
+                            {% if penilaian.string_nilai3 %}Nilai Ulang{% else %}Beri Nilai{% endif %}
                         </a>
-                        {% comment %}
-                        <a class="btn btn-kemkes btn-sm" href="{% url 'hp_awards:edit_submisi' penilaian.submisi.kode_submisi %}">Edit</a>
-                        {% endcomment %}
                     </td>
                 </tr>
                 {% endfor %}

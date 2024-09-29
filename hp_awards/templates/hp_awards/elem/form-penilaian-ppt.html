@@ -1,0 +1,199 @@
+<form method="POST" action="{% url 'hp_awards:set_nilai_abstrak' %}">
+    {% csrf_token %}
+    <input type="hidden" name="id_submisi" value="{{ submisi.kode_submisi }}">
+    <table id="table-skor-ppt" class="table table-hover table-bordered mb-5">
+        <thead>
+            <tr>
+                <th style="width: 15px;">No.</th>
+                <th>Komponen Penilaian</th>
+                <th>Nilai (Skala Likert)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1.</td>
+                <td>Tampilan Slide</td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="20" name="1" id="15" required>
+                        <label class="form-check-label" for="15">
+                            Sangat menarik dan jelas
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="16" name="1" id="14">
+                        <label class="form-check-label" for="14">
+                            Menarik dan jelas
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="12" name="1" id="13">
+                        <label class="form-check-label" for="13">
+                            Cukup menarik dan jelas
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="8" name="1" id="12">
+                        <label class="form-check-label" for="12">
+                            Tidak menarik dan jelas
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="4" name="1" id="11">
+                        <label class="form-check-label" for="11">
+                            Sangat Tidak menarik dan tidak jelas
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>Kemampuan menyampaikan ide secara jelas dan sistematis</td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="40" name="2" id="25" required>
+                        <label class="form-check-label" for="25">
+                            Sangat jelas dan sistematis
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="32" name="2" id="24">
+                        <label class="form-check-label" for="24">
+                            Jelas dan sistematis
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="24" name="2" id="23">
+                        <label class="form-check-label" for="23">
+                            Cukup jelas dan sistematis
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="16" name="2" id="22">
+                        <label class="form-check-label" for="22">
+                            Tidak jelas dan sistematis
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="8" name="2" id="21">
+                        <label class="form-check-label" for="21">
+                            Sangat tidak jelas dan sistematis
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>Kemampuan menjawab pertanyaan Juri</td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="40" name="3" id="35" required>
+                        <label class="form-check-label" for="35">
+                            Sangat baik
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="32" name="3" id="34">
+                        <label class="form-check-label" for="34">
+                            Baik
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="24" name="3" id="33">
+                        <label class="form-check-label" for="33">
+                            Cukup baik
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="16" name="3" id="32">
+                        <label class="form-check-label" for="32">
+                            Buruk
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="8" name="3" id="31">
+                        <label class="form-check-label" for="31">
+                            Sangat buruk
+                        </label>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="mb-5 fs-5" id="skor-total">
+        Total Skor = 
+    </div>
+    {% if request.session.kemkes %}
+    <h3>Kebermanfaatan <i>Policy Brief</i></h3>
+    <p>Mohon diisi karena Anda login sebagai pejabat Eselon Kemenkes atau perwakilannya</p>
+    <table id="table-manfaat" class="table table-hover table-bordered mb-5">
+        <thead>
+            <tr>
+                <th style="width: 15px;">No.</th>
+                <th>Komponen Penilaian</th>
+                <th>Nilai (Skala Likert)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1.</td>
+                <td>Kebermanfaatan PB untuk Program</td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="100" name="a1" id="a5" required>
+                        <label class="form-check-label" for="a5">
+                            Sangat bermanfaat
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="80" name="a1" id="a4">
+                        <label class="form-check-label" for="a4">
+                            Bermanfaat
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="60" name="a1" id="a3">
+                        <label class="form-check-label" for="a3">
+                            Cukup bermanfaat
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="40" name="a1" id="a2">
+                        <label class="form-check-label" for="a2">
+                            Tidak bermanfaat
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="20" name="a1" id="a1">
+                        <label class="form-check-label" for="a1">
+                            Sangat tidak bermanfaat
+                        </label>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+    <div class="d-grid gap-2">
+        <button class="mt-3 btn btn-kemkes" type="submit">Simpan Penilaian</button>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        // Function to calculate the sum of radio values
+        function calculateSum() {
+            var sum = 0;
+            $("#table-skor-ppt input:radio:checked").each(function () {
+                sum += parseInt($(this).val(), 10);
+            });
+            return `Total Skor = ${sum}`;
+        }
+
+        // Update the sum on page load and whenever a radio button is clicked
+        $("#skor-total").text(calculateSum());
+        $("#table-skor-ppt input:radio").click(function () {
+            $("#skor-total").text(calculateSum());
+        });
+    });
+</script>

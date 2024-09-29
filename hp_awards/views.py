@@ -206,11 +206,11 @@ def list_submisi(request):
         ).get(username=request.session["username_reviewer"])
         context["reviewer"] = reviewer
         context["todo_count"] = reviewer.penilaians.filter(
-            string_nilai2__isnull=True, submisi__status=Submisi.TUNGGU2
+            string_nilai3__isnull=True, submisi__status=Submisi.TUNGGU3
         ).count()
         context["penilaians"] = reviewer.penilaians.filter(
-            submisi__status=Submisi.TUNGGU2
-        ).order_by("-nilai2")
+            submisi__status=Submisi.TUNGGU3
+        ).order_by("submisi__nama")
         return render(request, "hp_awards/list_submisi_reviewer.html", context)
 
     form_captcha = FormCaptcha()
@@ -251,9 +251,12 @@ def detail_submisi(request, id_submisi):
     }
     try:
         url_pb_pdf = f"{request.scheme}://{request.get_host()}{submisi.file_pb_pdf.url}"
+        url_pb_ppt = f"{request.scheme}://{request.get_host()}{submisi.file_pb_ppt.url}"
     except:
         url_pb_pdf = ""
+        url_pb_ppt = ""
     context["url_pb_pdf"] = url_pb_pdf
+    context["url_pb_ppt"] = url_pb_ppt
 
     if request.user.is_staff:
         context["form_penugasan_juri"] = FormPenugasanJuri(instance=submisi)
@@ -357,36 +360,55 @@ def tetapkan_nilai(request):
         id_submisi = request.POST["id_submisi"]
         submisi = Submisi.objects.get(kode_submisi=id_submisi)
         penilaian = reviewer.penilaians.get(submisi=submisi)
-        # nilai2 = request.POST["skor-total"]
-        # penilaian.nilai2 = nilai2
-        string_nilai2_list = []
-        for i in range(1, 15):
-            string_nilai2_list.append(request.POST[f"{i}"])
-
-        # print(penilaian.string_nilai2)
-        i1 = int(request.POST["1"]) / 2.00
-        i2 = int(request.POST["2"]) / 2.00
-        i3 = int(request.POST["3"]) * 1.00
-        i4 = int(request.POST["4"]) * 1.00
-        i5 = int(request.POST["5"]) * 2.00
-        i6 = int(request.POST["6"]) * 2.00
-        i7 = int(request.POST["7"]) * 1.50
-        i8 = int(request.POST["8"]) * 1.50
-        i9 = int(request.POST["9"]) * 1.50
-        i10 = int(request.POST["10"]) * 1.50
-        i11 = int(request.POST["11"]) * 1.75
-        i12 = int(request.POST["12"]) * 1.75
-        i13 = int(request.POST["13"]) * 1.75
-        i14 = int(request.POST["14"]) * 1.75
-        # Perlakuan khusus dimensi B3
-        if string_nilai2_list[2] != "5":
-            string_nilai2_list[3] = "-"
-            i4 = 0.00
-        penilaian.nilai2 = (
-            i1 + i2 + i3 + i4 + i5 + i6 + i7 + i8 + i9 + i10 + i11 + i12 + i13 + i14
-        )
-        penilaian.string_nilai2 = "|".join(string_nilai2_list)
+        string_nilai3_list = []
+        nilai_komp1 = request.POST["1"]
+        nilai_komp2 = request.POST["2"]
+        nilai_komp3 = request.POST["3"]
+        nilai3 = int(nilai_komp1) + int(nilai_komp2) + int(nilai_komp3)
+        string_nilai3_list.append(nilai_komp1)
+        string_nilai3_list.append(nilai_komp2)
+        string_nilai3_list.append(nilai_komp3)
+        penilaian.nilai3 = nilai3
+        if request.session.get("kemkes", False):
+            nilai_komp4 = request.POST["a1"]
+            string_nilai3_list.append(nilai_komp4)
+        else:
+            string_nilai3_list.append("-")
+        penilaian.string_nilai3 = "|".join(string_nilai3_list)
+        # print(penilaian.nilai3)
+        # print(penilaian.string_nilai3)
         penilaian.save()
+
+        # PB
+        # string_nilai2_list = []
+        # for i in range(1, 15):
+        #     string_nilai2_list.append(request.POST[f"{i}"])
+
+        # # print(penilaian.string_nilai2)
+        # i1 = int(request.POST["1"]) / 2.00
+        # i2 = int(request.POST["2"]) / 2.00
+        # i3 = int(request.POST["3"]) * 1.00
+        # i4 = int(request.POST["4"]) * 1.00
+        # i5 = int(request.POST["5"]) * 2.00
+        # i6 = int(request.POST["6"]) * 2.00
+        # i7 = int(request.POST["7"]) * 1.50
+        # i8 = int(request.POST["8"]) * 1.50
+        # i9 = int(request.POST["9"]) * 1.50
+        # i10 = int(request.POST["10"]) * 1.50
+        # i11 = int(request.POST["11"]) * 1.75
+        # i12 = int(request.POST["12"]) * 1.75
+        # i13 = int(request.POST["13"]) * 1.75
+        # i14 = int(request.POST["14"]) * 1.75
+        # # Perlakuan khusus dimensi B3
+        # if string_nilai2_list[2] != "5":
+        #     string_nilai2_list[3] = "-"
+        #     i4 = 0.00
+        # penilaian.nilai2 = (
+        #     i1 + i2 + i3 + i4 + i5 + i6 + i7 + i8 + i9 + i10 + i11 + i12 + i13 + i14
+        # )
+        # penilaian.string_nilai2 = "|".join(string_nilai2_list)
+        # penilaian.save()
+
         # ABSTRAK
         # id_submisi = request.POST["id_submisi"]
         # submisi = Submisi.objects.get(kode_submisi=id_submisi)
@@ -406,14 +428,29 @@ def tetapkan_nilai(request):
 
 @login_required
 def unduh_hasil_penilaian_abstrak(request):
+    def _get_rerata_skor_manfaat(skors_manfaat):
+        _count = 0
+        _total = 0
+        for s in skors_manfaat:
+            try:
+                _total += int(s)
+                _count += 1
+            except:
+                pass
+        if _count > 0:
+            return _total / _count * 1.0
+        return '-'
+
     if request.method == "POST":
         submisis = Submisi.objects.prefetch_related(
             "reviewers", "penilaians", "kolaborators"
         )
+        # hanya unduh yg sedang penilaian PPT
+        submisis = submisis.filter(status=Submisi.TUNGGU3)
         # submisis = submisis.annotate(total_skor_abstrak=Sum("penilaians__nilai1"))
-        submisis = submisis.annotate(total_skor_pb=Sum("penilaians__nilai2"))
+        submisis = submisis.annotate(total_skor_pb=Sum("penilaians__nilai3"))
         submisis = submisis.annotate(
-            reviewer_menilai=Count("penilaians", filter=Q(penilaians__nilai2__gt=0))
+            reviewer_menilai=Count("penilaians", filter=Q(penilaians__nilai3__gt=0))
         )
         submisis = submisis.annotate(
             rerata_skor_pb=Case(
@@ -449,14 +486,18 @@ def unduh_hasil_penilaian_abstrak(request):
                 "Penilaian Lengkap",
                 "Nama Juri 1",
                 "Nilai Juri 1",
+                "Nilai Kebermanfaatan Juri 1",  # khusus tahap 3
                 "Detail Nilai Juri 1",
                 "Nama Juri 2",
                 "Nilai Juri 2",
+                "Nilai Kebermanfaatan Juri 2",  # khusus tahap 3
                 "Detail Nilai Juri 2",
                 "Nama Juri 3",
                 "Nilai Juri 3",
+                "Nilai Kebermanfaatan Juri 3",  # khusus tahap 3
                 "Detail Nilai Juri 3",
-                "Nilai Rata-rata",
+                "Nilai Rata-rata (Tanpa Komponen Manfaat)",
+                "Nilai Rata-rata (hanya Komponen Manfaat)",
             ]
         )
         header_row.extend(["Berkas PPT"])
@@ -465,10 +506,16 @@ def unduh_hasil_penilaian_abstrak(request):
 
         for s in submisis:
             juris = [p.reviewer.nama for p in s.penilaians.all()]
-            skors = [p.nilai2 if p.nilai2 > 0 else "-" for p in s.penilaians.all()]
+            skors = [p.nilai3 if p.nilai3 > 0 else "-" for p in s.penilaians.all()]
             detail_skors = [
-                p.string_nilai2 if p.string_nilai2 else "-" for p in s.penilaians.all()
+                p.string_nilai3 if p.string_nilai3 else "-" for p in s.penilaians.all()
             ]
+            # Khusus tahap 3
+            skors_manfaat = [
+                str(p.string_nilai3).split("|")[-1] if p.string_nilai3 else "-"
+                for p in s.penilaians.all()
+            ]
+            rerata_skor_manfaat = _get_rerata_skor_manfaat(skors_manfaat)
             row = [
                 s.id,
                 s.judul_pb,
@@ -506,14 +553,24 @@ def unduh_hasil_penilaian_abstrak(request):
                     ),
                     juris[0] if len(juris) > 0 else "-",
                     skors[0] if len(skors) > 0 else "-",
+                    (
+                        skors_manfaat[0] if len(skors_manfaat) > 0 else "-"
+                    ),  # khusus tahap 3
                     detail_skors[0] if len(detail_skors) > 0 else "-",
                     juris[1] if len(juris) > 1 else "-",
                     skors[1] if len(skors) > 1 else "-",
+                    (
+                        skors_manfaat[1] if len(skors_manfaat) > 1 else "-"
+                    ),  # khusus tahap 3
                     detail_skors[1] if len(detail_skors) > 1 else "-",
                     juris[2] if len(juris) > 2 else "-",
                     skors[2] if len(skors) > 2 else "-",
+                    (
+                        skors_manfaat[2] if len(skors_manfaat) > 2 else "-"
+                    ),  # khusus tahap 3
                     detail_skors[2] if len(detail_skors) > 2 else "-",
                     s.rerata_skor_pb or "-",
+                    rerata_skor_manfaat,
                 ]
             )
             row.extend(["Sudah Unggah" if s.file_pb_ppt else "Belum Unggah"])
@@ -569,7 +626,11 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
-                request.session["role"] = "reviewer" if role == "reviewer" else "admin"
+                if role == "reviewer":
+                    request.session["role"] = "reviewer"
+                    request.session["kemkes"] = reviewer.kategori == Reviewer.KEMKES
+                else:
+                    request.session["role"] = "admin"
                 # nama yg muncul pada navbar kanan atas
                 request.session["nama_bar"] = (
                     reviewer.username if role == "reviewer" else user.username
