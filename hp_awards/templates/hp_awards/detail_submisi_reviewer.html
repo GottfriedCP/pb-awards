@@ -54,11 +54,11 @@
             <div class="col-md-6">
                 {% if submisi.kolaborators.count > 0 %}
                 <h5>Kolaborator</h5>
-                {% for kol in submisi.kolaborators.all %}
                 <ol>
+                    {% for kol in submisi.kolaborators.all %}
                     <li>{{ kol.nama }}</li>
+                    {% endfor %}
                 </ol>
-                {% endfor %}
                 {% endif %}
             </div>
         </div>
