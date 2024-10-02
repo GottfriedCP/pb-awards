@@ -439,7 +439,9 @@ def unduh_hasil_penilaian_abstrak(request):
                 pass
         if _count > 0:
             return _total / _count * 1.0
-        return '-'
+        return "-"
+
+    JUMLAH_JURI = 10
 
     if request.method == "POST":
         submisis = Submisi.objects.prefetch_related(
@@ -479,23 +481,18 @@ def unduh_hasil_penilaian_abstrak(request):
             ["WA", "Email", "Pekerjaan", "Instansi / Perguruan Tinggi", "Pendidikan"]
         )
         header_row.extend(["Tanggal Submisi", "Status", "Nilai Abstrak", "Nilai PB"])
+        header_row.extend(["Jumlah Juri", "Juri Sudah Menilai", "Penilaian Lengkap"])
+        for i in range(0, JUMLAH_JURI):
+            header_row.extend(
+                [
+                    f"Nama Juri {i+1}",
+                    f"Nilai Juri {i+1}",
+                    f"Nilai Kebermanfaatan Juri {i+1}",  # khusus tahap 3
+                    f"Detail Nilai Juri {i+1}",
+                ]
+            )
         header_row.extend(
             [
-                "Jumlah Juri",
-                "Juri Sudah Menilai",
-                "Penilaian Lengkap",
-                "Nama Juri 1",
-                "Nilai Juri 1",
-                "Nilai Kebermanfaatan Juri 1",  # khusus tahap 3
-                "Detail Nilai Juri 1",
-                "Nama Juri 2",
-                "Nilai Juri 2",
-                "Nilai Kebermanfaatan Juri 2",  # khusus tahap 3
-                "Detail Nilai Juri 2",
-                "Nama Juri 3",
-                "Nilai Juri 3",
-                "Nilai Kebermanfaatan Juri 3",  # khusus tahap 3
-                "Detail Nilai Juri 3",
                 "Nilai Rata-rata (Tanpa Komponen Manfaat)",
                 "Nilai Rata-rata (hanya Komponen Manfaat)",
             ]
@@ -551,28 +548,20 @@ def unduh_hasil_penilaian_abstrak(request):
                         and s.reviewers.count() > 0
                         else "Belum"
                     ),
-                    juris[0] if len(juris) > 0 else "-",
-                    skors[0] if len(skors) > 0 else "-",
-                    (
-                        skors_manfaat[0] if len(skors_manfaat) > 0 else "-"
-                    ),  # khusus tahap 3
-                    detail_skors[0] if len(detail_skors) > 0 else "-",
-                    juris[1] if len(juris) > 1 else "-",
-                    skors[1] if len(skors) > 1 else "-",
-                    (
-                        skors_manfaat[1] if len(skors_manfaat) > 1 else "-"
-                    ),  # khusus tahap 3
-                    detail_skors[1] if len(detail_skors) > 1 else "-",
-                    juris[2] if len(juris) > 2 else "-",
-                    skors[2] if len(skors) > 2 else "-",
-                    (
-                        skors_manfaat[2] if len(skors_manfaat) > 2 else "-"
-                    ),  # khusus tahap 3
-                    detail_skors[2] if len(detail_skors) > 2 else "-",
-                    s.rerata_skor_pb or "-",
-                    rerata_skor_manfaat,
                 ]
             )
+            for i in range(0, JUMLAH_JURI):
+                row.extend(
+                    [
+                        juris[i] if len(juris) > i else "-",
+                        skors[i] if len(skors) > i else "-",
+                        (
+                            skors_manfaat[i] if len(skors_manfaat) > i else "-"
+                        ),  # khusus tahap 3
+                        detail_skors[i] if len(detail_skors) > i else "-",
+                    ]
+                )
+            row.extend([s.rerata_skor_pb or "-", rerata_skor_manfaat])
             row.extend(["Sudah Unggah" if s.file_pb_ppt else "Belum Unggah"])
             row.extend(
                 [
