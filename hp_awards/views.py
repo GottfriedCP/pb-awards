@@ -471,6 +471,7 @@ def unduh_hasil_penilaian_abstrak(request):
         # Judul kolom
         header_row = [
             "No. Urut",
+            "Kode Submisi",
             "Judul",
             "Abstrak",
             "Penulis Utama",
@@ -515,6 +516,7 @@ def unduh_hasil_penilaian_abstrak(request):
             rerata_skor_manfaat = _get_rerata_skor_manfaat(skors_manfaat)
             row = [
                 s.id,
+                s.kode_submisi,
                 s.judul_pb,
                 BeautifulSoup(s.abstrak_pb, "html.parser").get_text(),
                 s.nama,
