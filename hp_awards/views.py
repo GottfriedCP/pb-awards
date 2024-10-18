@@ -447,8 +447,8 @@ def unduh_hasil_penilaian_abstrak(request):
         submisis = Submisi.objects.prefetch_related(
             "reviewers", "penilaians", "kolaborators"
         )
-        # hanya unduh yg sedang penilaian PPT
-        submisis = submisis.filter(status=Submisi.TUNGGU3)
+        # hanya unduh yg ada PB-nya
+        submisis = submisis.filter(file_pb_pdf__isnull=False)
         # submisis = submisis.annotate(total_skor_abstrak=Sum("penilaians__nilai1"))
         submisis = submisis.annotate(total_skor_pb=Sum("penilaians__nilai3"))
         submisis = submisis.annotate(
