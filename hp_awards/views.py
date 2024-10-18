@@ -499,7 +499,8 @@ def unduh_hasil_penilaian_abstrak(request):
             ]
         )
         header_row.extend(["Berkas PPT"])
-        header_row.extend(["Berkas PB"])
+        header_row.extend(["Berkas PB PDF"])
+        header_row.extend(["Berkas PB Word"])
         header_row.extend(["Policy Question"])
         ws.append(header_row)
 
@@ -568,6 +569,10 @@ def unduh_hasil_penilaian_abstrak(request):
             row.extend(["Sudah Unggah" if s.file_pb_ppt else "Belum Unggah"])
             if s.file_pb_pdf:
                 row.extend([f"{request.scheme}://{request.get_host()}{s.file_pb_pdf.url}"])
+            else:
+                row.extend(["-"])
+            if s.file_pb_doc:
+                row.extend([f"{request.scheme}://{request.get_host()}{s.file_pb_doc.url}"])
             else:
                 row.extend(["-"])
             row.extend(
