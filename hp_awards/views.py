@@ -516,7 +516,7 @@ def unduh_hasil_penilaian_abstrak(request):
             rerata_skor_manfaat = _get_rerata_skor_manfaat(skors_manfaat)
             row = [
                 s.id,
-                s.kode_submisi,
+                str(s.kode_submisi),
                 s.judul_pb,
                 BeautifulSoup(s.abstrak_pb, "html.parser").get_text(),
                 s.nama,
